@@ -156,7 +156,7 @@ end
 ---Retrieves the path of the logfile
 ---@return string path of the logfile
 function Log:get_path()
-    return string.format("%s/%s.log", get_cache_dir(), "nvim.i")
+    return string.format("%s/%s.log", get_cache_dir(), "nvim.x")
 end
 
 ---Add a log entry at TRACE level

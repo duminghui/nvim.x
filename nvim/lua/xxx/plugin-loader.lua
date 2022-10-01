@@ -1,7 +1,7 @@
 local plugin_loader = {}
 
 local utils = require "xxx.utils"
-local Log = require "xxx.log"
+local Log = require "xxx.core.log"
 local join_paths = utils.join_paths
 local in_headless = #vim.api.nvim_list_uis() == 0
 
@@ -59,8 +59,9 @@ function plugin_loader.init(opts)
             -- print("##: packer.on_complete")
             vim.api.nvim_exec_autocmds("User", { pattern = "PackerComplete" })
 
-            -- vim.g.colors_name = lvim.colorscheme
-            -- pcall(vim.cmd, "colorscheme " .. lvim.colorscheme)
+            -- 做一些主题配置
+            -- vim.g.colors_name = xvim.colorscheme
+            -- pcall(vim.cmd, "colorscheme " .. xvim.colorscheme)
         end)
         packer.init(init_opts)
     end

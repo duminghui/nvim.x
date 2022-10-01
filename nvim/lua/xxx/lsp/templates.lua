@@ -1,6 +1,6 @@
 local M = {}
 
-local Log = require "xxx.log"
+local Log = require "xxx.core.log"
 local utils = require "xxx.utils"
 local lsp_utils = require "xxx.lsp.utils"
 local lsp_opts = require "xxx.lsp.config"

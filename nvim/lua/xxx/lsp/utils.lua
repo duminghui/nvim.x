@@ -1,7 +1,7 @@
 local M = {}
 
 local tbl = require "xxx.utils.table"
-local Log = require "xxx.log"
+local Log = require "xxx.core.log"
 
 function M.is_client_active(name)
     local clients = vim.lsp.get_active_clients()
@@ -83,7 +83,7 @@ function M.get_all_supported_filetypes()
 end
 
 function M.setup_document_highlight(client, bufnr)
-    -- if lvim.builtin.illuminate.active then
+    -- if xvim.builtin.illuminate.active then
     --     Log:debug "skipping setup for document_highlight, illuminate already active"
     --     return
     -- end

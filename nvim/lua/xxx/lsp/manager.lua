@@ -1,6 +1,6 @@
 local M = {}
 
-local Log = require "xxx.log"
+local Log = require "xxx.core.log"
 local fmt = string.format
 local lsp = require "xxx.lsp"
 local lsp_utils = require "xxx.lsp.utils"

@@ -13,9 +13,9 @@ local function diff_source()
     end
 end
 
-local statusline_hl = vim.api.nvim_get_hl_by_name("StatusLine", true)
-local cursorline_hl = vim.api.nvim_get_hl_by_name("CursorLine", true)
-local normal_hl = vim.api.nvim_get_hl_by_name("Normal", true)
+-- local statusline_hl = vim.api.nvim_get_hl_by_name("StatusLine", true)
+-- local cursorline_hl = vim.api.nvim_get_hl_by_name("CursorLine", true)
+-- local normal_hl = vim.api.nvim_get_hl_by_name("Normal", true)
 
 -- local slprogress = vim.api.nvim_get_hl_by_name("SLProgress", true)
 -- vim.pretty_print(slprogress)
@@ -24,9 +24,9 @@ local location_color = nil
 -- local branch = ""
 local branch = ""
 
--- local separator = "│"
+local separator = "│"
 
--- if lvim.colorscheme == "tokyonight" then
+-- if xvim.colorscheme == "tokyonight" then
 --     location_color = "SLBranchName"
 --     branch = "%#SLGitIcon#" .. "" .. "%*" .. "%#SLBranchName#"
 
@@ -44,6 +44,7 @@ return {
     set_highlight = function()
         local statusline_hl = vim.api.nvim_get_hl_by_name("StatusLine", true)
         local cursorline_hl = vim.api.nvim_get_hl_by_name("CursorLine", true)
+        local normal_hl = vim.api.nvim_get_hl_by_name("Normal", true)
         vim.api.nvim_set_hl(0, "SLGitIcon", { fg = "#E8AB53", bg = cursorline_hl.background })
         vim.api.nvim_set_hl(0, "SLBranchName", { fg = normal_hl.foreground, bg = cursorline_hl.background })
         vim.api.nvim_set_hl(0, "SLProgress", { fg = "#ECBE7B", bg = statusline_hl.background })
@@ -104,6 +105,7 @@ return {
         "diagnostics",
         sources = { "nvim_diagnostic" },
         symbols = { error = " ", warn = " ", info = " ", hint = " " },
+        padding = { left = 2 },
         cond = conditions.hide_in_width,
     },
     treesitter  = {

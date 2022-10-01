@@ -287,7 +287,7 @@ M.opts = {
 }
 
 function M.setup()
-    vim.opt.completeopt = "menu,menuone,noselect"
+    -- vim.opt.completeopt = "menu,menuone,noselect"
     require("cmp").setup(M.opts)
 end
 

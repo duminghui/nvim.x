@@ -41,9 +41,25 @@ local skipped_servers = {
 
 local skipped_filetypes = { "markdown", "rst", "plaintext" }
 
+local diagnostic_float = {
+    focusable = false,
+    style = "minimal",
+    border = "rounded",
+    source = "always",
+    header = "",
+    prefix = "",
+    format = function(d)
+        local code = d.code or (d.user_data and d.user_data.lsp.code)
+        if code then
+            return string.format("%s [%s]", d.message, code):gsub("1. ", "")
+        end
+        return d.message
+    end,
+}
+
 local options = {
     templates_dir = join_paths(get_runtime_dir(), "site", "after", "ftplugin"),
-    diagnostic = {
+    diagnostics = {
         signs = {
             active = true,
             values = {
@@ -57,21 +73,7 @@ local options = {
         update_in_insert = false,
         underline = true,
         severity_sort = true,
-        float = {
-            focusable = false,
-            style = "minimal",
-            border = "rounded",
-            source = "always",
-            header = "",
-            prefix = "",
-            format = function(d)
-                local code = d.code or (d.user_data and d.user_data.lsp.code)
-                if code then
-                    return string.format("%s [%s]", d.message, code):gsub("1. ", "")
-                end
-                return d.message
-            end,
-        },
+        float = diagnostic_float,
 
     },
     automatic_configuration = {
@@ -90,7 +92,7 @@ local options = {
             ["gs"] = { vim.lsp.buf.signature_help, "show signature help" },
             ["gl"] = {
                 function()
-                    local config = opts.diagnostic.float
+                    local config = diagnostic_float
                     config.scope = "line"
                     vim.diagnostic.open_float(0, config)
                 end,

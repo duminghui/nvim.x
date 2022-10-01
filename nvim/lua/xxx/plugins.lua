@@ -62,7 +62,6 @@ local plugins = {
         run = "make",
     },
 
-
     -- Install nvim-cmp, and buffer source as a dependency
     {
         "hrsh7th/nvim-cmp",
@@ -128,6 +127,9 @@ local plugins = {
             require('xxx.plugin-config.bufferline').setup()
         end,
     },
+
+
+
     {
         'nvim-lualine/lualine.nvim',
         config = function()
@@ -182,6 +184,19 @@ local plugins = {
             require("xxx.plugin-config.indent-blankline").setup()
         end,
     },
+
+    -- SchemaStore
+    {
+        "b0o/schemastore.nvim",
+    },
+
+    {
+        "RRethy/vim-illuminate",
+        config = function()
+            require("xxx.plugin-config.illuminate").setup()
+        end,
+    },
+
 
     -- Autopairs
     {

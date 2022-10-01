@@ -1,5 +1,5 @@
 local M = {}
-local Log = require "xxx.log"
+local Log = require "xxx.core.log"
 
 --- Load the default set of autogroups and autocommands.
 function M.load_defaults()

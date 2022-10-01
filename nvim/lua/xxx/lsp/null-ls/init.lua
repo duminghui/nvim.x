@@ -1,5 +1,5 @@
 local M        = {}
-local Log      = require "xxx.log"
+local Log      = require "xxx.core.log"
 local lsp_opts = require "xxx.lsp.config"
 
 function M.setup()

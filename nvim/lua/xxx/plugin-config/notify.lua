@@ -1,6 +1,6 @@
 local M = {}
 
-local Log = require "xxx.log"
+local Log = require "xxx.core.log"
 
 M.opts = {
     ---@usage Animation style one of { "fade", "slide", "fade_in_slide_out", "static" }

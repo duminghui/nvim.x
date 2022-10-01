@@ -105,14 +105,20 @@ styles.xxx = {
     },
     sections = {
         lualine_a = { components.mode },
-        lualine_b = { components.filename },
-        lualine_c = { components.branch, components.diff },
+        lualine_b = {
+            components.filename,
+        },
+        lualine_c = {
+            components.branch,
+            components.diff,
+            components.diagnostics,
+        },
         lualine_x = {
             components.treesitter,
-            components.diagnostics,
             components.lsp,
-            -- components.spaces,
+            components.spaces,
             components.encoding,
+            "fileformat",
             components.filetype,
         },
         lualine_y = { components.location },
@@ -121,13 +127,17 @@ styles.xxx = {
     inactive_sections = {
         lualine_a = { components.mode },
         lualine_b = { components.filename },
-        lualine_c = { components.branch, components.diff, components.python_env, },
+        lualine_c = {
+            components.branch,
+            components.diff,
+            components.diagnostics,
+        },
         lualine_x = {
             components.treesitter,
-            components.diagnostics,
             components.lsp,
-            -- components.spaces,
+            components.spaces,
             components.encoding,
+            "fileformat",
             components.filetype,
         },
         lualine_y = { components.location },
@@ -149,7 +159,7 @@ function M.get_style(style)
             .. string.format('"%s"', style)
             .. "options are: "
             .. string.format('"%s"', table.concat(style_keys, '", "')))
-        print('"lvim" style is applied.')
+        print('"xvim" style is applied.')
         style = "default"
     end
 

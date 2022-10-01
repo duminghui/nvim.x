@@ -1,4 +1,4 @@
-local Log = require "xxx.log"
+local Log = require "xxx.core.log"
 local join_paths = require("xxx.utils").join_paths
 
 local M = {}

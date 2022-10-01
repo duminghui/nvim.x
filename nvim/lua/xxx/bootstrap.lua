@@ -29,39 +29,46 @@ function _G.require_clean(module)
     return requested
 end
 
+function _G.get_cache_dir()
+    -- cache_dir = Local\Temp\nvim.x
+    local cache_dir = vim.call("stdpath", "cache")
+    cache_dir = join_paths(cache_dir:match("(.*[/\\])"):sub(1, -2), "nvim.x")
+    return cache_dir
+end
+
 ---Initialize the `&runtimepath` variables and prepare for startup
 ---@return table
-function M:init(base_dir, config_dir)
-    -- runtime_dir base_dir/nvim-data
+function M:init(root_dir, base_dir)
+    -- runtime_dir root_dir/nvim-data
+    -- base_dir: root_dir/nvim
+    self.root_dir = root_dir
+    self.base_dir = base_dir
+    self.runtime_dir = join_paths(root_dir, "nvim-data")
+    self.config_dir = base_dir
+    self.cache_dir = get_cache_dir()
 
-    self.runtime_dir = join_paths(base_dir, "nvim-data")
-    _G.get_runtime_dir = function() return self.runtime_dir end
-
-    -- config_dir: base_dir/nvim
-    self.config_dir = config_dir
-    _G.get_config_dir = function() return self.config_dir end
-
-    -- cache_dir = Local\Temp\nvim.i
-    local cache_dir = vim.call("stdpath", "cache")
-    cache_dir = join_paths(cache_dir:match("(.*[/\\])"):sub(1, -2), "nvim.i")
-    self.cache_dir = cache_dir
-    _G.get_cache_dir = function() return self.cache_dir end
 
     self.pack_dir = join_paths(self.runtime_dir, "site", "pack")
-    self.packer_install_dir = join_paths(self.runtime_dir, "site", "pack",
-        "packer", "start", "packer.nvim")
+    self.packer_install_dir = join_paths(self.runtime_dir, "site", "pack", "packer", "start", "packer.nvim")
     self.packer_compile_dir = join_paths(self.config_dir, "packer")
     self.packer_compile_path = join_paths(self.packer_compile_dir, "plugin", "packer_compiled.lua")
     -- self.packer_compile_path = join_paths(self.config_dir, "plugin",
     --     "packer_compiled.lua")
 
     -- print("-----------")
-    -- print("runtime_dir:        ", self.runtime_dir)
+    -- print("root_dir:            ", self.root_dir)
+    -- print("base_dir:            ", self.base_dir)
     -- print("config_dir:          ", self.config_dir)
+    -- print("runtime_dir:         ", self.runtime_dir)
     -- print("pack_dir:            ", self.pack_dir)
     -- print("packer_install_dir:  ", self.packer_install_dir)
-    -- print("packer_compile_path: ", self.packer_compiled_path)
+    -- print("packer_compile_path: ", self.packer_compile_path)
     -- print("cache_dir:           ", self.cache_dir)
+    --
+    _G.get_runtime_dir = function() return self.runtime_dir end
+    _G.get_config_dir = function() return self.config_dir end
+    ---Get the full path to base directory
+    _G.get_base_dir = function() return self.base_dir end
 
     ---@meta overridden to use CACHE_DIR instead, since a lot of plugins call this function interally
     ---NOTE: changes to "data" are currently unstable, see #2507
@@ -82,10 +89,6 @@ function M:init(base_dir, config_dir)
         -- print("what:" .. what_msg .. ":" .. path)
         return path
     end
-
-    ---Get the full path to base directory
-    ---@return string
-    function _G.get_base_dir() return base_dir end
 
     -- print("####: ", vim.call("stdpath", "data"))
     -- print("####: ", vim.fn.stdpath("data"))
@@ -117,8 +120,6 @@ function M:init(base_dir, config_dir)
 
     vim.cmd [[let &packpath = &runtimepath]]
     -- end
-
-    -- require("lvim.config"):init()
 
     require("xxx.plugin-loader").init {
         package_root = self.pack_dir,

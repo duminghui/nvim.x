@@ -1,6 +1,6 @@
 local M = {}
 
-local Log = require "xxx.log"
+local Log = require "xxx.core.log"
 
 local function find_root_dir()
     local util = require "lspconfig/util"

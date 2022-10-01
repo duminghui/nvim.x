@@ -1,9 +1,11 @@
+local M = {}
 local default_options = {
     backup = false,
     --[[if a file is being edited by another program
     (or was written to file while editing with another program), it is not allowed to be edited ]]
     writebackup = false,
     swapfile = false,
+    undofile = true,
 
     -- 去除蜂鸣
     belloff = { 'esc', 'spell' },
@@ -19,6 +21,7 @@ local default_options = {
     showcmd = true,
     cmdheight = 2,
 
+    textwidth = 120,
     cursorline = true,
     cursorcolumn = true,
     colorcolumn = "+1",
@@ -67,7 +70,7 @@ local default_options = {
     -- put new split windows to the bottom of the current
     splitbelow = true,
 
-    completeopt = 'menuone',
+    completeopt = { "menuone", "noselect" },
 
     -- bufferline need
     termguicolors = true,
@@ -80,26 +83,27 @@ local default_options = {
 
 }
 
--- vim.opt.colorcolumn =  vim.opt.colorcolumn+1
+M.setup = function()
+    -- vim.opt.colorcolumn =  vim.opt.colorcolumn+1
 
-vim.opt.shortmess:append 'filmnrwxoOtT'
-vim.opt.whichwrap:append 'b,s,h,l,<,>,[,]'
-vim.opt.iskeyword:remove({ '.', '#', '-' })
+    vim.opt.shortmess:append 'filmnrwxoOtT'
+    vim.opt.whichwrap:append 'b,s,h,l,<,>,[,]'
+    vim.opt.iskeyword:remove({ '.', '#', '-' })
 
--- syntax on 会引起site/after/ftplugin中的文件加载两次, 造成启动两次lsp, 不要启用
--- vim.cmd('syntax on')
--- vim.cmd('syntax enable')
--- vim.cmd("colorscheme xxx")
+    -- syntax on 会引起site/after/ftplugin中的文件加载两次, 造成启动两次lsp, 不要启用
+    -- vim.cmd('syntax on')
+    -- vim.cmd('syntax enable')
+    -- vim.cmd("colorscheme xxx")
 
-vim.g.mapleader = ","
-vim.g.maplocalleader = "_"
+    vim.g.mapleader = ","
+    vim.g.maplocalleader = "_"
 
 
-for k, v in pairs(default_options) do
-    -- print(k, v)
-    vim.opt[k] = v
+    for k, v in pairs(default_options) do
+        -- print(k, v)
+        vim.opt[k] = v
+    end
+
 end
 
-local config = {}
-
-return config
+return M

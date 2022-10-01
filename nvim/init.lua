@@ -1,38 +1,37 @@
 -- $XDG_DATA_HOME会影响rtp, 主要影响nvim-data的路径
 -- \nvim-data\site
+
 -- \nvim-data\site\after
 
--- \Local\nvim.i\nvim\init.lua
+-- \Local\nvim.x\nvim\init.lua
 local init_path = debug.getinfo(1, "S").source:sub(2)
 
--- \Local\nvim.i\nvim
-local nvim_config_dir = init_path:match("(.*[/\\])"):sub(1, -2)
+-- \Local\nvim.x\nvim
+local nvim_base_dir = init_path:match("(.*[/\\])"):sub(0, -2)
 
-if not vim.tbl_contains(vim.opt.rtp:get(), nvim_config_dir) then
-    vim.opt.rtp:append(nvim_config_dir)
+if not vim.tbl_contains(vim.opt.rtp:get(), nvim_base_dir) then
+    vim.opt.rtp:append(nvim_base_dir)
 end
 
--- \Local\nvim.i
-local base_dir = nvim_config_dir:match("(.*[/\\])"):sub(1, -2)
+-- \Local\nvim.x
+local root_dir = nvim_base_dir:match("(.*[/\\])"):sub(1, -2)
 
 -- 全局
-require("xxx.g")
+require "xxx.config.g"
 
 -- 配置rpt
-require("xxx.bootstrap"):init(base_dir, nvim_config_dir)
+require("xxx.bootstrap"):init(root_dir, nvim_base_dir)
 
 -- 基本配置
-require("xxx.config")
-
--- local autocmds = require "xxx.autocmds"
--- autocmds.load_defaults()
-
-
-require("xxx.keymappings")
+require("xxx.config").load()
 
 -- --插件配置
 local plugins = require "xxx.plugins"
 require("xxx.plugin-loader").load { plugins }
+
+
+local commands = require "xxx.core.commands"
+commands.load(commands.defaults)
 
 -- --Lsp配置
 require("xxx.lsp").setup()
@@ -40,7 +39,7 @@ require("xxx.lsp").setup()
 
 function PrintRtp()
     for k, v in pairs(vim.opt.rtp:get()) do
-        print(v)
+        print(k, v)
     end
 end
 

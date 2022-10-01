@@ -1,7 +1,7 @@
 local default_workspace = {
     library = {
         vim.fn.expand "$VIMRUNTIME",
-        get_lvim_base_dir(),
+        get_base_dir(),
         require("lua-dev.sumneko").types(),
     },
 
@@ -45,7 +45,7 @@ local opts = {
         Lua = {
             telemetry = { enable = false },
             diagnostics = {
-                globals = { "vim", "lvim", "packer_plugins" },
+                globals = { "vim", "xvim", "packer_plugins" },
             },
             workspace = default_workspace,
         },

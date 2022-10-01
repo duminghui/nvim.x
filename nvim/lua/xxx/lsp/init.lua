@@ -1,6 +1,6 @@
 local M = {}
-local Log = require "xxx.log"
-local autocmds = require "xxx.autocmds"
+local Log = require "xxx.core.log"
+local autocmds = require "xxx.core.autocmds"
 
 local utils = require("xxx.utils")
 local opts = require "xxx.lsp.config"
@@ -28,12 +28,12 @@ end
 
 local function handlers_setup()
     local config = {
-        virtual_text = opts.diagnostic.virtual_text,
-        signs = opts.diagnostic.signs,
-        underline = opts.diagnostic.underline,
-        update_in_insert = opts.diagnostic.update_in_insert,
-        severity_sort = opts.diagnostic.severity_sort,
-        float = opts.diagnostic.float,
+        virtual_text = opts.diagnostics.virtual_text,
+        signs = opts.diagnostics.signs,
+        underline = opts.diagnostics.underline,
+        update_in_insert = opts.diagnostics.update_in_insert,
+        severity_sort = opts.diagnostics.severity_sort,
+        float = opts.diagnostics.float,
     }
     vim.diagnostic.config(config)
 
@@ -121,7 +121,7 @@ function M.setup()
     -- }
 
     -- diagnostics
-    for _, sign in ipairs(opts.diagnostic.signs.values) do
+    for _, sign in ipairs(opts.diagnostics.signs.values) do
         vim.fn.sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = sign.name })
     end
 
@@ -144,7 +144,7 @@ function M.setup()
 
     require("xxx.lsp.null-ls").setup()
 
-    autocmds.configure_format_on_save(false)
+    autocmds.configure_format_on_save(true)
 end
 
 return M
