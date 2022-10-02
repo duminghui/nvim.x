@@ -154,6 +154,13 @@ function M.setup()
         },
     }, M.opts)
 
+    -- vim.cmd [[autocmd User TelescopePreviewerLoaded setlocal wrap]]
+
+    vim.api.nvim_create_autocmd("User", {
+        pattern = "TelescopePreviewerLoaded",
+        command = "setlocal wrap nu",
+    })
+
     local telescope = require "telescope"
     telescope.setup(opts)
 

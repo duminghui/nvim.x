@@ -117,7 +117,6 @@ function M:init(root_dir, base_dir)
     vim.opt.rtp:append(join_paths(self.config_dir, "after"))
     --
     -- -- TODO: we need something like this: vim.opt.packpath = vim.opt.rtp
-
     vim.cmd [[let &packpath = &runtimepath]]
     -- end
 

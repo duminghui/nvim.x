@@ -205,7 +205,7 @@ M.opts = {
 
 M.setup = function()
     --   vim.pretty_print(M.opts)
-    require "bufferline".setup(M.opts)
+    require("bufferline").setup(M.opts)
 end
 
 -- Common kill function for bdelete and bwipeout

@@ -1,3 +1,3 @@
 xvim = {
-    log_level = "info"
+    log_level = "info",
 }

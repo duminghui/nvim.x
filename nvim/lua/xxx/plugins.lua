@@ -15,40 +15,61 @@ local plugins = {
         end,
     },
 
-    -- install and manager LSP, DAP, linters, formatters
-    { "williamboman/mason-lspconfig.nvim" },
-    { "neovim/nvim-lspconfig" },
+    { 'kyazdani42/nvim-web-devicons', },
     {
-        "williamboman/mason.nvim",
+        'akinsho/bufferline.nvim',
+        tag = "v2.*",
+        requires = 'kyazdani42/nvim-web-devicons',
         config = function()
-            require("xxx.plugin-config.mason").setup()
-        end
-    },
-    {
-        -- null-ls是一个将非LSP的包与nvim内置LSP客户端整合的插件
-        "jose-elias-alvarez/null-ls.nvim",
-    },
-    {
-        -- A plugin to configure Neovim LSP using json/yaml
-        "tamago324/nlsp-settings.nvim",
-    },
-
-
-    -- Log --
-    {
-        "rcarriga/nvim-notify",
-        config = function()
-            require("xxx.plugin-config.notify").setup()
+            require('xxx.plugin-config.bufferline').setup()
         end,
-        requires = { "nvim-telescope/telescope.nvim" },
     },
-    { "Tastyep/structlog.nvim" },
 
-    { "nvim-lua/popup.nvim" },
-    { "nvim-lua/plenary.nvim" },
-
-    -- Telescope
     {
+        'nvim-lualine/lualine.nvim',
+        requires = { 'kyazdani42/nvim-web-devicons', opt = true },
+        config = function()
+            require("xxx.plugin-config.lualine").setup()
+        end,
+    },
+
+    {
+        "lewis6991/gitsigns.nvim",
+        config = function()
+            require("xxx.plugin-config.gitsigns").setup()
+        end,
+        event = "BufRead",
+    },
+
+    {
+        -- NvimTree
+        "kyazdani42/nvim-tree.lua",
+        -- event = "BufWinOpen",
+        -- cmd = "NvimTreeToggle",
+        requires = {
+            'nvim-telescope/telescope.nvim',
+            'kyazdani42/nvim-web-devicons', opt = true,
+        },
+        config = function()
+            require("xxx.plugin-config.nvimtree").setup()
+        end,
+    },
+    {
+        -- Lir
+        "christianchiarulli/lir.nvim",
+        requires = 'kyazdani42/nvim-web-devicons',
+        config = function()
+            require("xxx.plugin-config.lir").setup()
+        end,
+        disable = true, -- use NvimTree
+    },
+
+    -- { "nvim-lua/popup.nvim", opt = true },
+    { "nvim-lua/plenary.nvim" },
+    {
+        -- 列表模糊搜索框架, 高扩展
+        -- need install BurntSushi/ripgrep
+        -- :Telescope find_files<cr>
         "nvim-telescope/telescope.nvim",
         branch = "0.1.x",
         requires = { 'nvim-lua/plenary.nvim' },
@@ -61,6 +82,17 @@ local plugins = {
         requires = { "nvim-telescope/telescope.nvim" },
         run = "make",
     },
+
+    -- Log --
+    {
+        "rcarriga/nvim-notify",
+        config = function()
+            require("xxx.plugin-config.notify").setup()
+        end,
+    },
+
+    { "Tastyep/structlog.nvim" },
+
 
     -- Install nvim-cmp, and buffer source as a dependency
     {
@@ -109,45 +141,42 @@ local plugins = {
         "hrsh7th/cmp-path",
     },
     {
+        -- vim functions for dev
         "folke/lua-dev.nvim",
         module = "lua-dev",
     },
 
-
+    -- install and manager LSP, DAP, linters, formatters
+    { "williamboman/mason-lspconfig.nvim" },
+    { "neovim/nvim-lspconfig" },
     {
-        -- 导航路径: breadcrumbs
+        "williamboman/mason.nvim",
+        config = function()
+            require("xxx.plugin-config.mason").setup()
+        end
+    },
+    {
+        -- null-ls是一个将非LSP的包与nvim内置LSP客户端整合的插件
+        "jose-elias-alvarez/null-ls.nvim",
+    },
+    {
+        -- A plugin to configure Neovim LSP using json/yaml
+        "tamago324/nlsp-settings.nvim",
+    },
+    {
+        -- breadcrumbs
+        -- 不提供显示功能, 需要其他插件显示
         'SmiteshP/nvim-navic',
-    },
-
-    {
-        'akinsho/bufferline.nvim',
-        tag = "v2.*",
-        requires = 'kyazdani42/nvim-web-devicons',
+        requires = { "neovim/nvim-lspconfig" },
         config = function()
-            require('xxx.plugin-config.bufferline').setup()
-        end,
+            require("xxx.plugin-config.breadcrumbs").setup()
+        end
     },
 
-
-
-    {
-        'nvim-lualine/lualine.nvim',
-        config = function()
-            require("xxx.plugin-config.lualine").setup()
-        end,
-    },
-
-    {
-        "lewis6991/gitsigns.nvim",
-        config = function()
-            require("xxx.plugin-config.gitsigns").setup()
-        end,
-        event = "BufRead",
-    },
 
     -- Treesitter
     {
-        -- highlight, linter, formater, indent
+        -- highlight, linter, formater, indent framework
         "nvim-treesitter/nvim-treesitter",
         -- run = ":TSUpdate",
         config = function()
@@ -169,15 +198,12 @@ local plugins = {
             require("xxx.plugin-config.ts-context-commentstring").setup()
         end,
     },
-
     {
         "p00f/nvim-ts-rainbow",
         config = function()
             require("xxx.plugin-config.rainbow").setup()
         end,
     },
-
-    -- indent
     {
         "lukas-reineke/indent-blankline.nvim",
         config = function()
@@ -185,18 +211,18 @@ local plugins = {
         end,
     },
 
-    -- SchemaStore
     {
+        -- SchemaStore
         "b0o/schemastore.nvim",
     },
 
     {
+        -- 高亮显示相同的字符
         "RRethy/vim-illuminate",
         config = function()
             require("xxx.plugin-config.illuminate").setup()
         end,
     },
-
 
     -- Autopairs
     {
