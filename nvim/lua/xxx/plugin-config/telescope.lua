@@ -198,7 +198,7 @@ function M.setup()
     local telescope = require "telescope"
     telescope.setup(opts)
 
-    load_extension "ui-select"
+    -- load_extension "ui-select"
     load_extension "notify"
     load_extension "projects"
     load_extension "fzf"

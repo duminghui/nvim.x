@@ -77,11 +77,18 @@ local plugins = {
             require("xxx.plugin-config.telescope").setup()
         end,
     },
-    { 'nvim-telescope/telescope-ui-select.nvim' },
+    -- { 'nvim-telescope/telescope-ui-select.nvim' },
     {
         "nvim-telescope/telescope-fzf-native.nvim",
         requires = { "nvim-telescope/telescope.nvim" },
         run = "make",
+    },
+
+    {
+        'stevearc/dressing.nvim',
+        config = function()
+            require("xxx.plugin-config.dressing").setup()
+        end
     },
 
     -- Log --
