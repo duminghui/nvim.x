@@ -252,6 +252,13 @@ local plugins = {
     },
 
     {
+        "ahmedkhalf/project.nvim",
+        config = function()
+            require("xxx.plugin-config.project").setup()
+        end,
+    },
+
+    {
         "folke/which-key.nvim",
         config = function()
             require("xxx.plugin-config.which-key").setup()

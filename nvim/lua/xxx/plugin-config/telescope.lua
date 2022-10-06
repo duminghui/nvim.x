@@ -125,6 +125,16 @@ M.opts = {
 
 }
 
+local function load_extension(name)
+    local ok = pcall(function()
+        require("telescope").load_extension(name)
+    end)
+
+    if not ok then
+        vim.notify("telescope load extension '" .. name .. "' failed.", vim.log.levels.WARN, { title = "Telescope" })
+    end
+end
+
 function M.setup()
     local previewers = require "telescope.previewers"
     local sorters = require "telescope.sorters"
@@ -167,11 +177,15 @@ function M.setup()
     telescope.setup(opts)
 
 
+    load_extension "notify"
+    load_extension "projects"
+    load_extension "fzf"
+
     -- require("telescope").load_extension "projects"
 
-    require("telescope").load_extension "notify"
+    -- require("telescope").load_extension "notify"
 
-    require("telescope").load_extension "notify"
+    -- require("telescope").load_extension "fzf"
 
 end
 

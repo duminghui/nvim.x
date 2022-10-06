@@ -104,6 +104,7 @@ M.n_mappings = {
     p = {
         name = "Packer",
         c = { "<cmd>PackerCompile<CR>", "Compile" },
+        C = { "<cmd>PackerClean<CR>", "Clean" },
         i = { "<cmd>PackerInstall<CR>", "Install" },
         r = { "<cmd>lua require 'xxx.plugin-loader'.recompile()<CR>", "Re-compile" },
         s = { "<cmd>PackerSync<CR>", "Sync" },
