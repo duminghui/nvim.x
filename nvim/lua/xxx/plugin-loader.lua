@@ -6,8 +6,7 @@ local join_paths = utils.join_paths
 local in_headless = #vim.api.nvim_list_uis() == 0
 
 -- we need to reuse this outside of init()
--- local compile_path = join_paths(get_config_dir(), "plugin",
---     "packer_compiled.lua")
+local compile_path = join_paths(get_config_dir(), "plugin", "packer_compiled.lua")
 local snapshot_path = join_paths(get_cache_dir(), "snapshots")
 local default_snapshot = join_paths(get_base_dir(), "snapshots", "default.json")
 
@@ -17,14 +16,14 @@ function plugin_loader.init(opts)
     local install_path = opts.install_path or
         join_paths(vim.fn.stdpath "data", "site", "pack",
             "packer", "start", "packer.nvim")
-    local compile_path = opts.compile_path or join_path(get_config_dir(), "plugin", "packer_compiled.lua")
+    compile_path = opts.compile_path or join_path(get_config_dir(), "plugin", "packer_compiled.lua")
 
     local init_opts = {
         package_root = opts.package_root or
             join_paths(vim.fn.stdpath "data", "site", "pack"),
         compile_path = compile_path,
         snapshot_path = snapshot_path,
-        max_jobs = 100,
+        max_jobs = 9,
         log = { level = "warn" },
         git = { clone_timeout = 300 },
         display = {
@@ -52,7 +51,6 @@ function plugin_loader.init(opts)
     end
 
     local status_ok, packer = pcall(require, "packer")
-    -- print("plugin:", status_ok)
     if status_ok then
         packer.on_complete = vim.schedule_wrap(function()
             -- 这块在什么时候执行?
@@ -64,6 +62,34 @@ function plugin_loader.init(opts)
             -- pcall(vim.cmd, "colorscheme " .. xvim.colorscheme)
         end)
         packer.init(init_opts)
+    end
+end
+
+-- packer expects a space separated list
+local function pcall_packer_command(cmd, kwargs)
+    local status_ok, msg = pcall(function()
+        require("packer")[cmd](unpack(kwargs or {}))
+    end)
+    if not status_ok then
+        Log:warn(cmd .. " failed with: " .. vim.inspect(msg))
+        Log:trace(vim.inspect(vim.fn.eval "v:errmsg"))
+    end
+end
+
+function plugin_loader.cache_clear()
+    if vim.fn.delete(compile_path) == 0 then
+        Log:debug "delete packer_compiled.lua"
+    end
+end
+
+function plugin_loader.recompile()
+    plugin_loader.cache_clear()
+    pcall_packer_command "compile"
+    if utils.is_file(compile_path) then
+        Log:debug "generated packer_compiled.lua"
+        -- vim.notify("Pakcer recompile end", vim.log.levels.INFO)
+    else
+        -- vim.notify("Pakcer recompile failed", vim.log.levels.ERROR)
     end
 end
 

@@ -87,9 +87,6 @@ function M.setup(server_name, user_config)
     vim.validate { name = { server_name, "string" } }
     user_config = user_config or {}
 
-    local is_client_active = lsp_utils.is_client_active(server_name)
-    local is_client_config = client_is_configured(server_name)
-
     if lsp_utils.is_client_active(server_name) or client_is_configured(server_name) then
         return
     end
@@ -117,7 +114,6 @@ function M.setup(server_name, user_config)
                 vim.log.levels.INFO, { title = "LSP Install Manager " })
             local pkg = registry.get_package(pkg_name)
             pkg:install():once("closed", function()
-                print(pkg:is_installed())
                 if pkg:is_installed() then
                     vim.schedule(function()
                         vim.notify_once(string.format("Installation complete for [%s]", server_name),

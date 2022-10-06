@@ -1,3 +1,4 @@
+-- local Log = require("xxx.core.log")
 local M = {}
 
 local pickers = {
@@ -53,7 +54,8 @@ local actions = require "telescope.actions"
 M.opts = {
     defaults = {
         prompt_prefix = " ",
-        selection_caret = " ",
+        -- selection_caret = " ",
+        selection_caret = " ",
         entry_prefix = "  ",
         initial_mode = "insert",
         selection_strategy = "reset",
@@ -86,19 +88,19 @@ M.opts = {
         },
         mappings = {
             i = {
-                ["<C-n>"] = actions.move_selection_next,
-                ["<C-p>"] = actions.move_selection_previous,
-                ["<C-c>"] = actions.close,
+                -- ["<C-n>"] = actions.move_selection_next,
+                -- ["<C-p>"] = actions.move_selection_previous,
+                -- ["<C-c>"] = actions.close,
                 ["<C-j>"] = actions.cycle_history_next,
                 ["<C-k>"] = actions.cycle_history_prev,
-                ["<C-q>"] = actions.smart_send_to_qflist + actions.open_qflist,
-                ["<CR>"] = actions.select_default,
-                ["<C-d>"] = require("telescope.actions").delete_buffer,
+                -- ["<C-q>"] = actions.smart_send_to_qflist + actions.open_qflist,
+                -- ["<CR>"] = actions.select_default,
+                -- ["<C-d>"] = require("telescope.actions").delete_buffer,
             },
             n = {
-                ["<C-n>"] = actions.move_selection_next,
-                ["<C-p>"] = actions.move_selection_previous,
-                ["<C-q>"] = actions.smart_send_to_qflist + actions.open_qflist,
+                -- ["<C-n>"] = actions.move_selection_next,
+                -- ["<C-p>"] = actions.move_selection_previous,
+                -- ["<C-q>"] = actions.smart_send_to_qflist + actions.open_qflist,
                 ["dd"] = require("telescope.actions").delete_buffer,
             },
         },
@@ -126,7 +128,7 @@ M.opts = {
 function M.setup()
     local previewers = require "telescope.previewers"
     local sorters = require "telescope.sorters"
-    local actions = require "telescope.actions"
+    -- local actions = require "telescope.actions"
 
     local opts = vim.tbl_extend("keep", {
         file_previewer = previewers.vim_buffer_cat.new,
@@ -135,47 +137,42 @@ function M.setup()
         file_sorter = sorters.get_fuzzy_file,
         generic_sorter = sorters.get_generic_fuzzy_sorter,
         ---@usage Mappings are fully customizable. Many familiar mapping patterns are setup as defaults.
-        mappings = {
-            i = {
-                ["<C-n>"] = actions.move_selection_next,
-                ["<C-p>"] = actions.move_selection_previous,
-                ["<C-c>"] = actions.close,
-                ["<C-j>"] = actions.cycle_history_next,
-                ["<C-k>"] = actions.cycle_history_prev,
-                ["<C-q>"] = actions.smart_send_to_qflist + actions.open_qflist,
-                ["<CR>"] = actions.select_default + actions.center,
-            },
-            n = {
-                ["<C-n>"] = actions.move_selection_next,
-                ["<C-p>"] = actions.move_selection_previous,
-                ["<C-q>"] = actions.smart_send_to_qflist + actions.open_qflist,
-                ["dd"] = require("telescope.actions").delete_buffer,
-            },
-        },
+        -- mappings = {
+        --     i = {
+        --         ["<C-n>"] = actions.move_selection_next,
+        --         ["<C-p>"] = actions.move_selection_previous,
+        --         ["<C-c>"] = actions.close,
+        --         ["<C-j>"] = actions.cycle_history_next,
+        --         ["<C-k>"] = actions.cycle_history_prev,
+        --         ["<C-q>"] = actions.smart_send_to_qflist + actions.open_qflist,
+        --         ["<CR>"] = actions.select_default + actions.center,
+        --     },
+        --     n = {
+        --         ["<C-n>"] = actions.move_selection_next,
+        --         ["<C-p>"] = actions.move_selection_previous,
+        --         ["<C-q>"] = actions.smart_send_to_qflist + actions.open_qflist,
+        --         ["dd"] = require("telescope.actions").delete_buffer,
+        --     },
+        -- },
     }, M.opts)
 
     -- vim.cmd [[autocmd User TelescopePreviewerLoaded setlocal wrap]]
 
     vim.api.nvim_create_autocmd("User", {
         pattern = "TelescopePreviewerLoaded",
-        command = "setlocal wrap nu",
+        command = "setlocal wrap",
     })
 
     local telescope = require "telescope"
     telescope.setup(opts)
 
-    pcall(function()
-        require("telescope").load_extension "projects"
-    end)
 
-    pcall(function()
-        require("telescope").load_extension "notify"
-    end)
+    -- require("telescope").load_extension "projects"
 
+    require("telescope").load_extension "notify"
 
-    pcall(function()
-        require("telescope").load_extension "fzf"
-    end)
+    require("telescope").load_extension "notify"
+
 end
 
 return M

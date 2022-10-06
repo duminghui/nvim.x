@@ -60,8 +60,8 @@ local defaults = {
         -- Resize with arrows
         ["<C-Up>"] = ":resize -2<CR>",
         ["<C-Down>"] = ":resize +2<CR>",
-        ["<C-Left>"] = ":vertical resize -2<CR>",
-        ["<C-Right>"] = ":vertical resize +2<CR>",
+        ["<C-Left>"] = ":vertical resize +2<CR>",
+        ["<C-Right>"] = ":vertical resize -2<CR>",
 
         -- Move current line / block with Alt-j/k a la vscode.
         ["<A-j>"] = ":m .+1<CR>==",

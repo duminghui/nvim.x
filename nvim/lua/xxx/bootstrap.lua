@@ -10,7 +10,7 @@ end
 
 local uv = vim.loop
 local path_sep = uv.os_uname().version:match "Windows" and "\\" or "/"
-local in_headless = #vim.api.nvim_list_uis() == 0
+-- local in_headless = #vim.api.nvim_list_uis() == 0
 
 ---Join path segments that were passed as input
 ---@return string
@@ -65,6 +65,7 @@ function M:init(root_dir, base_dir)
     -- print("packer_compile_path: ", self.packer_compile_path)
     -- print("cache_dir:           ", self.cache_dir)
     --
+    _G.get_root_dir = function() return self.root_dir end
     _G.get_runtime_dir = function() return self.runtime_dir end
     _G.get_config_dir = function() return self.config_dir end
     ---Get the full path to base directory
@@ -74,15 +75,15 @@ function M:init(root_dir, base_dir)
     ---NOTE: changes to "data" are currently unstable, see #2507
     vim.fn.stdpath = function(what)
         local path = ""
-        local what_msg = what
+        -- local what_msg = what
         if what == "config" then
             path = _G.get_config_dir()
         elseif what == "data" then
             path = _G.get_runtime_dir()
-            what_msg = what .. "  "
+            -- what_msg = what .. "  "
         elseif what == "cache" then
             path = _G.get_cache_dir()
-            what_msg = what .. " "
+            -- what_msg = what .. " "
         else
             path = vim.call("stdpath", what)
         end

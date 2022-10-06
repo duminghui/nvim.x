@@ -111,9 +111,9 @@ styles.xxx = {
         lualine_c = {
             components.branch,
             components.diff,
-            components.diagnostics,
         },
         lualine_x = {
+            components.diagnostics,
             components.treesitter,
             components.lsp,
             components.spaces,
@@ -130,9 +130,9 @@ styles.xxx = {
         lualine_c = {
             components.branch,
             components.diff,
-            components.diagnostics,
         },
         lualine_x = {
+            components.diagnostics,
             components.treesitter,
             components.lsp,
             components.spaces,

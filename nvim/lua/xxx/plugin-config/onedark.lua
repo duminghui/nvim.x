@@ -1,6 +1,6 @@
 local M = {}
 
-local colors = require("xxx.core.colors")
+-- local colors = require("xxx.core.colors")
 
 M.opts = {
     style = 'darker',

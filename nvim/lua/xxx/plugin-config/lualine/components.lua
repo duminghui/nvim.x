@@ -1,6 +1,6 @@
 local conditions = require "xxx.plugin-config.lualine.conditions"
 local colors = require "xxx.plugin-config.lualine.colors"
-local color_hex = require "xxx.utils".color_hex
+-- local color_hex = require "xxx.utils".color_hex
 
 local function diff_source()
     local gitsigns = vim.b.gitsigns_status_dict
@@ -24,7 +24,7 @@ local location_color = nil
 -- local branch = ""
 local branch = ""
 
-local separator = "│"
+-- local separator = "│"
 
 -- if xvim.colorscheme == "tokyonight" then
 --     location_color = "SLBranchName"
@@ -105,7 +105,7 @@ return {
         "diagnostics",
         sources = { "nvim_diagnostic" },
         symbols = { error = " ", warn = " ", info = " ", hint = " " },
-        padding = { left = 2 },
+        padding = { left = 2, right = 2 },
         cond = conditions.hide_in_width,
     },
     treesitter  = {
@@ -156,7 +156,15 @@ return {
         end,
         -- separator = separator,
         icon = ' LSP:',
-        color = { gui = "bold" },
+        -- color = { gui = "bold" },
+        color = function()
+            local buf_clients = vim.lsp.buf_get_clients()
+            if next(buf_clients) == nil then
+                return { fg = colors.orange }
+            else
+                return { fg = colors.green }
+            end
+        end,
         -- cond = conditions.hide_in_width,
     },
 

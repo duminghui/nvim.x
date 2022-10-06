@@ -1,6 +1,6 @@
 local M = {}
 
-local pref_hook = nil
+local pre_hook = nil
 
 if require("xxx.plugin-config.ts-context-commentstring").opts.treesitter.context_commentstring.enable then
     pre_hook = function(ctx)

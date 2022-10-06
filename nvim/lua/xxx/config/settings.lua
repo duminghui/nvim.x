@@ -21,21 +21,27 @@ local default_options = {
     showcmd = true,
     cmdheight = 2,
 
-    textwidth = 120,
+    textwidth = 80,
     cursorline = true,
     cursorcolumn = true,
     colorcolumn = "+1",
-
-    mouse = "a",
-    -- 窗口分隔线和fold线
-    fillchars = 'vert:|,fold:-',
-    linespace = 0,
     number = true,
     relativenumber = true,
     -- number column width
     -- numberwidth = 4,
     --- always show the sign column, otherwise it would shift the text each time
-    signcolumn = "yes",
+    -- signcolumn = "yes",
+    guifont = "monospace:h13",
+
+    wrap = true,
+    wrapmargin = 1,
+    breakindent = true,
+    breakindentopt = "shift:2,sbr",
+
+    mouse = "a",
+    -- 窗口分隔线和fold线
+    fillchars = 'vert:|,fold:-',
+    linespace = 0,
 
     -- search
     showmatch = true,
@@ -50,8 +56,8 @@ local default_options = {
     wildmode = "list:longest,full",
 
     foldenable = true,
-    scrolljump = 6,
-    scrolloff = 6,
+    scrolljump = 1,
+    scrolloff = 3,
 
     list = true,
     listchars = 'tab:›■,trail:•,extends:#,nbsp:.',

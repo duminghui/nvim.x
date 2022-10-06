@@ -46,8 +46,8 @@ M.set_highlight = function()
     vim.cmd [[highlight IndentBlanklineContextChar guifg=#FFD700 gui=nocombine]]
 
     -- 要在listchars中添加 space:⋅, space相关的才会显示出来
-    vim.cmd [[highlight IndentBlanklineSpaceChar guifg=#FFA500 gui=nocombine]]
-    vim.cmd [[highlight IndentBlanklineContextSpaceChar guifg=#E3170D gui=nocombine ]]
+    -- vim.cmd [[highlight IndentBlanklineSpaceChar guifg=#FFA500 gui=nocombine]]
+    -- vim.cmd [[highlight IndentBlanklineContextSpaceChar guifg=#E3170D gui=nocombine ]]
 end
 
 return M

@@ -1,3 +1,4 @@
+local Log = require("xxx.core.log")
 local M = {}
 
 local function telescope_find_files(_)
@@ -9,6 +10,7 @@ local function telescope_live_grep(_)
 end
 
 M.opts = {
+    sort_by = nil,
     ignore_ft_on_setup = {
         "startify",
         "dashboard",
@@ -20,7 +22,7 @@ M.opts = {
     },
     update_cwd = true,
     diagnostics = {
-        enable = true,
+        enable = false,
         show_on_dirs = false,
         icons = {
             hint = "",
@@ -89,8 +91,7 @@ M.opts = {
                     unmerged = "",
                     renamed = "➜",
                     deleted = "",
-                    -- untracked = "U",
-                    untracked = "",
+                    untracked = "U",
                     ignored = "◌",
                 },
                 folder = {

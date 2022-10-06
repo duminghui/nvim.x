@@ -14,7 +14,7 @@ M.defaults = {
     {
         name = "BufferKill",
         fn = function()
-            require("xxx.plugin-config.bufferline").buf_kill "bd"
+            require("xxx.core.buffers").buf_kill "bd"
         end,
     },
     {

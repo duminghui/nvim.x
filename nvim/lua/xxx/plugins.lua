@@ -241,7 +241,23 @@ local plugins = {
             require("xxx.plugin-config.comment").setup()
         end,
     },
-    --
+
+    {
+        "akinsho/toggleterm.nvim",
+        event = "BufWinEnter",
+        branch = "main",
+        config = function()
+            require("xxx.plugin-config.terminal").setup()
+        end,
+    },
+
+    {
+        "folke/which-key.nvim",
+        config = function()
+            require("xxx.plugin-config.which-key").setup()
+        end,
+        event = "BufWinEnter",
+    },
 
 }
 return plugins

@@ -3,11 +3,11 @@ local Log = require "xxx.core.log"
 local autocmds = require "xxx.core.autocmds"
 
 local utils = require("xxx.utils")
-local opts = require "xxx.lsp.config"
+local lsp_opts = require "xxx.lsp.config"
 
 
 local function add_lsp_buffer_options(bufnr)
-    for k, v in pairs(opts.buffer_options) do
+    for k, v in pairs(lsp_opts.buffer_options) do
         vim.api.nvim_buf_set_option(bufnr, k, v)
     end
 end
@@ -19,7 +19,7 @@ local function add_lsp_buffer_keybindings(bufnr)
         visual_mode = "v",
     }
     for mode_name, mode_char in pairs(mappings) do
-        for key, remap in pairs(opts.buffer_mappings[mode_name]) do
+        for key, remap in pairs(lsp_opts.buffer_mappings[mode_name]) do
             local opts = { buffer = bufnr, desc = remap[2], noremap = true, silent = true }
             vim.keymap.set(mode_char, key, remap[1], opts)
         end
@@ -28,12 +28,12 @@ end
 
 local function handlers_setup()
     local config = {
-        virtual_text = opts.diagnostics.virtual_text,
-        signs = opts.diagnostics.signs,
-        underline = opts.diagnostics.underline,
-        update_in_insert = opts.diagnostics.update_in_insert,
-        severity_sort = opts.diagnostics.severity_sort,
-        float = opts.diagnostics.float,
+        virtual_text = lsp_opts.diagnostics.virtual_text,
+        signs = lsp_opts.diagnostics.signs,
+        underline = lsp_opts.diagnostics.underline,
+        update_in_insert = lsp_opts.diagnostics.update_in_insert,
+        severity_sort = lsp_opts.diagnostics.severity_sort,
+        float = lsp_opts.diagnostics.float,
     }
     vim.diagnostic.config(config)
 
@@ -73,7 +73,8 @@ function M.common_on_exit(_, _)
     autocmds.clear_augroup "lsp_code_lens_refresh"
 end
 
-function M.common_on_init(client, bufnr)
+-- function M.common_on_init(client, bufnr)
+function M.common_on_init(_, _)
     -- print("common_on_init")
 end
 
@@ -102,7 +103,7 @@ end
 
 function M.setup()
     Log:debug "Setting up LSP support"
-    local lsp_status_ok, lspconfig = pcall(require, "lspconfig")
+    local lsp_status_ok, _ = pcall(require, "lspconfig")
     if not lsp_status_ok then
         Log:debug "LSP: lspconfig not ok"
     end
@@ -121,28 +122,32 @@ function M.setup()
     -- }
 
     -- diagnostics
-    for _, sign in ipairs(opts.diagnostics.signs.values) do
+    for _, sign in ipairs(lsp_opts.diagnostics.signs.values) do
         vim.fn.sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = sign.name })
     end
 
     handlers_setup()
 
 
-    if not utils.is_directory(opts.templates_dir) then
-        require("xxx.lsp.templates").generate_templates(opts.templates_dir)
+    if not utils.is_directory(lsp_opts.templates_dir) then
+        require("xxx.lsp.templates").generate_templates(lsp_opts.templates_dir)
     end
 
 
-    require("nlspsettings").setup(opts.nlsp_settings.setup)
+    require("nlspsettings").setup(lsp_opts.nlsp_settings.setup)
 
     pcall(function()
-        require("mason-lspconfig").setup(opts.mason_lspconfig.setup)
+        require("mason-lspconfig").setup(lsp_opts.mason_lspconfig.setup)
         local util = require "lspconfig.util"
         -- automatic_installation is handled by lsp-manager
         util.on_setup = nil
     end)
 
     require("xxx.lsp.null-ls").setup()
+
+    local _, lspconfig = pcall(require, "lspconfig")
+    lspconfig.sumneko_lua.setup {}
+
 
     autocmds.configure_format_on_save(true)
 end

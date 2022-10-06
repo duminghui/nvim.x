@@ -117,178 +117,181 @@ end
 
 M.methods.jumpable = jumpable
 
-local status_cmp_ok, cmp = pcall(require, "cmp")
-if not status_cmp_ok then
-    return
-end
-local status_luasnip_ok, luasnip = pcall(require, "luasnip")
-if not status_luasnip_ok then
-    return
-end
+M.options = {}
 
-
-M.opts = {
-    confirm_opts = {
-        behavior = cmp.ConfirmBehavior.Replace,
-        select = false,
-    },
-    completion = {
-        ---@usage The minimum length of a word to complete on.
-        keyword_length = 1,
-    },
-    experimental = {
-        ghost_text = false,
-        native_menu = false,
-    },
-    formatting = {
-        fields = { "kind", "abbr", "menu" },
-        max_width = 0,
-        kind_icons = {
-            Class = " ",
-            Color = " ",
-            Constant = "ﲀ ",
-            Constructor = " ",
-            Enum = "練",
-            EnumMember = " ",
-            Event = " ",
-            Field = " ",
-            File = "",
-            Folder = " ",
-            Function = " ",
-            Interface = "ﰮ ",
-            Keyword = " ",
-            Method = " ",
-            Module = " ",
-            Operator = "",
-            Property = " ",
-            Reference = " ",
-            Snippet = " ",
-            Struct = " ",
-            Text = " ",
-            TypeParameter = " ",
-            Unit = "塞",
-            Value = " ",
-            Variable = " ",
+M.opts = function()
+    local status_cmp_ok, cmp = pcall(require, "cmp")
+    if not status_cmp_ok then
+        return
+    end
+    local status_luasnip_ok, luasnip = pcall(require, "luasnip")
+    if not status_luasnip_ok then
+        return
+    end
+    M.options = {
+        confirm_opts = {
+            behavior = cmp.ConfirmBehavior.Replace,
+            select = false,
         },
-        source_names = {
-            nvim_lsp = "(LSP)",
-            emoji = "(Emoji)",
-            path = "(Path)",
-            calc = "(Calc)",
-            cmp_tabnine = "(Tabnine)",
-            vsnip = "(Snippet)",
-            luasnip = "(Snippet)",
-            buffer = "(Buffer)",
-            tmux = "(TMUX)",
+        completion = {
+            ---@usage The minimum length of a word to complete on.
+            keyword_length = 1,
         },
-        duplicates = {
-            buffer = 1,
-            path = 1,
-            nvim_lsp = 0,
-            luasnip = 1,
+        experimental = {
+            ghost_text = false,
+            native_menu = false,
         },
-        duplicates_default = 0,
-        format = function(entry, vim_item)
-            local max_width = M.opts.formatting.max_width
-            if max_width ~= 0 and #vim_item.abbr > max_width then
-                vim_item.abbr = string.sub(vim_item.abbr, 1, max_width - 1) .. "…"
-            end
-            vim_item.kind = M.opts.formatting.kind_icons[vim_item.kind]
-            vim_item.menu = M.opts.formatting.source_names[entry.source.name]
-            vim_item.dup = M.opts.formatting.duplicates[entry.source.name]
-                or M.opts.formatting.duplicates_default
-            return vim_item
-        end,
-    },
-    snippet = {
-        expand = function(args)
-            require("luasnip").lsp_expand(args.body)
-        end,
-    },
-    window = {
-        completion = cmp.config.window.bordered(),
-        documentation = cmp.config.window.bordered(),
-    },
-    sources = {
-        { name = "nvim_lsp" },
-        { name = "path" },
-        { name = "luasnip" },
-        { name = "cmp_tabnine" },
-        { name = "nvim_lua" },
-        { name = "buffer" },
-        { name = "calc" },
-        { name = "emoji" },
-        { name = "treesitter" },
-        { name = "crates" },
-        { name = "tmux" },
-    },
-    mapping = cmp.mapping.preset.insert {
-        ["<C-k>"] = cmp.mapping.select_prev_item(),
-        ["<C-j>"] = cmp.mapping.select_next_item(),
-        ["<Down>"] = cmp.mapping(cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Select }, { "i" }),
-        ["<Up>"] = cmp.mapping(cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Select }, { "i" }),
-        ["<C-d>"] = cmp.mapping.scroll_docs(-4),
-        ["<C-f>"] = cmp.mapping.scroll_docs(4),
-        ["<C-y>"] = cmp.mapping {
-            i = cmp.mapping.confirm { behavior = cmp.ConfirmBehavior.Replace, select = false },
-            c = function(fallback)
+        formatting = {
+            fields = { "kind", "abbr", "menu" },
+            max_width = 0,
+            kind_icons = {
+                Class = " ",
+                Color = " ",
+                Constant = "ﲀ ",
+                Constructor = " ",
+                Enum = "練",
+                EnumMember = " ",
+                Event = " ",
+                Field = " ",
+                File = "",
+                Folder = " ",
+                Function = " ",
+                Interface = "ﰮ ",
+                Keyword = " ",
+                Method = " ",
+                Module = " ",
+                Operator = "",
+                Property = " ",
+                Reference = " ",
+                Snippet = " ",
+                Struct = " ",
+                Text = " ",
+                TypeParameter = " ",
+                Unit = "塞",
+                Value = " ",
+                Variable = " ",
+            },
+            source_names = {
+                nvim_lsp = "(LSP)",
+                emoji = "(Emoji)",
+                path = "(Path)",
+                calc = "(Calc)",
+                cmp_tabnine = "(Tabnine)",
+                vsnip = "(Snippet)",
+                luasnip = "(Snippet)",
+                buffer = "(Buffer)",
+                tmux = "(TMUX)",
+            },
+            duplicates = {
+                buffer = 1,
+                path = 1,
+                nvim_lsp = 0,
+                luasnip = 1,
+            },
+            duplicates_default = 0,
+            format = function(entry, vim_item)
+                local max_width = M.options.formatting.max_width
+                if max_width ~= 0 and #vim_item.abbr > max_width then
+                    vim_item.abbr = string.sub(vim_item.abbr, 1, max_width - 1) .. "…"
+                end
+                vim_item.kind = M.options.formatting.kind_icons[vim_item.kind]
+                vim_item.menu = M.options.formatting.source_names[entry.source.name]
+                vim_item.dup = M.options.formatting.duplicates[entry.source.name]
+                    or M.options.formatting.duplicates_default
+                return vim_item
+            end,
+        },
+        snippet = {
+            expand = function(args)
+                require("luasnip").lsp_expand(args.body)
+            end,
+        },
+        window = {
+            completion = cmp.config.window.bordered(),
+            documentation = cmp.config.window.bordered(),
+        },
+        sources = {
+            { name = "nvim_lsp" },
+            { name = "path" },
+            { name = "luasnip" },
+            { name = "cmp_tabnine" },
+            { name = "nvim_lua" },
+            { name = "buffer" },
+            { name = "calc" },
+            { name = "emoji" },
+            { name = "treesitter" },
+            { name = "crates" },
+            { name = "tmux" },
+        },
+        mapping = cmp.mapping.preset.insert {
+            ["<C-k>"] = cmp.mapping.select_prev_item(),
+            ["<C-j>"] = cmp.mapping.select_next_item(),
+            ["<Down>"] = cmp.mapping(cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Select }, { "i" }),
+            ["<Up>"] = cmp.mapping(cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Select }, { "i" }),
+            ["<C-d>"] = cmp.mapping.scroll_docs(-4),
+            ["<C-f>"] = cmp.mapping.scroll_docs(4),
+            ["<C-y>"] = cmp.mapping {
+                i = cmp.mapping.confirm { behavior = cmp.ConfirmBehavior.Replace, select = false },
+                c = function(fallback)
+                    if cmp.visible() then
+                        cmp.confirm { behavior = cmp.ConfirmBehavior.Replace, select = false }
+                    else
+                        fallback()
+                    end
+                end,
+            },
+            ["<Tab>"] = cmp.mapping(function(fallback)
                 if cmp.visible() then
-                    cmp.confirm { behavior = cmp.ConfirmBehavior.Replace, select = false }
+                    cmp.select_next_item()
+                elseif luasnip.expand_or_locally_jumpable() then
+                    luasnip.expand_or_jump()
+                elseif jumpable(1) then
+                    luasnip.jump(1)
+                elseif has_words_before() then
+                    -- cmp.complete()
+                    fallback()
                 else
                     fallback()
                 end
-            end,
-        },
-        ["<Tab>"] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-                cmp.select_next_item()
-            elseif luasnip.expand_or_locally_jumpable() then
-                luasnip.expand_or_jump()
-            elseif jumpable(1) then
-                luasnip.jump(1)
-            elseif has_words_before() then
-                -- cmp.complete()
-                fallback()
-            else
-                fallback()
-            end
-        end, { "i", "s" }),
-        ["<S-Tab>"] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-                cmp.select_prev_item()
-            elseif luasnip.jumpable(-1) then
-                luasnip.jump(-1)
-            else
-                fallback()
-            end
-        end, { "i", "s" }),
-        ["<C-Space>"] = cmp.mapping.complete(),
-        ["<C-e>"] = cmp.mapping.abort(),
-        ["<CR>"] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-                local confirm_opts = vim.deepcopy(M.opts.confirm_opts) -- avoid mutating the original opts below
-                local is_insert_mode = function()
-                    return vim.api.nvim_get_mode().mode:sub(1, 1) == "i"
+            end, { "i", "s" }),
+            ["<S-Tab>"] = cmp.mapping(function(fallback)
+                if cmp.visible() then
+                    cmp.select_prev_item()
+                elseif luasnip.jumpable(-1) then
+                    luasnip.jump(-1)
+                else
+                    fallback()
                 end
-                if is_insert_mode() then -- prevent overwriting brackets
-                    confirm_opts.behavior = cmp.ConfirmBehavior.Insert
+            end, { "i", "s" }),
+            ["<C-Space>"] = cmp.mapping.complete(),
+            ["<C-e>"] = cmp.mapping.abort(),
+            ["<CR>"] = cmp.mapping(function(fallback)
+                if cmp.visible() then
+                    local confirm_opts = vim.deepcopy(M.options.confirm_opts) -- avoid mutating the original opts below
+                    local is_insert_mode = function()
+                        return vim.api.nvim_get_mode().mode:sub(1, 1) == "i"
+                    end
+                    if is_insert_mode() then -- prevent overwriting brackets
+                        confirm_opts.behavior = cmp.ConfirmBehavior.Insert
+                    end
+                    if cmp.confirm(confirm_opts) then
+                        return -- success, exit early
+                    end
                 end
-                if cmp.confirm(confirm_opts) then
+
+                if jumpable(1) and luasnip.jump(1) then
                     return -- success, exit early
                 end
-            end
-
-            if jumpable(1) and luasnip.jump(1) then
-                return -- success, exit early
-            end
-            fallback() -- if not exited early, always fallback
-        end),
-    },
-}
+                fallback() -- if not exited early, always fallback
+            end),
+        },
+    }
+    return M.options
+end
 
 function M.setup()
     -- vim.opt.completeopt = "menu,menuone,noselect"
-    require("cmp").setup(M.opts)
+    require("cmp").setup(M.opts())
 end
 
 return M
