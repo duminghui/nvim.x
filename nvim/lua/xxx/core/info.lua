@@ -60,7 +60,6 @@ end
 
 local function tbl_set_highlight(terms, highlight_group)
     for _, v in pairs(terms) do
-        print("v:", v)
         vim.cmd('let m=matchadd("' .. highlight_group .. '", "' .. v .. "[ ,│']\")")
         vim.cmd('let m=matchadd("' .. highlight_group .. '", ", ' .. v .. '")')
     end
@@ -75,12 +74,24 @@ local function make_client_info(client)
     local id = client.id
     local filetypes = lsp_utils.get_supported_filetypes(name)
     local attached_buffers_list = str_list(vim.lsp.get_buffers_by_client_id(client.id))
+    local root_dir_list = ""
+    local workspace_folders = client.workspaceFolders
+    if workspace_folders then
+        local root_dirs = {}
+        for _, v in pairs(workspace_folders) do
+            table.insert(root_dirs, v.name)
+        end
+        root_dir_list = str_list(root_dirs)
+    else
+        root_dir_list = "Running in single file mode."
+    end
     local client_info = {
         fmt("* name:                      %s", name),
         fmt("* id:                        %s", tostring(id)),
         fmt("* supported filetype(s):     %s", str_list(filetypes)),
         fmt("* attached buffers:          %s", tostring(attached_buffers_list)),
-        fmt("* root_dir pattern:          %s", tostring(attached_buffers_list)),
+        -- fmt("* root_dir pattern:          %s", tostring(attached_buffers_list)),
+        fmt("* root_dir pattern:          %s", tostring(root_dir_list)),
     }
     if not vim.tbl_isempty(client_enabled_caps) then
         local caps_text = "* capabilities:              "
@@ -193,7 +204,6 @@ function M.toggle_popup(ft)
         vim.fn.matchadd("boolean", "inactive")
         vim.fn.matchadd("error", "false")
         tbl_set_highlight(require("xxx.lsp.null-ls.formatters").list_registered(ft), "XvimInfoIdentifier")
-        tbl_set_highlight(require("xxx.lsp.null-ls.formatters").list_supported(ft), "XvimInfoIdentifier")
         tbl_set_highlight(require("xxx.lsp.null-ls.linters").list_registered(ft), "XvimInfoIdentifier")
         tbl_set_highlight(require("xxx.lsp.null-ls.code_actions").list_registered(ft), "XvimInfoIdentifier")
     end
