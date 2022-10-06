@@ -182,13 +182,17 @@ M.setup = function()
         return
     end
 
-    -- lvim.builtin.which_key.mappings["e"] = { "<cmd>NvimTreeToggle<CR>", "Explorer" }
     M.nvimtree_setup_called = true
 
-    -- Implicitly update nvim-tree when project module is active
+    -- for 'project' module
+    M.opts.sync_root_with_cwd = true
     M.opts.respect_buf_cwd = true
     M.opts.update_cwd = true
-    M.opts.update_focused_file = { enable = true, update_cwd = true }
+    M.opts.update_focused_file = {
+        enable = true,
+        -- update_cwd = true,
+        update_root = true,
+    }
 
 
     nvim_tree.setup(M.opts)

@@ -10,7 +10,7 @@ end
 
 local uv = vim.loop
 local path_sep = uv.os_uname().version:match "Windows" and "\\" or "/"
--- local in_headless = #vim.api.nvim_list_uis() == 0
+local in_headless = #vim.api.nvim_list_uis() == 0
 
 ---Join path segments that were passed as input
 ---@return string
@@ -120,6 +120,13 @@ function M:init(root_dir, base_dir)
     -- -- TODO: we need something like this: vim.opt.packpath = vim.opt.rtp
     vim.cmd [[let &packpath = &runtimepath]]
     -- end
+
+    if not in_headless then
+        _G.PLENARY_DEBUG = false
+        require "xxx.impatient"
+    end
+
+    require("xxx.config"):init()
 
     require("xxx.plugin-loader").init {
         package_root = self.pack_dir,

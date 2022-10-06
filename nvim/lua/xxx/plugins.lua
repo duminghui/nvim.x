@@ -77,6 +77,7 @@ local plugins = {
             require("xxx.plugin-config.telescope").setup()
         end,
     },
+    { 'nvim-telescope/telescope-ui-select.nvim' },
     {
         "nvim-telescope/telescope-fzf-native.nvim",
         requires = { "nvim-telescope/telescope.nvim" },
@@ -255,6 +256,14 @@ local plugins = {
         "ahmedkhalf/project.nvim",
         config = function()
             require("xxx.plugin-config.project").setup()
+        end,
+    },
+
+    -- alpha
+    {
+        "goolord/alpha-nvim",
+        config = function()
+            require("xxx.plugin-config.alpha").setup()
         end,
     },
 

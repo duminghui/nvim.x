@@ -9,6 +9,9 @@ end
 local function diagnostics_indicator(num, _, diagnostics, _)
     local result = {}
     local symbols = { error = "", warning = "", info = "" }
+    -- if not xvim.use_icons then
+    --     return "(" .. num .. ")"
+    -- end
     for name, count in pairs(diagnostics) do
         if symbols[name] and count > 0 then
             table.insert(result, symbols[name] .. " " .. count)

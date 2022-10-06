@@ -22,7 +22,7 @@ require "xxx.config.g"
 require("xxx.bootstrap"):init(root_dir, nvim_base_dir)
 
 -- 基本配置
-require("xxx.config").load()
+require("xxx.config"):load()
 
 --插件配置
 local plugins = require "xxx.plugins"
@@ -38,10 +38,5 @@ commands.load(commands.defaults)
 -- --Lsp配置
 require("xxx.lsp").setup()
 
-function PrintRtp()
-    for k, v in pairs(vim.opt.rtp:get()) do
-        print(k, v)
-    end
-end
 
 -- vim.pretty_print(vim.opt.rtp:get())

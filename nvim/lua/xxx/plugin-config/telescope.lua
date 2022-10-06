@@ -53,7 +53,8 @@ local actions = require "telescope.actions"
 -- Define this minimal config so that it's available if telescope is not yet available.
 M.opts = {
     defaults = {
-        prompt_prefix = " ",
+        -- prompt_prefix = " ",
+        prompt_prefix = " ",
         -- selection_caret = " ",
         selection_caret = " ",
         entry_prefix = "  ",
@@ -121,6 +122,25 @@ M.opts = {
             override_file_sorter = true, -- override the file sorter
             case_mode = "smart_case", -- or "ignore_case" or "respect_case"
         },
+        ["ui-select"] = {
+            require("telescope.themes").get_dropdown {
+                -- even more opts
+            }
+
+            -- pseudo code / specification for writing custom displays, like the one
+            -- for "codeactions"
+            -- specific_opts = {
+            --   [kind] = {
+            --     make_indexed = function(items) -> indexed_items, width,
+            --     make_displayer = function(widths) -> displayer
+            --     make_display = function(displayer) -> function(e)
+            --     make_ordinal = function(e) -> string
+            --   },
+            --   -- for example to disable the custom builtin "codeactions" display
+            --      do the following
+            --   codeactions = false,
+            -- }
+        }
     },
 
 }
@@ -131,7 +151,9 @@ local function load_extension(name)
     end)
 
     if not ok then
-        vim.notify("telescope load extension '" .. name .. "' failed.", vim.log.levels.WARN, { title = "Telescope" })
+        vim.schedule(function()
+            vim.notify("telescope load extension '" .. name .. "' failed.", vim.log.levels.WARN, { title = "Telescope" })
+        end)
     end
 end
 
@@ -176,7 +198,7 @@ function M.setup()
     local telescope = require "telescope"
     telescope.setup(opts)
 
-
+    load_extension "ui-select"
     load_extension "notify"
     load_extension "projects"
     load_extension "fzf"

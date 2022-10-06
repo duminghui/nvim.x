@@ -83,11 +83,13 @@ M.n_mappings = {
     ["q"] = { "<cmd>lua require('xxx.utils.functions').smart_quit()<CR>", "Quit" },
     ["e"] = { "<cmd>NvimTreeToggle<CR>", "Explorer" },
     ["f"] = { require("xxx.plugin-config.telescope.custom-finders").find_project_files, "Find File" },
+    ["G"] = { "1<c-g>", "Buffer path info" },
     ["N"] = { "<cmd>Notifications<CR>", "Notifications" },
     ["r"] = { "<cmd>PrintRtp<CR>", "Print runtimepath" },
     -- ["/"] = { "<Plug>(comment_toggle_linewise_current)", "Comment toggle current line" },
     -- ["h"] = { "<cmd>nohlsearch<CR>", "No Highlight" },
     ["/"] = { "<cmd>nohlsearch<CR>", "No Highlight" },
+    ["P"] = { "<cmd>Telescope projects<CR>", "Projects" },
     b = {
         name = "Buffers",
         j = { "<cmd>BufferLinePick<cr>", "Jump" },
@@ -158,8 +160,8 @@ M.n_mappings = {
         t = { "<cmd>Telescope live_grep<CR>", "Text" },
         k = { "<cmd>Telescope keymaps<CR>", "Keymaps" },
         C = { "<cmd>Telescope commands<CR>", "Commands" },
-        p = { "<cmd>lua require('telescope.builtin').colorscheme({enable_preview = true})<CR>",
-            "Colorscheme with Preview" }
+        P = { "<cmd>lua require('telescope.builtin').colorscheme({enable_preview = true})<CR>",
+            "Colorscheme with Preview" },
     },
     T = {
         name = "Treesitter",

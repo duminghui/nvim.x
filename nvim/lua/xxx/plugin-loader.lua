@@ -55,11 +55,7 @@ function plugin_loader.init(opts)
         packer.on_complete = vim.schedule_wrap(function()
             -- 这块在什么时候执行?
             -- print("##: packer.on_complete")
-            vim.api.nvim_exec_autocmds("User", { pattern = "PackerComplete" })
-
-            -- 做一些主题配置
-            -- vim.g.colors_name = xvim.colorscheme
-            -- pcall(vim.cmd, "colorscheme " .. xvim.colorscheme)
+            require("xxx.utils.hooks").run_on_packer_complete()
         end)
         packer.init(init_opts)
     end

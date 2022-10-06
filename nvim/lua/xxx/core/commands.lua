@@ -20,7 +20,9 @@ M.defaults = {
     {
         name = "PrintRtp",
         fn = function()
-            PrintRtp()
+            for k, v in pairs(vim.opt.rtp:get()) do
+                print(k, v)
+            end
         end
     }
 }
