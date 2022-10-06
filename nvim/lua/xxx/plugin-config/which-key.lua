@@ -133,6 +133,7 @@ M.n_mappings = {
     l = {
         name = "LSP",
         a = { "<cmd>lua vim.lsp.buf.code_action()<CR>", "Code Action" },
+        c = { "<cmd>CmpStatus<CR>", "Cmp Status" },
         d = { "<cmd>Telescope diagnostics bufnr=0 theme=get_ivy<cr>", "Buffer Diagnostics" },
         w = { "<cmd>Telescope diagnostics<CR>", "Diagnostics" },
         f = { require("xxx.lsp.utils").format, "Format" },
