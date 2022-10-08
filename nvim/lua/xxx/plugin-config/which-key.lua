@@ -78,18 +78,34 @@ M.n_opts = {
 
 M.n_mappings = {
     [";"] = { "<cmd>Alpha<CR>", "Dashboard" },
-    ["w"] = { "<cmd>w!<CR>", "Save" },
-    ["c"] = { "<cmd>BufferKill<CR>", "Close Buffer" },
-    ["q"] = { "<cmd>lua require('xxx.utils.functions').smart_quit()<CR>", "Quit" },
-    ["e"] = { "<cmd>NvimTreeToggle<CR>", "Explorer" },
-    ["f"] = { require("xxx.plugin-config.telescope.custom-finders").find_project_files, "Find File" },
-    ["G"] = { "1<c-g>", "Buffer path info" },
-    ["N"] = { "<cmd>Notifications<CR>", "Notifications" },
-    ["r"] = { "<cmd>PrintRtp<CR>", "Print runtimepath" },
+    ["/"] = { "<cmd>nohlsearch<CR>", "No Highlight" },
+    w = { "<cmd>w!<CR>", "Save" },
+    c = { "<cmd>BufferKill<CR>", "Close Buffer(Keep window)" },
+    q = { "<cmd>lua require('xxx.utils.functions').smart_quit()<CR>", "Quit current window" },
+    e = { "<cmd>NvimTreeToggle<CR>", "Explorer" },
+    f = { require("xxx.plugin-config.telescope.custom-finders").find_project_files, "Find File" },
+    G = { "1<c-g>", "Buffer path info" },
+    N = { "<cmd>Notifications<CR>", "Notifications" },
+    r = { "<cmd>PrintRtp<CR>", "Print runtimepath" },
     -- ["/"] = { "<Plug>(comment_toggle_linewise_current)", "Comment toggle current line" },
     -- ["h"] = { "<cmd>nohlsearch<CR>", "No Highlight" },
-    ["/"] = { "<cmd>nohlsearch<CR>", "No Highlight" },
-    ["P"] = { "<cmd>Telescope projects<CR>", "Projects" },
+    a = {
+        name = "Lspsaga",
+        o = { "<cmd>LSoutlineToggle<CR>", "Outline" },
+        r = { "<cmd>Lspsaga rename<CR>", "Rename" },
+        d = { "<cmd>Lspsaga hover_doc<CR>", "Hover Doc" },
+        k = { "<cmd>Lspsaga diagnostic_jump_prev<CR>", "Prev Diagnostic", },
+        j = { "<cmd>Lspsaga diagnostic_jump_next<CR>", "Next Diagnostic", },
+        l = { "<cmd>Lspsaga show_line_diagnostics<CR>", "Line Diagnostics", },
+        c = { "<cmd>Lspsaga show_cursor_diagnostics<CR>", "Cursor Diagnostics", },
+        a = { "<cmd>Lspsaga code_action<CR>", "Code Action" },
+        b = { "<cmd>Lspsaga range_code_action<CR>", "Range Code Action(Deprecated)" },
+        e = { "<cmd>Lspsaga peek_definition<CR>", "Peek Definition" },
+        f = { "<cmd>Lspsaga preview_definition<CR>", "Preview Definition(Deprecated)" },
+        g = { "<cmd>Lspsaga open_floaterm<CR>", "Open Floaterm" },
+        h = { "<cmd>Lspsaga close_floaterm<CR>", "Close Floaterm" },
+        i = { "<cmd>Lspsaga lsp_finder<CR>", "Lsp Finder" }
+    },
     b = {
         name = "Buffers",
         j = { "<cmd>BufferLinePick<cr>", "Jump" },
@@ -134,8 +150,12 @@ M.n_mappings = {
         name = "LSP",
         a = { "<cmd>lua vim.lsp.buf.code_action()<CR>", "Code Action" },
         c = { "<cmd>CmpStatus<CR>", "Cmp Status" },
-        d = { "<cmd>Telescope diagnostics bufnr=0 theme=get_ivy<cr>", "Buffer Diagnostics" },
-        w = { "<cmd>Telescope diagnostics<CR>", "Diagnostics" },
+        -- d = { "<cmd>Telescope diagnostics bufnr=0 theme=get_ivy<cr>", "Buffer Diagnostics" },
+        -- w = { "<cmd>Telescope diagnostics<CR>", "Diagnostics" },
+        w = { "<cmd>Trouble workspace_diagnostics<CR>", "Workspace Diagnostics" },
+        d = { "<cmd>Trouble document_diagnostics<CR>", "Buffer Diagnostics" },
+        -- config in lsp/config.lua
+        -- r = { "<cmd>Trouble lsp_references<CR>", "References" },
         f = { require("xxx.lsp.utils").format, "Format" },
         i = { "<cmd>LspInfo<CR>", "Lsp Info" },
         I = { "<cmd>Mason<CR>", "Mason Info" },
@@ -164,13 +184,36 @@ M.n_mappings = {
         P = { "<cmd>lua require('telescope.builtin').colorscheme({enable_preview = true})<CR>",
             "Colorscheme with Preview" },
     },
+    S = {
+        name = "SessionManager",
+        l = { "<cmd>SessionManager load_session<CR>", "Load Session" },
+        L = { "<cmd>SessionManager load_last_session<CR>", "Load Last Session" },
+        c = { "<cmd>SessionManager load_current_dir_session<CR>", "Load Current Dir Session" },
+        s = { "<cmd>SessionManager save_current_session<CR>", "Save Current Session" },
+        d = { "<cmd>SessionManager delete_session<CR>", "Delete Session" }
+    },
+    t = {
+        name = "Trouble",
+        t = { "<cmd>TroubleToggle<CR>", "TroubleToggle" },
+        -- +lsp
+        w = { "<cmd>Trouble workspace_diagnostics<CR>", "Workspace Diagnostics" },
+        d = { "<cmd>Trouble document_diagnostics<CR>", "Buffer Diagnostics" },
+
+        --  lsp/config.lua: gr
+        r = { "<cmd>Trouble lsp_references<CR>", "References" },
+        -- use lsp's gd=, not use this
+        x = { "<cmd>Trouble lsp_definitions<CR>", "Definitions" },
+        D = { "<cmd>Trouble lsp_type_definitions<CR>", "Type Definitions" },
+        q = { "<cmd>Trouble quickfix<CR>", "Quickfix" },
+        l = { "<cmd>Trouble loclist<CR>", "Loclist" },
+    },
     T = {
         name = "Treesitter",
         i = { ":TSConfigInfo<CR>", "Info" },
         m = { ":TSModuleInfo<CR>", "Module Info" }
     },
     X = {
-        name = "+XVim",
+        name = "XVim",
         f = { "<cmd>lua require('xxx.plugin-config.telescope.custom-finders').find_xvim_files()<CR>", "Find XVim files" },
         g = { "<cmd>lua require('xxx.plugin-config.telescope.custom-finders').grep_xvim_files()<CR>", "Grep XVim files" },
         k = { "<cmd>Telescope keymaps<CR>", "Keymapings" },

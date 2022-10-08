@@ -26,28 +26,6 @@ local function add_lsp_buffer_keybindings(bufnr)
     end
 end
 
-local function handlers_setup()
-    local config = {
-        virtual_text = lsp_opts.diagnostics.virtual_text,
-        signs = lsp_opts.diagnostics.signs,
-        underline = lsp_opts.diagnostics.underline,
-        update_in_insert = lsp_opts.diagnostics.update_in_insert,
-        severity_sort = lsp_opts.diagnostics.severity_sort,
-        float = lsp_opts.diagnostics.float,
-    }
-    vim.diagnostic.config(config)
-
-    local float = {
-        focusable = true,
-        style = "minimal",
-        border = "rounded",
-    }
-
-    -- illuminate not active
-    -- vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, float)
-    vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, float)
-end
-
 function M.common_capabilities()
     local capabilities = vim.lsp.protocol.make_client_capabilities()
     capabilities.textDocument.completion.completionItem.snippetSupport = true
@@ -82,7 +60,6 @@ function M.common_on_attach(client, bufnr)
     -- print("common_on_attach")
     local lu = require "xxx.lsp.utils"
 
-    -- setup_document_highlight can delete
     lu.setup_document_highlight(client, bufnr)
 
     lu.setup_codelens_refresh(client, bufnr)
@@ -106,9 +83,11 @@ function M.setup()
     local lsp_status_ok, _ = pcall(require, "lspconfig")
     if not lsp_status_ok then
         Log:debug "LSP: lspconfig not ok"
+        return
     end
 
-    require('lspconfig.ui.windows').default_options.border = 'single'
+    -- command :LspInfo 's border
+    -- require('lspconfig.ui.windows').default_options.border = 'single'
     -- local hl_name = "NormalFloat"
     -- require('lspconfig.ui.windows').default_options.border = {
     --     { "╭", hl_name },
@@ -121,18 +100,16 @@ function M.setup()
     --     { "│", hl_name },
     -- }
 
+    if not utils.is_directory(lsp_opts.templates_dir) then
+        require("xxx.lsp.templates").generate_templates(lsp_opts.templates_dir)
+    end
+
     -- diagnostics
     for _, sign in ipairs(lsp_opts.diagnostics.signs.values) do
         vim.fn.sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = sign.name })
     end
 
-    handlers_setup()
-
-
-    if not utils.is_directory(lsp_opts.templates_dir) then
-        require("xxx.lsp.templates").generate_templates(lsp_opts.templates_dir)
-    end
-
+    require("xxx.lsp.handlers").setup(lsp_opts)
 
     require("nlspsettings").setup(lsp_opts.nlsp_settings.setup)
 

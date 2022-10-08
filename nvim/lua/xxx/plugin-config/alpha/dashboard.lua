@@ -8,8 +8,6 @@ local banner = {
     "",
     "",
     "",
-    "",
-    "",
     "Neovim " .. ver_str,
 }
 
@@ -51,11 +49,13 @@ function M.get_sections()
 
         buttons = {
             val = {
-                button("f", "  Find File", "<CMD>Telescope find_files<CR>"),
                 button("n", "  New File", "<CMD>ene!<CR>"),
-                button("p", "  Projects ", "<CMD>Telescope projects<CR>"),
-                button("r", "  Recent files", ":Telescope oldfiles <CR>"),
                 button("t", "  Find Text", "<CMD>Telescope live_grep<CR>"),
+                button("f", "  Find File", "<CMD>Telescope find_files<CR>"),
+                button("r", "  Recent files", ":Telescope oldfiles <CR>"),
+                button("p", "  Projects ", "<CMD>Telescope projects<CR>"),
+                button("s", "ﭯ  Sessions", "<CMD>SessionManager load_session<CR>"),
+                button("S", "  Open last session", "<CMD>SessionManager load_last_session<CR>"),
             },
         }
     end

@@ -4,6 +4,7 @@ local icons = {
     info = "",
     degug = "",
     trace = "✎",
+    lightbulb = "",
 }
 
 return icons

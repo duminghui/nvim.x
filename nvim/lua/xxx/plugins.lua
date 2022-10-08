@@ -85,6 +85,7 @@ local plugins = {
     },
 
     {
+        -- vim.ui.select, vim.ui.input hooks
         'stevearc/dressing.nvim',
         config = function()
             require("xxx.plugin-config.dressing").setup()
@@ -102,83 +103,115 @@ local plugins = {
     { "Tastyep/structlog.nvim" },
 
 
-    -- Install nvim-cmp, and buffer source as a dependency
     {
-        "hrsh7th/nvim-cmp",
-        config = function()
-            require("xxx.plugin-config.cmp").setup()
-        end,
-        requires = {
-            "L3MON4D3/LuaSnip",
+        -- Install nvim-cmp, and buffer source as a dependency
+        {
+            "hrsh7th/nvim-cmp",
+            config = function()
+                require("xxx.plugin-config.cmp").setup()
+            end,
+            requires = {
+                "L3MON4D3/LuaSnip",
+            },
         },
-    },
-    {
-        "rafamadriz/friendly-snippets",
-    },
-    {
-        "L3MON4D3/LuaSnip",
-        config = function()
-            local utils = require "xxx.utils"
-            local paths = {}
-            paths[#paths + 1] = utils.join_paths(get_runtime_dir(), "site", "pack", "packer", "start",
-                "friendly-snippets")
-            local user_snippets = utils.join_paths(get_config_dir(), "snippets")
-            if utils.is_directory(user_snippets) then
-                paths[#paths + 1] = user_snippets
-            end
-            require("luasnip.loaders.from_lua").lazy_load()
-            require("luasnip.loaders.from_vscode").lazy_load {
-                paths = paths,
-            }
-            require("luasnip.loaders.from_snipmate").lazy_load()
-        end,
-        requires = {
+        {
             "rafamadriz/friendly-snippets",
         },
-    },
-    {
-        "hrsh7th/cmp-nvim-lsp",
-    },
-    {
-        "saadparwaiz1/cmp_luasnip",
-    },
-    {
-        "hrsh7th/cmp-buffer",
-    },
-    {
-        "hrsh7th/cmp-path",
-    },
-    {
-        -- vim functions for dev
-        "folke/lua-dev.nvim",
-        module = "lua-dev",
+        {
+            "L3MON4D3/LuaSnip",
+            config = function()
+                local utils = require "xxx.utils"
+                local paths = {}
+                paths[#paths + 1] = utils.join_paths(get_runtime_dir(), "site", "pack", "packer", "start",
+                    "friendly-snippets")
+                local user_snippets = utils.join_paths(get_config_dir(), "snippets")
+                if utils.is_directory(user_snippets) then
+                    paths[#paths + 1] = user_snippets
+                end
+                require("luasnip.loaders.from_lua").lazy_load()
+                require("luasnip.loaders.from_vscode").lazy_load {
+                    paths = paths,
+                }
+                require("luasnip.loaders.from_snipmate").lazy_load()
+            end,
+            requires = {
+                "rafamadriz/friendly-snippets",
+            },
+        },
+        {
+            "hrsh7th/cmp-nvim-lsp",
+        },
+        {
+            "saadparwaiz1/cmp_luasnip",
+        },
+        {
+            "hrsh7th/cmp-buffer",
+        },
+        {
+            "hrsh7th/cmp-path",
+        },
+        {
+            -- vim functions for dev
+            "folke/lua-dev.nvim",
+            module = "lua-dev",
+        },
     },
 
-    -- install and manager LSP, DAP, linters, formatters
-    { "williamboman/mason-lspconfig.nvim" },
-    { "neovim/nvim-lspconfig" },
-    {
-        "williamboman/mason.nvim",
-        config = function()
-            require("xxx.plugin-config.mason").setup()
-        end
-    },
-    {
-        -- null-ls是一个将非LSP的包与nvim内置LSP客户端整合的插件
-        "jose-elias-alvarez/null-ls.nvim",
-    },
-    {
-        -- A plugin to configure Neovim LSP using json/yaml
-        "tamago324/nlsp-settings.nvim",
-    },
-    {
-        -- breadcrumbs
-        -- 不提供显示功能, 需要其他插件显示
-        'SmiteshP/nvim-navic',
-        requires = { "neovim/nvim-lspconfig" },
-        config = function()
-            require("xxx.plugin-config.breadcrumbs").setup()
-        end
+    { -- install and manager LSP, DAP, linters, formatters
+        { "neovim/nvim-lspconfig" },
+        { "williamboman/mason-lspconfig.nvim" },
+        {
+            "williamboman/mason.nvim",
+            config = function()
+                require("xxx.plugin-config.mason").setup()
+            end
+        },
+        {
+            -- Standalone UI for nvim-lsp progress.
+            "j-hui/fidget.nvim",
+            config = function()
+                require("xxx.plugin-config.fidget").setup()
+            end
+        },
+        {
+            'folke/lsp-colors.nvim',
+            config = function()
+                require("xxx.plugin-config.lsp-colors").setup()
+            end
+        },
+        {
+            -- null-ls是一个将非LSP的包与nvim内置LSP客户端整合的插件
+            "jose-elias-alvarez/null-ls.nvim",
+        },
+        {
+            -- A plugin to configure Neovim LSP using json/yaml
+            "tamago324/nlsp-settings.nvim",
+        },
+        -- {
+        --     -- breadcrumbs
+        --     -- 不提供显示功能, 需要其他插件显示
+        --     'SmiteshP/nvim-navic',
+        --     requires = { "neovim/nvim-lspconfig" },
+        --     config = function()
+        --         require("xxx.plugin-config.breadcrumbs").setup()
+        --     end
+        -- },
+        {
+            "folke/trouble.nvim",
+            requires = "kyazdani42/nvim-web-devicons",
+            config = function()
+                require("xxx.plugin-config.trouble").setup()
+            end,
+        },
+        {
+            -- has breadcrumbs
+            "glepnir/lspsaga.nvim",
+            branch = "main",
+            config = function()
+                require("xxx.plugin-config.lspsaga").setup()
+            end,
+            disable = true,
+        },
     },
 
 
@@ -230,6 +263,7 @@ local plugins = {
         config = function()
             require("xxx.plugin-config.illuminate").setup()
         end,
+        disable = false,
     },
 
     -- Autopairs
@@ -272,6 +306,13 @@ local plugins = {
         config = function()
             require("xxx.plugin-config.alpha").setup()
         end,
+    },
+
+    {
+        "Shatur/neovim-session-manager",
+        config = function()
+            require("xxx.plugin-config.session-manager").setup()
+        end
     },
 
     {
