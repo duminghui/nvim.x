@@ -58,16 +58,16 @@ M.setup = function()
         },
     }
 
-    local ts_conds = require "nvim-autopairs.ts-conds"
+    -- local ts_conds = require "nvim-autopairs.ts-conds"
 
     -- TODO: can these rules be safely added from "config.lua" ?
     -- press % => %% is only inside comment or string
-    local Rule = require "nvim-autopairs.rule"
+    -- local Rule = require "nvim-autopairs.rule"
 
-    autopairs.add_rules {
-        Rule("%", "%", "lua"):with_pair(ts_conds.is_ts_node { "string", "comment" }),
-        Rule("$", "$", "lua"):with_pair(ts_conds.is_not_ts_node { "function" }),
-    }
+    -- autopairs.add_rules {
+    --     Rule("%", "%", "lua"):with_pair(ts_conds.is_ts_node { "string", "comment" }),
+    --     Rule("$", "$", "lua"):with_pair(ts_conds.is_not_ts_node { "function" }),
+    -- }
 
     pcall(function()
         local cmp_autopairs = require "nvim-autopairs.completion.cmp"

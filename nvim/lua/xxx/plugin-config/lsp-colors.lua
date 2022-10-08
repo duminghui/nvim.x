@@ -12,7 +12,12 @@ M.opts = {
 }
 
 M.setup = function()
-    require("lsp-colors").setup(M.opts)
+
+    local status_ok, lsp_colors = pcall(require, "lsp_colors")
+    if not status_ok then
+        return
+    end
+    lsp_colors.setup(M.opts)
 end
 
 

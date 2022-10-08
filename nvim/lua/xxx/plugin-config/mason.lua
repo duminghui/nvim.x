@@ -46,8 +46,12 @@ M.opts = {
 }
 
 M.setup = function()
-    --   vim.pretty_print(M.opts)
-    require "mason".setup(M.opts)
+    local status_ok, mason = pcall(require, "mason")
+    if not status_ok then
+        return
+    end
+
+    mason.setup(M.opts)
     require("mason-lspconfig").setup()
 
 end

@@ -5,7 +5,7 @@ local plugins = {
     {
         'NvChad/nvim-colorizer.lua',
         config = function()
-            require('colorizer').setup()
+            require('xxx.plugin-config.colorizer').setup()
         end
     },
     {
@@ -114,42 +114,20 @@ local plugins = {
                 "L3MON4D3/LuaSnip",
             },
         },
-        {
-            "rafamadriz/friendly-snippets",
-        },
+        { "rafamadriz/friendly-snippets", },
         {
             "L3MON4D3/LuaSnip",
             config = function()
-                local utils = require "xxx.utils"
-                local paths = {}
-                paths[#paths + 1] = utils.join_paths(get_runtime_dir(), "site", "pack", "packer", "start",
-                    "friendly-snippets")
-                local user_snippets = utils.join_paths(get_config_dir(), "snippets")
-                if utils.is_directory(user_snippets) then
-                    paths[#paths + 1] = user_snippets
-                end
-                require("luasnip.loaders.from_lua").lazy_load()
-                require("luasnip.loaders.from_vscode").lazy_load {
-                    paths = paths,
-                }
-                require("luasnip.loaders.from_snipmate").lazy_load()
+                require("xxx.plugin-config.luasnip").setup()
             end,
             requires = {
                 "rafamadriz/friendly-snippets",
             },
         },
-        {
-            "hrsh7th/cmp-nvim-lsp",
-        },
-        {
-            "saadparwaiz1/cmp_luasnip",
-        },
-        {
-            "hrsh7th/cmp-buffer",
-        },
-        {
-            "hrsh7th/cmp-path",
-        },
+        { "hrsh7th/cmp-nvim-lsp", },
+        { "saadparwaiz1/cmp_luasnip", },
+        { "hrsh7th/cmp-buffer", },
+        { "hrsh7th/cmp-path", },
         {
             -- vim functions for dev
             "folke/lua-dev.nvim",
@@ -157,7 +135,8 @@ local plugins = {
         },
     },
 
-    { -- install and manager LSP, DAP, linters, formatters
+    {
+        -- install and manager LSP, DAP, linters, formatters
         { "neovim/nvim-lspconfig" },
         { "williamboman/mason-lspconfig.nvim" },
         {
@@ -177,7 +156,8 @@ local plugins = {
             'folke/lsp-colors.nvim',
             config = function()
                 require("xxx.plugin-config.lsp-colors").setup()
-            end
+            end,
+            disable = false,
         },
         {
             -- null-ls是一个将非LSP的包与nvim内置LSP客户端整合的插件
@@ -210,10 +190,9 @@ local plugins = {
             config = function()
                 require("xxx.plugin-config.lspsaga").setup()
             end,
-            disable = true,
+            disable = false,
         },
     },
-
 
     -- Treesitter
     {
@@ -228,7 +207,7 @@ local plugins = {
         -- 代码吸顶
         "nvim-treesitter/nvim-treesitter-context",
         config = function()
-            require('treesitter-context').setup()
+            require('xxx.plugin-config.treesitter-context').setup()
         end,
     },
     {

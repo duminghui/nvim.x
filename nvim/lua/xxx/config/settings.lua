@@ -30,7 +30,7 @@ local default_options = {
     -- number column width
     -- numberwidth = 4,
     --- always show the sign column, otherwise it would shift the text each time
-    -- signcolumn = "yes",
+    signcolumn = "yes:1",
     guifont = "monospace:h13",
 
     wrap = true,

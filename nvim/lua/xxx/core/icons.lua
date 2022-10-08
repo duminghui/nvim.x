@@ -1,7 +1,8 @@
 local icons = {
     error = "",
     warn = "",
-    info = "",
+    info = "",
+    hint = "",
     degug = "",
     trace = "✎",
     lightbulb = "",

@@ -13,7 +13,7 @@ function M.setup(lsp_opts)
     }
     vim.diagnostic.config(config)
     -- if not xvim.illuminate.active then
-    vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, lsp_opts.float)
+    -- vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, lsp_opts.float)
     -- end
     vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, lsp_opts.float)
 end

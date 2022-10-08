@@ -75,7 +75,11 @@ local options = {
         underline = true,
         severity_sort = true,
         float = diagnostic_float,
-
+    },
+    float = {
+        focusable = true,
+        style = "minimal",
+        border = "single",
     },
     automatic_configuration = {
         ---@usage list of servers that the automatic installer will skip

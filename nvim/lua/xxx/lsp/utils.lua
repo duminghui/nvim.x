@@ -83,8 +83,9 @@ function M.get_all_supported_filetypes()
 end
 
 function M.setup_document_highlight(client, bufnr)
-    -- if xvim.builtin.illuminate.active then
-    if true then
+    local illuminate_ok, illuminate = pcall(require, "illuminate")
+    if illuminate_ok then
+        illuminate.on_attach(client)
         Log:debug "skipping setup for document_highlight, illuminate already active"
         return
     end
@@ -94,6 +95,8 @@ function M.setup_document_highlight(client, bufnr)
     if not status_ok or not highlight_supported then
         return
     end
+    -- 触发条件为CursorHold, CursorHoldI
+    -- 光标停留一段时间后
     local group = "lsp_document_highlight"
     local hl_events = { "CursorHold", "CursorHoldI" }
 

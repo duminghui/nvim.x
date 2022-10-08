@@ -49,7 +49,11 @@ M.opts = {
 }
 
 M.setup = function()
-    require("trouble").setup(M.opts)
+    local status_ok, trouble = pcall(require, "trouble")
+    if not status_ok then
+        return
+    end
+    trouble.setup(M.opts)
     -- config in lsp/config.lua
     -- vim.keymap.set("n", "gR", "<cmd>Trouble lsp_references<CR>", { silent = true, noremap = true })
 end

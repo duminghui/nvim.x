@@ -207,8 +207,11 @@ M.opts = {
 
 
 M.setup = function()
-    --   vim.pretty_print(M.opts)
-    require("bufferline").setup(M.opts)
+    local status_ok, bufferline = pcall(require, "bufferline")
+    if not status_ok then
+        return
+    end
+    bufferline.setup(M.opts)
 end
 
 return M

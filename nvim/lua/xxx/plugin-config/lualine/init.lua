@@ -12,7 +12,13 @@ M.setup = function()
         return
     end
 
-    require "lualine".setup(M.opts)
+    local status_ok, lualine = pcall(require, "lualine")
+    if not status_ok then
+        return
+    end
+
+
+    lualine.setup(M.opts)
 
 end
 

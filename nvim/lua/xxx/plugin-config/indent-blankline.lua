@@ -24,7 +24,12 @@ M.setup = function()
     -- vim.opt.listchars:append "space:⋅"
     -- vim.opt.listchars:append "eol:↴"
     --   vim.pretty_print(M.opts)
-    require "indent_blankline".setup(M.opts)
+    local status_ok, indent_blankline = pcall(require, "indent_blankline")
+    if not status_ok then
+        return
+    end
+
+    indent_blankline.setup(M.opts)
 end
 
 M.set_highlight = function()

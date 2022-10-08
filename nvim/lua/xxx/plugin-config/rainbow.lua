@@ -23,7 +23,11 @@ M.opts = {
 }
 
 M.setup = function()
-    require("nvim-treesitter.configs").setup(M.opts.treesitter)
+    local status_ok, configs = pcall(require, "nvim-treesitter.configs")
+    if not status_ok then
+        return
+    end
+    configs.setup(M.opts.treesitter)
 end
 
 M.set_highlight = function()

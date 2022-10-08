@@ -71,15 +71,15 @@ M.opts = {
     -- and set it to your custom winbar or some winbar plugins.
     -- if in_cusomt = true you must set in_enable to false
     symbol_in_winbar = {
-        in_custom = false,
-        enable = true,
+        in_custom = true, -- 使用自定义可以一直显示winbar
+        enable = false,
         separator = '  ',
         show_file = true,
         -- define how to customize filename, eg: %:., %
         -- if not set, use default value `%:t`
         -- more information see `vim.fn.expand` or `expand`
         -- ## only valid after set `show_file = true`
-        file_formatter = "",
+        file_formatter = "%:.",
         click_support = false,
     },
     -- show outline
@@ -122,21 +122,23 @@ local function get_file_name(include_path)
     return file_path .. file_name
 end
 
+local filetype_exclude = {
+    "",
+    "dashboard",
+    'alpha',
+    'terminal',
+    'toggleterm',
+    'prompt',
+    'NvimTree',
+    'Trouble',
+    'lspsaga',
+    'lspsagaoutline',
+    'lspsagafinder',
+    'help',
+} -- Ignore float windows and exclude filetype
+
 local function config_winbar_or_statusline()
-    local exclude = {
-        ["dashboard"] = true,
-        ['alpha'] = true,
-        ['terminal'] = true,
-        ['toggleterm'] = true,
-        ['prompt'] = true,
-        ['NvimTree'] = true,
-        ['Trouble'] = true,
-        ['lspsaga'] = true,
-        ['lspsagaoutline'] = true,
-        ['lspsagafinder'] = true,
-        ['help'] = true,
-    } -- Ignore float windows and exclude filetype
-    if vim.api.nvim_win_get_config(0).zindex or exclude[vim.bo.filetype] then
+    if vim.api.nvim_win_get_config(0).zindex or vim.tbl_contains(filetype_exclude, vim.bo.filetype) then
         vim.wo.winbar = ''
     else
         local ok, lspsaga = pcall(require, 'lspsaga.symbolwinbar')
@@ -151,20 +153,30 @@ local function config_winbar_or_statusline()
     end
 end
 
-local events = { 'BufEnter', 'BufWinEnter', 'CursorMoved' }
+local function set_breadcrumbs_autocmd()
+    local events = { 'BufEnter', 'BufWinEnter', 'CursorMoved' }
 
-vim.api.nvim_create_autocmd(events, {
-    pattern = '*',
-    callback = function() config_winbar_or_statusline() end,
-})
+    vim.api.nvim_create_autocmd(events, {
+        pattern = '*',
+        callback = function() config_winbar_or_statusline() end,
+    })
 
-vim.api.nvim_create_autocmd('User', {
-    pattern = 'LspsagaUpdateSymbol',
-    callback = function() config_winbar_or_statusline() end,
-})
+    vim.api.nvim_create_autocmd('User', {
+        pattern = 'LspsagaUpdateSymbol',
+        callback = function() config_winbar_or_statusline() end,
+    })
+end
 
 M.setup = function()
-    require("lspsaga").init_lsp_saga(M.opts)
+    local status_ok, lspsaga = pcall(require, "lspsaga")
+    if not status_ok then
+        return
+    end
+
+    lspsaga.init_lsp_saga(M.opts)
+    if M.opts.symbol_in_winbar.in_custom then
+        set_breadcrumbs_autocmd()
+    end
 end
 
 return M

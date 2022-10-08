@@ -73,8 +73,11 @@ M.opts = {
 }
 
 M.setup = function()
-    -- vim.pretty_print(M.opts)
-    require "gitsigns".setup(M.opts)
+    local status_ok, gitsigns = pcall(require, "gitsigns")
+    if not status_ok then
+        return
+    end
+    gitsigns.setup(M.opts)
 end
 
 return M

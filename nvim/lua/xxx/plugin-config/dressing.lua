@@ -162,7 +162,11 @@ M.opts = {
 }
 
 M.setup = function()
-    require('dressing').setup(M.opts)
+    local status_ok, dressing = pcall(require, "dressing")
+    if not status_ok then
+        return
+    end
+    dressing.setup(M.opts)
 end
 
 return M

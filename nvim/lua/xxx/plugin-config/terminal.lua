@@ -45,8 +45,11 @@ M.opts = {
 }
 
 M.setup = function()
-    local terminal = require "toggleterm"
-    terminal.setup(M.opts)
+    local status_ok, toggleterm = pcall(require, "toggleterm")
+    if not status_ok then
+        return
+    end
+    toggleterm.setup(M.opts)
     for i, exec in pairs(M.opts.execs) do
         local opts = {
             cmd       = exec[1],
