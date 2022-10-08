@@ -18,7 +18,9 @@ local plugins = {
     { 'kyazdani42/nvim-web-devicons', },
     {
         'akinsho/bufferline.nvim',
-        tag = "v2.*",
+        -- tag = "v2.*",
+        branch = "main",
+        -- event = "BufWinEnter",
         requires = 'kyazdani42/nvim-web-devicons',
         config = function()
             require('xxx.plugin-config.bufferline').setup()
