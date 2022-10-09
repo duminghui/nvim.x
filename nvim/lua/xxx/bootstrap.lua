@@ -11,6 +11,7 @@ end
 local uv = vim.loop
 local path_sep = uv.os_uname().version:match "Windows" and "\\" or "/"
 local in_headless = #vim.api.nvim_list_uis() == 0
+local Log = require("xxx.core.log")
 
 ---Join path segments that were passed as input
 ---@return string
@@ -121,7 +122,10 @@ function M:init(root_dir, base_dir)
     vim.cmd [[let &packpath = &runtimepath]]
     -- end
 
+    Log:debug(string.format("in_headless: %s", in_headless))
+    -- FIXME: currently unreliable in unit-tests
     if not in_headless then
+        Log:debug("Use impatient")
         _G.PLENARY_DEBUG = false
         require "xxx.impatient"
     end

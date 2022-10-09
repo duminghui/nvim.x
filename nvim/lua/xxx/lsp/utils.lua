@@ -83,12 +83,13 @@ function M.get_all_supported_filetypes()
 end
 
 function M.setup_document_highlight(client, bufnr)
-    local illuminate_ok, illuminate = pcall(require, "illuminate")
-    if illuminate_ok then
-        illuminate.on_attach(client)
-        Log:debug "skipping setup for document_highlight, illuminate already active"
-        return
-    end
+    -- 使用这个会影响到illuminate的Alt-N和Alt-P的功能
+    -- local illuminate_ok, illuminate = pcall(require, "illuminate")
+    -- if illuminate_ok then
+    --     illuminate.on_attach(client)
+    --     Log:debug "skipping setup for document_highlight, illuminate already active"
+    --     return
+    -- end
     local status_ok, highlight_supported = pcall(function()
         return client.supports_method "textDocument/documentHighlight"
     end)

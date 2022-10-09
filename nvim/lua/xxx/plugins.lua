@@ -1,6 +1,73 @@
 local plugins = {
     { 'wbthomason/packer.nvim' },
 
+    -- Log --
+    {
+        "rcarriga/nvim-notify",
+        config = function()
+            require("xxx.plugin-config.notify").setup()
+        end,
+    },
+    { "Tastyep/structlog.nvim" },
+
+    {
+        "folke/which-key.nvim",
+        config = function()
+            require("xxx.plugin-config.which-key").setup()
+        end,
+        event = "BufWinEnter",
+    },
+    {
+        'phaazon/hop.nvim',
+        branch = 'v2', -- optional but strongly recommended
+        config = function()
+            require("xxx.plugin-config.hop").setup()
+        end
+    },
+
+    {
+        "kylechui/nvim-surround",
+        config = function()
+            require("xxx.plugin-config.surround").setup()
+        end,
+    },
+
+    -- Autopairs
+    {
+        "windwp/nvim-autopairs",
+        -- event = "InsertEnter",
+        config = function()
+            require("xxx.plugin-config.autopairs").setup()
+        end,
+    },
+
+    -- { "nvim-lua/popup.nvim", opt = true },
+    { "nvim-lua/plenary.nvim" },
+    {
+        -- 列表模糊搜索框架, 高扩展
+        -- need install BurntSushi/ripgrep
+        -- :Telescope find_files<cr>
+        "nvim-telescope/telescope.nvim",
+        branch = "0.1.x",
+        requires = { 'nvim-lua/plenary.nvim' },
+        config = function()
+            require("xxx.plugin-config.telescope").setup()
+        end,
+    },
+    -- { 'nvim-telescope/telescope-ui-select.nvim' },
+    {
+        "nvim-telescope/telescope-fzf-native.nvim",
+        requires = { "nvim-telescope/telescope.nvim" },
+        run = "make",
+    },
+    {
+        -- vim.ui.select, vim.ui.input hooks
+        'stevearc/dressing.nvim',
+        config = function()
+            require("xxx.plugin-config.dressing").setup()
+        end
+    },
+
     -- theme
     {
         'NvChad/nvim-colorizer.lua',
@@ -13,6 +80,10 @@ local plugins = {
         config = function()
             require('xxx.plugin-config.onedark').setup()
         end,
+    },
+    {
+        -- SchemaStore
+        "b0o/schemastore.nvim",
     },
 
     { 'kyazdani42/nvim-web-devicons', },
@@ -33,14 +104,6 @@ local plugins = {
         config = function()
             require("xxx.plugin-config.lualine").setup()
         end,
-    },
-
-    {
-        "lewis6991/gitsigns.nvim",
-        config = function()
-            require("xxx.plugin-config.gitsigns").setup()
-        end,
-        event = "BufRead",
     },
 
     {
@@ -66,75 +129,53 @@ local plugins = {
         disable = true, -- use NvimTree
     },
 
-    -- { "nvim-lua/popup.nvim", opt = true },
-    { "nvim-lua/plenary.nvim" },
+    -- alpha
     {
-        -- 列表模糊搜索框架, 高扩展
-        -- need install BurntSushi/ripgrep
-        -- :Telescope find_files<cr>
-        "nvim-telescope/telescope.nvim",
-        branch = "0.1.x",
-        requires = { 'nvim-lua/plenary.nvim' },
+        "goolord/alpha-nvim",
         config = function()
-            require("xxx.plugin-config.telescope").setup()
+            require("xxx.plugin-config.alpha").setup()
         end,
     },
-    -- { 'nvim-telescope/telescope-ui-select.nvim' },
     {
-        "nvim-telescope/telescope-fzf-native.nvim",
-        requires = { "nvim-telescope/telescope.nvim" },
-        run = "make",
-    },
-
-    {
-        -- vim.ui.select, vim.ui.input hooks
-        'stevearc/dressing.nvim',
+        "Shatur/neovim-session-manager",
         config = function()
-            require("xxx.plugin-config.dressing").setup()
+            require("xxx.plugin-config.session-manager").setup()
         end
     },
-
-    -- Log --
     {
-        "rcarriga/nvim-notify",
+        "ahmedkhalf/project.nvim",
         config = function()
-            require("xxx.plugin-config.notify").setup()
+            require("xxx.plugin-config.project").setup()
         end,
     },
 
-    { "Tastyep/structlog.nvim" },
-
+    {
+        "p00f/nvim-ts-rainbow",
+        config = function()
+            require("xxx.plugin-config.rainbow").setup()
+        end,
+    },
+    {
+        "lukas-reineke/indent-blankline.nvim",
+        config = function()
+            require("xxx.plugin-config.indent-blankline").setup()
+        end,
+    },
+    {
+        -- 高亮显示相同的单词
+        "RRethy/vim-illuminate",
+        config = function()
+            require("xxx.plugin-config.illuminate").setup()
+        end,
+        disable = false,
+    },
 
     {
-        -- Install nvim-cmp, and buffer source as a dependency
-        {
-            "hrsh7th/nvim-cmp",
-            config = function()
-                require("xxx.plugin-config.cmp").setup()
-            end,
-            requires = {
-                "L3MON4D3/LuaSnip",
-            },
-        },
-        { "rafamadriz/friendly-snippets", },
-        {
-            "L3MON4D3/LuaSnip",
-            config = function()
-                require("xxx.plugin-config.luasnip").setup()
-            end,
-            requires = {
-                "rafamadriz/friendly-snippets",
-            },
-        },
-        { "hrsh7th/cmp-nvim-lsp", },
-        { "saadparwaiz1/cmp_luasnip", },
-        { "hrsh7th/cmp-buffer", },
-        { "hrsh7th/cmp-path", },
-        {
-            -- vim functions for dev
-            "folke/lua-dev.nvim",
-            module = "lua-dev",
-        },
+        "lewis6991/gitsigns.nvim",
+        config = function()
+            require("xxx.plugin-config.gitsigns").setup()
+        end,
+        event = "BufRead",
     },
 
     {
@@ -196,6 +237,48 @@ local plugins = {
         },
     },
 
+    {
+        -- Install nvim-cmp, and buffer source as a dependency
+        {
+            "hrsh7th/nvim-cmp",
+            config = function()
+                require("xxx.plugin-config.cmp").setup()
+            end,
+            requires = {
+                "L3MON4D3/LuaSnip",
+            },
+        },
+        { "rafamadriz/friendly-snippets", },
+        {
+            "L3MON4D3/LuaSnip",
+            config = function()
+                require("xxx.plugin-config.luasnip").setup()
+            end,
+            requires = {
+                "rafamadriz/friendly-snippets",
+            },
+        },
+        { "hrsh7th/cmp-nvim-lsp", },
+        { "saadparwaiz1/cmp_luasnip", },
+        { "hrsh7th/cmp-buffer", },
+        { "hrsh7th/cmp-path", },
+        {
+            -- vim functions for dev
+            "folke/lua-dev.nvim",
+            module = "lua-dev",
+        },
+    },
+
+
+    -- Comments
+    {
+        "numToStr/Comment.nvim",
+        event = "BufRead",
+        config = function()
+            require("xxx.plugin-config.comment").setup()
+        end,
+    },
+
     -- Treesitter
     {
         -- highlight, linter, formater, indent framework
@@ -220,50 +303,6 @@ local plugins = {
             require("xxx.plugin-config.ts-context-commentstring").setup()
         end,
     },
-    {
-        "p00f/nvim-ts-rainbow",
-        config = function()
-            require("xxx.plugin-config.rainbow").setup()
-        end,
-    },
-    {
-        "lukas-reineke/indent-blankline.nvim",
-        config = function()
-            require("xxx.plugin-config.indent-blankline").setup()
-        end,
-    },
-
-    {
-        -- SchemaStore
-        "b0o/schemastore.nvim",
-    },
-
-    {
-        -- 高亮显示相同的字符
-        "RRethy/vim-illuminate",
-        config = function()
-            require("xxx.plugin-config.illuminate").setup()
-        end,
-        disable = false,
-    },
-
-    -- Autopairs
-    {
-        "windwp/nvim-autopairs",
-        -- event = "InsertEnter",
-        config = function()
-            require("xxx.plugin-config.autopairs").setup()
-        end,
-    },
-
-    -- Comments
-    {
-        "numToStr/Comment.nvim",
-        event = "BufRead",
-        config = function()
-            require("xxx.plugin-config.comment").setup()
-        end,
-    },
 
     {
         "akinsho/toggleterm.nvim",
@@ -272,36 +311,6 @@ local plugins = {
         config = function()
             require("xxx.plugin-config.terminal").setup()
         end,
-    },
-
-    {
-        "ahmedkhalf/project.nvim",
-        config = function()
-            require("xxx.plugin-config.project").setup()
-        end,
-    },
-
-    -- alpha
-    {
-        "goolord/alpha-nvim",
-        config = function()
-            require("xxx.plugin-config.alpha").setup()
-        end,
-    },
-
-    {
-        "Shatur/neovim-session-manager",
-        config = function()
-            require("xxx.plugin-config.session-manager").setup()
-        end
-    },
-
-    {
-        "folke/which-key.nvim",
-        config = function()
-            require("xxx.plugin-config.which-key").setup()
-        end,
-        event = "BufWinEnter",
     },
 
 }

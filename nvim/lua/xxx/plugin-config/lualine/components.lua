@@ -115,7 +115,7 @@ return {
         color = function()
             local buf = vim.api.nvim_get_current_buf()
             local ts = vim.treesitter.highlighter.active[buf]
-            return { fg = ts and not vim.tbl_isempty(ts) and colors.green or colors.red }
+            return { fg = ts and not vim.tbl_isempty(ts) and colors.green or colors.orange }
         end,
         padding = { right = 1 },
         cond = conditions.hide_in_width,
