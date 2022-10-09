@@ -9,6 +9,7 @@ function M:init()
 end
 
 function M:load()
+    Log:set_level(xvim.log.level)
     Log:debug("config:load")
 end
 

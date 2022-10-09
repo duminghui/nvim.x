@@ -1,7 +1,7 @@
 xvim = {
     log = {
         ---@usage can be { "trace", "debug", "info", "warn", "error", "fatal" },
-        level = "warn",
+        level = "debug",
         viewer = {
             ---@usage this will fallback on "less +F" if not found
             cmd = "lnav",

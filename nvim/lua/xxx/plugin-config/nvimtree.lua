@@ -10,7 +10,6 @@ local function telescope_live_grep(_)
 end
 
 M.opts = {
-    sort_by = nil,
     ignore_ft_on_setup = {
         "startify",
         "dashboard",
@@ -104,6 +103,7 @@ M.opts = {
             },
         },
         highlight_git = true,
+        group_empty = false,
         root_folder_modifier = ":t",
     },
     filters = {
