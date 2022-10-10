@@ -1,4 +1,4 @@
-xvim = {
+Xvim = {
     -- colorscheme = "onedarkpro",
     colorscheme = "onedark",
     lualine = {

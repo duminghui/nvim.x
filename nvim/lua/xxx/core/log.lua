@@ -38,7 +38,7 @@ function Log:init()
         return nil
     end
 
-    local log_level = Log.levels[(xvim.log.level):upper() or "WARN"]
+    local log_level = Log.levels[(Xvim.log.level):upper() or "WARN"]
     local nvimx_log = {
         nvimx = {
             sinks = {
@@ -74,7 +74,7 @@ function Log:init()
     local logger = structlog.get_logger "nvimx"
 
     -- Overwrite `vim.notify` to use the logger
-    if xvim.log.override_notify then
+    if Xvim.log.override_notify then
         vim.notify = function(msg, vim_log_level, opts)
             notify_opts = opts or {}
 

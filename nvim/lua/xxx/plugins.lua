@@ -24,7 +24,7 @@ local plugins = {
                 require('xxx.plugin-config.colorscheme').setup()
             end,
             -- opt = true,
-            disable = xvim.colorscheme ~= "onedarkpro"
+            disable = Xvim.colorscheme ~= "onedarkpro"
         },
         {
             'navarasu/onedark.nvim',
@@ -32,7 +32,7 @@ local plugins = {
                 require('xxx.plugin-config.colorscheme').setup()
             end,
             -- opt = true,
-            disable = xvim.colorscheme ~= "onedark"
+            disable = Xvim.colorscheme ~= "onedark"
             -- disable = true,
         },
         {

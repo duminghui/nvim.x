@@ -3,7 +3,7 @@ local M = {
     theme = "auto",
 }
 
-M.opts = require("xxx.plugin-config.lualine.styles").get_style(xvim.lualine.style)
+M.opts = require("xxx.plugin-config.lualine.styles").get_style(Xvim.lualine.style)
 
 M.setup = function()
     -- avoid running in headless mode since it's harder to detect failures
@@ -19,14 +19,14 @@ M.setup = function()
 
 
     local theme_supported, _ = pcall(function()
-        require("lualine.utils.loader").load_theme(xvim.lualine.colorscheme)
+        require("lualine.utils.loader").load_theme(Xvim.lualine.colorscheme)
     end)
     if not theme_supported then
         vim.schedule(function()
-            vim.notify("lualine load theme '" .. xvim.colorscheme .. "' failed", vim.log.levels.WARN)
+            vim.notify("lualine load theme '" .. Xvim.colorscheme .. "' failed", vim.log.levels.WARN)
         end)
     else
-        M.opts.theme = xvim.lualine.colorscheme
+        M.opts.theme = Xvim.lualine.colorscheme
     end
 
     lualine.setup(M.opts)

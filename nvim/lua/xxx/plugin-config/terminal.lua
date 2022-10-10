@@ -86,7 +86,7 @@ M._exec_toggle = function(opts)
 end
 
 M.toggle_log_view = function(logfile)
-    local log_viewer = xvim.log.viewer.cmd
+    local log_viewer = Xvim.log.viewer.cmd
     if vim.fn.executable(log_viewer) ~= 1 then
         log_viewer = "less +F"
     end
@@ -94,11 +94,11 @@ M.toggle_log_view = function(logfile)
     log_viewer = log_viewer .. " " .. logfile
     local term_opts = vim.tbl_deep_extend("force", M.opts, {
         cmd = log_viewer,
-        open_mapping = xvim.log.viewer.layout_config.open_mapping,
-        direction = xvim.log.viewer.layout_config.direction,
+        open_mapping = Xvim.log.viewer.layout_config.open_mapping,
+        direction = Xvim.log.viewer.layout_config.direction,
         -- TODO: this might not be working as expected
-        size = xvim.log.viewer.layout_config.size,
-        float_opts = xvim.log.viewer.layout_config.float_opts,
+        size = Xvim.log.viewer.layout_config.size,
+        float_opts = Xvim.log.viewer.layout_config.float_opts,
     })
     local Terminal = require("toggleterm.terminal").Terminal
     local log_view = Terminal:new(term_opts)
