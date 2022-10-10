@@ -168,7 +168,7 @@ local function set_breadcrumbs_autocmd()
 end
 
 M.setup = function()
-    local status_ok, lspsaga = pcall(require, "lspsaga")
+    local status_ok, lspsaga = safe_require("lspsaga")
     if not status_ok then
         return
     end

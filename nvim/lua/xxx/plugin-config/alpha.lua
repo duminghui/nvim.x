@@ -71,7 +71,7 @@ local function configure_additional_autocmds()
 end
 
 M.setup = function()
-    local status_ok, alpha = pcall(require, "alpha")
+    local status_ok, alpha = safe_require("alpha")
     if not status_ok then
         return
     end

@@ -44,7 +44,7 @@ M.opts = {
 }
 
 M.setup = function()
-    local status_ok, illuminate = pcall(require, "illuminate")
+    local status_ok, illuminate = safe_require("illuminate")
     if not status_ok then
         return
     end

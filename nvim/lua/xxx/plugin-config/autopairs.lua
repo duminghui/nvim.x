@@ -45,7 +45,7 @@ M.opts = {
 }
 
 M.setup = function()
-    local status_ok, autopairs = pcall(require, "nvim-autopairs")
+    local status_ok, autopairs = safe_require("nvim-autopairs")
     if not status_ok then
         return
     end

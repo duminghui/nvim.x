@@ -45,7 +45,7 @@ M.opts = {
 }
 
 M.setup = function()
-    local status_ok, toggleterm = pcall(require, "toggleterm")
+    local status_ok, toggleterm = safe_require("toggleterm")
     if not status_ok then
         return
     end

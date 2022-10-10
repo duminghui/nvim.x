@@ -252,7 +252,7 @@ M.n_mappings = {
 
 
 M.setup = function()
-    local status_ok, which_key = pcall(require, "which-key")
+    local status_ok, which_key = safe_require("which-key")
     if not status_ok then
         return
     end

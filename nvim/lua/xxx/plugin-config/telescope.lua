@@ -168,7 +168,7 @@ local function load_extension(name)
 end
 
 function M.setup()
-    local status_ok, telescope = pcall(require, "telescope")
+    local status_ok, telescope = safe_require("telescope")
     if not status_ok then
         return
     end

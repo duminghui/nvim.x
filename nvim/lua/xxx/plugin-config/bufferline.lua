@@ -207,7 +207,7 @@ M.opts = {
 
 
 M.setup = function()
-    local status_ok, bufferline = pcall(require, "bufferline")
+    local status_ok, bufferline = safe_require("bufferline")
     if not status_ok then
         return
     end

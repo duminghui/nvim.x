@@ -79,7 +79,7 @@ M.opts = function()
 end
 
 function M.setup()
-    local status_ok, comment = pcall(require, "Comment")
+    local status_ok, comment = safe_require("Comment")
     if not status_ok then
         return
     end

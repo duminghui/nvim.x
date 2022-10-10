@@ -13,7 +13,7 @@ M.opts = {
 
 M.setup = function()
 
-    local status_ok, lsp_colors = pcall(require, "lsp_colors")
+    local status_ok, lsp_colors = safe_require("lsp-colors")
     if not status_ok then
         return
     end

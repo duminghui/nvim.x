@@ -4,7 +4,7 @@ M.opts  = {
 }
 
 M.setup = function()
-    local status_ok, hop = pcall(require, "hop")
+    local status_ok, hop = safe_require("hop")
     if not status_ok then
         return
     end

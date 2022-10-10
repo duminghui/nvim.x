@@ -53,7 +53,7 @@ M.opts = {
 }
 
 M.setup = function()
-    local status_ok, fidget = pcall(require, "fidget")
+    local status_ok, fidget = safe_require("fidget")
     if not status_ok then
         return
     end

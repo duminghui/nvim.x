@@ -153,21 +153,29 @@ M.opts = {
 M.nvimtree_setup_called = false
 
 M.setup = function()
-    local status_ok, nvim_tree = pcall(require, "nvim-tree")
+    local status_ok, nvim_tree = safe_require("nvim-tree")
     if not status_ok then
         Log:error "Failed to load nvim-tree"
         return
     end
 
-    local status_ok_1, utils = pcall(require, "nvim-tree.utils")
-    if not status_ok_1 then
-        return
-    end
+    local utils = require("nvim-tree.utils")
 
-    local function notify_level()
+
+    local function notify_level(log_level)
+        local msg_hl = ""
+        if log_level == vim.log.levels.DEBUG then
+            msg_hl = "MoreMsg"
+        elseif log_level == vim.log.levels.INFO then
+            msg_hl = "ModeMsg"
+        elseif log_level == vim.log.levels.WARN then
+            msg_hl = "WarningMsg"
+        elseif log_level == vim.log.levels.ERROR then
+            msg_hl = "ErrorMsg"
+        end
         return function(msg)
             vim.schedule(function()
-                vim.api.nvim_echo({ { msg, "WarningMsg" } }, false, {})
+                vim.api.nvim_echo({ { msg, msg_hl } }, false, {})
             end)
         end
     end

@@ -46,7 +46,7 @@ M.opts = {
 }
 
 M.setup = function()
-    local status_ok, mason = pcall(require, "mason")
+    local status_ok, mason = safe_require("mason")
     if not status_ok then
         return
     end

@@ -162,7 +162,7 @@ M.opts = {
 }
 
 M.setup = function()
-    local status_ok, dressing = pcall(require, "dressing")
+    local status_ok, dressing = safe_require("dressing")
     if not status_ok then
         return
     end

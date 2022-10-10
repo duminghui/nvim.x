@@ -49,7 +49,7 @@ M.opts = {
 }
 
 M.setup = function()
-    local status_ok, trouble = pcall(require, "trouble")
+    local status_ok, trouble = safe_require("trouble")
     if not status_ok then
         return
     end

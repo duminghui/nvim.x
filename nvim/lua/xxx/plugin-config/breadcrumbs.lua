@@ -44,7 +44,7 @@ M.opts = {
 }
 
 M.setup = function()
-    local status_ok, navic = pcall(require, "nvim-navic")
+    local status_ok, navic = safe_require("nvim-navic")
     if not status_ok then
         return
     end

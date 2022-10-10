@@ -2,7 +2,7 @@ local M = {}
 
 
 M.opts = function()
-    local status_ok, lir = pcall(require, "lir")
+    local status_ok, _ = safe_require("lir")
     if not status_ok then
         return
     end

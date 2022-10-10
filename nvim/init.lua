@@ -15,8 +15,10 @@ end
 -- \local\nvim.x
 local root_dir = nvim_base_dir:match("(.*[/\\])"):sub(1, -2)
 
+require "xxx.core.globals"
+
 -- 全局
-require "xxx.config.g"
+require "xxx.config.config"
 
 -- 配置rpt
 require("xxx.bootstrap"):init(root_dir, nvim_base_dir)

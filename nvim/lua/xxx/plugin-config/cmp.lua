@@ -291,7 +291,7 @@ end
 
 function M.setup()
     -- vim.opt.completeopt = "menu,menuone,noselect"
-    local status_ok, cmp = pcall(require, "cmp")
+    local status_ok, cmp = safe_require("cmp")
     if not status_ok then
         return
     end

@@ -72,7 +72,7 @@ M.opts = {
 M.setup = function()
 
     if Xvim.colorscheme == "onedarkpro" then
-        local status_ok, onedarkpro = pcall(require, "onedarkpro")
+        local status_ok, onedarkpro = safe_require("onedarkpro")
         if not status_ok then
             return
         end
@@ -80,7 +80,7 @@ M.setup = function()
         vim.g.colors_name = Xvim.colorscheme
         vim.api.nvim_command('colorscheme ' .. Xvim.colorscheme)
     elseif Xvim.colorscheme == "onedark" then
-        local status_ok, onedark = pcall(require, "onedark")
+        local status_ok, onedark = safe_require("onedark")
         if not status_ok then
             return
         end

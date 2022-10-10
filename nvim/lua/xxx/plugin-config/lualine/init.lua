@@ -12,7 +12,7 @@ M.setup = function()
         return
     end
 
-    local status_ok, lualine = pcall(require, "lualine")
+    local status_ok, lualine = safe_require("lualine")
     if not status_ok then
         return
     end

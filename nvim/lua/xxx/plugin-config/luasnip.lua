@@ -1,7 +1,7 @@
 local M = {}
 
 M.setup = function()
-    local status_ok, _ = pcall(require, "luasnip")
+    local status_ok, _ = safe_require("luasnip")
     if not status_ok then
         return
     end
