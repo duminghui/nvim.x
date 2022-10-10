@@ -10,6 +10,7 @@ local function telescope_live_grep(_)
 end
 
 M.opts = {
+    sort_by = function(nodes) end,
     ignore_ft_on_setup = {
         "startify",
         "dashboard",
