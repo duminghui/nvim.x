@@ -2,7 +2,6 @@ local plugin_loader = {}
 
 local utils = require "xxx.utils"
 local Log = require "xxx.core.log"
-local join_paths = utils.join_paths
 local in_headless = #vim.api.nvim_list_uis() == 0
 
 -- we need to reuse this outside of init()
@@ -16,7 +15,7 @@ function plugin_loader.init(opts)
     local install_path = opts.install_path or
         join_paths(vim.fn.stdpath "data", "site", "pack",
             "packer", "start", "packer.nvim")
-    compile_path = opts.compile_path or join_path(get_config_dir(), "plugin", "packer_compiled.lua")
+    compile_path = opts.compile_path or join_paths(get_config_dir(), "plugin", "packer_compiled.lua")
 
     local init_opts = {
         package_root = opts.package_root or

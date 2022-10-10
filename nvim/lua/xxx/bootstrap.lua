@@ -8,17 +8,8 @@ if vim.fn.has "nvim-0.7" ~= 1 then
     vim.cmd "cquit"
 end
 
-local uv = vim.loop
-local path_sep = uv.os_uname().version:match "Windows" and "\\" or "/"
 local in_headless = #vim.api.nvim_list_uis() == 0
 local Log = require("xxx.core.log")
-
----Join path segments that were passed as input
----@return string
-function _G.join_paths(...)
-    local result = table.concat({ ... }, path_sep)
-    return result
-end
 
 ---Require a module in protected mode without relying on its cached value
 ---@param module string

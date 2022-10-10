@@ -1,5 +1,3 @@
-local join_paths = require("xxx.utils").join_paths
-
 local skipped_servers = {
     "angularls",
     "ansiblels",
