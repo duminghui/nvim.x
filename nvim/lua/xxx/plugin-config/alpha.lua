@@ -59,15 +59,15 @@ local function configure_additional_autocmds()
         pattern = "alpha",
         command = "set showtabline=0 | autocmd BufLeave <buffer> set showtabline=" .. vim.opt.showtabline._value,
     })
-    local lualine_opts = require("xxx.plugin-config.lualine").opts
-    if not lualine_opts.options.globalstatus then
-        -- https://github.com/goolord/alpha-nvim/issues/42
-        vim.api.nvim_create_autocmd("FileType", {
-            group = group,
-            pattern = "alpha",
-            command = "set laststatus=0 | autocmd BufUnload <buffer> set laststatus=" .. vim.opt.laststatus._value,
-        })
-    end
+    -- local lualine_opts = require("xxx.plugin-config.lualine").opts
+    -- if not lualine_opts.options.globalstatus then
+    --     -- https://github.com/goolord/alpha-nvim/issues/42
+    --     vim.api.nvim_create_autocmd("FileType", {
+    --         group = group,
+    --         pattern = "alpha",
+    --         command = "set laststatus=0 | autocmd BufUnload <buffer> set laststatus=" .. vim.opt.laststatus._value,
+    --     })
+    -- end
 end
 
 M.setup = function()

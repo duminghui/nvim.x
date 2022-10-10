@@ -11,6 +11,37 @@ local plugins = {
     { "Tastyep/structlog.nvim" },
 
     {
+        -- theme
+        {
+            'NvChad/nvim-colorizer.lua',
+            config = function()
+                require('xxx.plugin-config.colorizer').setup()
+            end
+        },
+        {
+            "olimorris/onedarkpro.nvim",
+            config = function()
+                require('xxx.plugin-config.colorscheme').setup()
+            end,
+            -- opt = true,
+            disable = xvim.colorscheme ~= "onedarkpro"
+        },
+        {
+            'navarasu/onedark.nvim',
+            config = function()
+                require('xxx.plugin-config.colorscheme').setup()
+            end,
+            -- opt = true,
+            disable = xvim.colorscheme ~= "onedark"
+            -- disable = true,
+        },
+        {
+            -- SchemaStore
+            "b0o/schemastore.nvim",
+        },
+    },
+
+    {
         "folke/which-key.nvim",
         config = function()
             require("xxx.plugin-config.which-key").setup()
@@ -42,7 +73,7 @@ local plugins = {
     },
 
     -- { "nvim-lua/popup.nvim", opt = true },
-    { "nvim-lua/plenary.nvim" },
+    { "nvim-lua/plenary.nvim", module = "plenary" },
     {
         -- 列表模糊搜索框架, 高扩展
         -- need install BurntSushi/ripgrep
@@ -68,24 +99,6 @@ local plugins = {
         end
     },
 
-    -- theme
-    {
-        'NvChad/nvim-colorizer.lua',
-        config = function()
-            require('xxx.plugin-config.colorizer').setup()
-        end
-    },
-    {
-        'navarasu/onedark.nvim',
-        config = function()
-            require('xxx.plugin-config.onedark').setup()
-        end,
-    },
-    {
-        -- SchemaStore
-        "b0o/schemastore.nvim",
-    },
-
     { 'kyazdani42/nvim-web-devicons', },
     {
         'akinsho/bufferline.nvim',
@@ -101,6 +114,7 @@ local plugins = {
     {
         'nvim-lualine/lualine.nvim',
         requires = { 'kyazdani42/nvim-web-devicons', opt = true },
+        after = "onedark.nvim",
         config = function()
             require("xxx.plugin-config.lualine").setup()
         end,
@@ -248,6 +262,9 @@ local plugins = {
                 "L3MON4D3/LuaSnip",
             },
         },
+        { "hrsh7th/cmp-nvim-lsp", },
+        { "hrsh7th/cmp-buffer", },
+        { "hrsh7th/cmp-path", },
         { "rafamadriz/friendly-snippets", },
         {
             "L3MON4D3/LuaSnip",
@@ -258,10 +275,7 @@ local plugins = {
                 "rafamadriz/friendly-snippets",
             },
         },
-        { "hrsh7th/cmp-nvim-lsp", },
         { "saadparwaiz1/cmp_luasnip", },
-        { "hrsh7th/cmp-buffer", },
-        { "hrsh7th/cmp-path", },
         {
             -- vim functions for dev
             "folke/lua-dev.nvim",

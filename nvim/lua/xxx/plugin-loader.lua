@@ -23,7 +23,7 @@ function plugin_loader.init(opts)
             join_paths(vim.fn.stdpath "data", "site", "pack"),
         compile_path = compile_path,
         snapshot_path = snapshot_path,
-        max_jobs = 9,
+        max_jobs = 33,
         log = { level = "warn" },
         git = { clone_timeout = 300 },
         display = {

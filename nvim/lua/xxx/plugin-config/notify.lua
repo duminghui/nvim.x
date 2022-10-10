@@ -39,7 +39,7 @@ M.opts = {
 function M.setup()
     if #vim.api.nvim_list_uis() == 0 then
         -- no need to configure notifications in headless
-        Log:debug "headless mode detected, skipping running setup for lualine"
+        Log:debug "headless mode detected, skipping running setup for notify"
         return
     end
 

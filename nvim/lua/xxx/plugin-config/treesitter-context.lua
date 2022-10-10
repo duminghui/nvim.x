@@ -9,7 +9,9 @@ M.setup = function()
         return
     end
 
-    context.setup()
+    context.setup({
+        mode = "topline",
+    })
 end
 
 return M

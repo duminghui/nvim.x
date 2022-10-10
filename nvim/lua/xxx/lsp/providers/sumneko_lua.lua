@@ -45,7 +45,7 @@ local opts = {
         Lua = {
             telemetry = { enable = false },
             diagnostics = {
-                globals = { "vim", "xvim", "packer_plugins" },
+                globals = { "vim", "xxx", "packer_plugins" },
             },
             workspace = default_workspace,
         },

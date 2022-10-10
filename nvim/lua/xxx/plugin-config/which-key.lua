@@ -3,7 +3,7 @@ local M = {}
 M.opts = {
     plugins = {
         marks = true, -- shows a list of your marks on ' and `
-        registers = false, -- shows your registers on " in NORMAL or <C-r> in INSERT mode
+        registers = true, -- shows your registers on " in NORMAL or <C-r> in INSERT mode
         -- the presets plugin, adds help for a bunch of default keybindings in Neovim
         -- No actual key bindings are created
         presets = {
@@ -110,7 +110,7 @@ M.n_mappings = {
         c = { "<cmd>Lspsaga show_cursor_diagnostics<CR>", "Cursor Diagnostics", },
         a = { "<cmd>Lspsaga code_action<CR>", "Code Action" },
         -- b = { "<cmd>Lspsaga range_code_action<CR>", "Range Code Action(Deprecated)" },
-        p = { "<cmd>Lspsaga peek_definition<CR>", "Peek Definition" },
+        d = { "<cmd>Lspsaga peek_definition<CR>", "Peek Definition" },
         -- f = { "<cmd>Lspsaga preview_definition<CR>", "Preview Definition(Deprecated)" },
         -- g = { "<cmd>Lspsaga open_floaterm<CR>", "Open Floaterm" },
         -- h = { "<cmd>Lspsaga close_floaterm<CR>", "Close Floaterm" },
@@ -136,8 +136,8 @@ M.n_mappings = {
         C = { "<cmd>PackerClean<CR>", "Clean" },
         i = { "<cmd>PackerInstall<CR>", "Install" },
         r = { "<cmd>lua require 'xxx.plugin-loader'.recompile()<CR>", "Re-compile" },
-        s = { "<cmd>PackerSync<CR>", "Sync" },
-        S = { "<cmd>PackerStatus<CR>", "Status" },
+        S = { "<cmd>PackerSync<CR>", "Sync" },
+        s = { "<cmd>PackerStatus<CR>", "Status" },
         u = { "<cmd>PackerUpdate<CR>", "Update" },
     },
     g = {
@@ -166,7 +166,7 @@ M.n_mappings = {
         w = { "<cmd>Trouble workspace_diagnostics<CR>", "Workspace Diagnostics" },
         d = { "<cmd>Trouble document_diagnostics<CR>", "Buffer Diagnostics" },
         -- config in lsp/config.lua
-        -- r = { "<cmd>Trouble lsp_references<CR>", "References" },
+        r = { "<cmd>Trouble lsp_references<CR>", "References" },
         f = { require("xxx.lsp.utils").format, "Format" },
         i = { "<cmd>LspInfo<CR>", "Lsp Info" },
         I = { "<cmd>Mason<CR>", "Mason Info" },
@@ -174,7 +174,7 @@ M.n_mappings = {
         k = { vim.diagnostic.goto_prev, "Prev Diagnostic", },
         l = { vim.lsp.codelens.run, "CodeLens Action" },
         q = { vim.diagnostic.setloclist, "Quickfix" },
-        r = { vim.lsp.buf.rename, "Rename" },
+        -- r = { vim.lsp.buf.rename, "Rename" },
         s = { "<cmd> Telescope lsp_document_symbols<CR>", "Document Symbols" },
         S = { "<cmd>Telescope lsp_dynamic_workspace_symbols<CR>", "Workspace Symbols" },
         e = { "<cmd>Telescope quickfix<CR>", "Telescope Quickfix" },
