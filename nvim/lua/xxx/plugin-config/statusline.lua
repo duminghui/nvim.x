@@ -47,10 +47,7 @@ local function mask_plugin()
 end
 
 local function get_icon(filename, extension, opts)
-    local ok, devicons = safe_require("nvim-web-devicons")
-    if not ok then
-        vim.notify("nvim-web-devicons not installed")
-    end
+    local devicons = require("nvim-web-devicons")
 
     local icon_str, icon_color = devicons.get_icon_color(filename, extension, { default = true })
 
@@ -66,21 +63,8 @@ function M.opts()
 
     local opts = {
         -- theme = {
-        --     -- fg = "#FF0000",
-        --     -- bg = "#00FFFF",
-        --     fg = "#FF0000",
-        --     bg = "#FFFFFF",
-        --     black = "#000000",
-        --     skyblue = "blue",
-        --     cyan = "cyan",
-        --     green = "green",
-        --     oceanblue = "oceanblue",
-        --     magenta = "magenta",
-        --     orange = "orange",
-        --     red = "red",
-        --     violet = "violet",
-        --     white = "white",
-        --     yellow = "yellow",
+        --     fg = "NONE",
+        --     bg = "NONE",
         -- },
         vi_mode_colors = {},
         disable = M.disable,
@@ -91,7 +75,7 @@ function M.opts()
     local git = require("feline.providers.git")
     local vi_mode_utils = require("feline.providers.vi_mode")
 
-    local ok, onedarkpro = safe_require("onedarkpro")
+    local ok, onedarkpro = pcall(require, "onedarkpro")
     if not ok then
         return opts, {}
     end
@@ -103,12 +87,8 @@ function M.opts()
         return opts, {}
     end
 
-    -- if true then
-    --     return opts, {}
-    -- end
-
     local InactiveStatusHL = {
-        fg = colors.statusline_bg,
+        fg = colors.bg_statusline,
         bg = "NONE",
         style = "underline",
     }
@@ -122,7 +102,7 @@ function M.opts()
 
     local function block(bg, fg)
         if not bg then
-            bg = colors.statusline_bg
+            bg = colors.bg_statusline
         end
         if not fg then
             fg = colors.gray

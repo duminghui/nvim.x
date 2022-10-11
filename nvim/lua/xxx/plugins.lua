@@ -22,21 +22,17 @@ local plugins = {
         },
         {
             "olimorris/onedarkpro.nvim",
-            -- as = "onedarkpro",
             config = function()
-                require('xxx.plugin-config.colorscheme').setup()
+                require('xxx.plugin-config.colorscheme.onedarkpro').setup()
             end,
-            -- opt = true,
-            disable = Xvim.colorscheme ~= "onedarkpro",
+            -- disable = true
         },
         {
             'navarasu/onedark.nvim',
-            as = "onedarkpro",
             config = function()
-                require('xxx.plugin-config.colorscheme').setup()
+                require('xxx.plugin-config.colorscheme.onedark').setup()
             end,
-            -- opt = true,
-            disable = Xvim.colorscheme ~= "onedark"
+            disable = true,
         },
         {
             -- SchemaStore
@@ -117,7 +113,6 @@ local plugins = {
     {
         'nvim-lualine/lualine.nvim',
         requires = { 'kyazdani42/nvim-web-devicons', opt = true },
-        -- after = "onedarkpro",
         config = function()
             require("xxx.plugin-config.lualine").setup()
         end,
@@ -125,7 +120,6 @@ local plugins = {
     },
     {
         "feline-nvim/feline.nvim", -- Statusline
-        -- after = "onedarkpro",
         requires = {
             { "kyazdani42/nvim-web-devicons" }, -- Web icons for various plugins
         },
@@ -139,7 +133,6 @@ local plugins = {
         "kyazdani42/nvim-tree.lua",
         -- event = "BufWinOpen",
         -- cmd = "NvimTreeToggle",
-        -- after = "onedarkpro",
         requires = {
             'nvim-telescope/telescope.nvim',
             'kyazdani42/nvim-web-devicons', opt = true,
