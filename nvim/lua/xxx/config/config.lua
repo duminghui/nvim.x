@@ -1,6 +1,6 @@
 Xvim = {
-    -- colorscheme = "onedarkpro",
-    colorscheme = "onedark",
+    colorscheme = "onedarkpro",
+    -- colorscheme = "onedark",
     lualine = {
         colorscheme = "onedark",
         -- style = "default",

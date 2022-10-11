@@ -13,6 +13,8 @@ local plugins = {
     {
         -- theme
         {
+            -- Highlight hex and rgb colors within Neovim
+            -- "norcalli/nvim-colorizer.lua",
             'NvChad/nvim-colorizer.lua',
             config = function()
                 require('xxx.plugin-config.colorizer').setup()
@@ -20,20 +22,21 @@ local plugins = {
         },
         {
             "olimorris/onedarkpro.nvim",
+            -- as = "onedarkpro",
             config = function()
                 require('xxx.plugin-config.colorscheme').setup()
             end,
             -- opt = true,
-            disable = Xvim.colorscheme ~= "onedarkpro"
+            disable = Xvim.colorscheme ~= "onedarkpro",
         },
         {
             'navarasu/onedark.nvim',
+            as = "onedarkpro",
             config = function()
                 require('xxx.plugin-config.colorscheme').setup()
             end,
             -- opt = true,
             disable = Xvim.colorscheme ~= "onedark"
-            -- disable = true,
         },
         {
             -- SchemaStore
@@ -114,9 +117,20 @@ local plugins = {
     {
         'nvim-lualine/lualine.nvim',
         requires = { 'kyazdani42/nvim-web-devicons', opt = true },
-        after = "onedark.nvim",
+        -- after = "onedarkpro",
         config = function()
             require("xxx.plugin-config.lualine").setup()
+        end,
+        disable = true,
+    },
+    {
+        "feline-nvim/feline.nvim", -- Statusline
+        -- after = "onedarkpro",
+        requires = {
+            { "kyazdani42/nvim-web-devicons" }, -- Web icons for various plugins
+        },
+        config = function()
+            require("xxx.plugin-config.statusline").setup()
         end,
     },
 
@@ -125,6 +139,7 @@ local plugins = {
         "kyazdani42/nvim-tree.lua",
         -- event = "BufWinOpen",
         -- cmd = "NvimTreeToggle",
+        -- after = "onedarkpro",
         requires = {
             'nvim-telescope/telescope.nvim',
             'kyazdani42/nvim-web-devicons', opt = true,
@@ -207,7 +222,7 @@ local plugins = {
             "j-hui/fidget.nvim",
             config = function()
                 require("xxx.plugin-config.fidget").setup()
-            end
+            end,
         },
         {
             'folke/lsp-colors.nvim',
@@ -224,15 +239,15 @@ local plugins = {
             -- A plugin to configure Neovim LSP using json/yaml
             "tamago324/nlsp-settings.nvim",
         },
-        -- {
-        --     -- breadcrumbs
-        --     -- 不提供显示功能, 需要其他插件显示
-        --     'SmiteshP/nvim-navic',
-        --     requires = { "neovim/nvim-lspconfig" },
-        --     config = function()
-        --         require("xxx.plugin-config.breadcrumbs").setup()
-        --     end
-        -- },
+        {
+            -- breadcrumbs
+            -- 不提供显示功能, 需要其他插件显示
+            'SmiteshP/nvim-navic',
+            requires = { "neovim/nvim-lspconfig" },
+            config = function()
+                require("xxx.plugin-config.breadcrumbs").setup()
+            end
+        },
         {
             "folke/trouble.nvim",
             requires = "kyazdani42/nvim-web-devicons",

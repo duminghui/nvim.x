@@ -40,7 +40,17 @@ local default_options = {
 
     mouse = "a",
     -- 窗口分隔线和fold线
-    fillchars = 'vert:|,fold:-',
+    -- fillchars = 'vert:|,fold:-',
+    fillchars = {
+        horiz = "━",
+        horizup = "┻",
+        horizdown = "┳",
+        vert = "┃",
+        vertleft = "┫",
+        vertright = "┣",
+        verthoriz = "╋",
+        fold = "-",
+    },
     linespace = 0,
 
     -- search
@@ -85,7 +95,7 @@ local default_options = {
 
     -- treesitter
     foldmethod = "manual", -- folding, set to "expr" for treesitter based folding
-    foldexpr = "" -- set to "nvim_treesitter#foldexpr()" for treesitter based folding
+    foldexpr = "", -- set to "nvim_treesitter#foldexpr()" for treesitter based folding
 
 }
 

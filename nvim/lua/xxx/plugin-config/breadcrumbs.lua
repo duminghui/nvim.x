@@ -48,7 +48,7 @@ M.setup = function()
     if not status_ok then
         return
     end
-    M.create_winbar()
+    -- M.create_winbar()
     navic.setup(M.opts)
 
 end

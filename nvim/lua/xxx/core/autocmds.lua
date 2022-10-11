@@ -51,7 +51,7 @@ function M.load_defaults()
     vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
         pattern = { "*" },
         callback = function()
-            vim.opt.laststatus = 3
+            vim.opt.laststatus = 3 -- Use global statusline
         end,
     })
 

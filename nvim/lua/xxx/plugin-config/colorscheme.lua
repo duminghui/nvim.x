@@ -28,6 +28,7 @@ M.opts = {
         highlights = {
             CursorLineNr = { fg = "#FFD700" },
             CursorColumn = { link = "CursorLine" },
+            StatusLine = { bg = "NONE", fg = "NONE" },
         }, -- Override default highlight and/or filetype groups
         filetypes = { -- Override which filetype highlight groups are loaded
             markdown = true,
@@ -37,6 +38,16 @@ M.opts = {
         },
         plugins = { -- Override which plugin highlight groups are loaded
             -- See the Supported Plugins section for a list of available plugins
+            barbar = false,
+            lsp_saga = false,
+            marks = false,
+            polygot = false,
+            startify = false,
+            telescope = false,
+            trouble = false,
+            vim_ultest = false,
+            which_key = false,
+            nvimtree = false,
         },
         styles = { -- Choose from "bold,italic,underline"
             strings = "NONE", -- Style that is applied to strings.
@@ -77,7 +88,6 @@ M.setup = function()
             return
         end
         onedarkpro.setup(M.opts.onedarkpro)
-        vim.g.colors_name = Xvim.colorscheme
         vim.api.nvim_command('colorscheme ' .. Xvim.colorscheme)
     elseif Xvim.colorscheme == "onedark" then
         local status_ok, onedark = safe_require("onedark")
@@ -90,6 +100,7 @@ M.setup = function()
         return
     end
 
+    vim.g.colors_name = Xvim.colorscheme
 
     -- vim.cmd(string.format("highlight CursorLineNr guifg=%s", "#FFD700"))
     -- 会把整个替换掉

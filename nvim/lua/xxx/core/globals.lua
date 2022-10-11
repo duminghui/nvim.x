@@ -13,6 +13,16 @@ function _G.safe_require(module, opts)
     return ok, result
 end
 
+---Return true if any pattern in the tbl matches the provided value
+---@param tbl table
+---@param val string
+---@return boolean
+function _G.find_pattern_match(tbl, val)
+    return tbl and next(vim.tbl_filter(function(pattern)
+        return val:match(pattern)
+    end, tbl))
+end
+
 local uv = vim.loop
 local path_sep = uv.os_uname().version:match "Windows" and "\\" or "/"
 ---Join path segments that were passed as input
