@@ -26,7 +26,6 @@ local plugins = {
             config = function()
                 require('xxx.plugin-config.colorscheme.onedark').setup()
             end,
-            -- disable = true,
         },
         {
             -- SchemaStore

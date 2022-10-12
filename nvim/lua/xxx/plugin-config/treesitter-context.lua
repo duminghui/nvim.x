@@ -12,6 +12,9 @@ M.setup = function()
     context.setup({
         mode = "topline",
     })
+
+    vim.cmd("highlight link TreesitterContextLineNumber TreesitterContext")
+
 end
 
 return M

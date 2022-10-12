@@ -24,7 +24,8 @@ local default_options = {
     textwidth = 80,
     cursorline = true,
     cursorcolumn = true,
-    colorcolumn = "+1",
+    -- colorcolumn = "+1",
+    colorcolumn = "80,120,160",
     number = true,
     relativenumber = true,
     -- number column width
@@ -67,7 +68,7 @@ local default_options = {
 
     foldenable = true,
     scrolljump = 1,
-    scrolloff = 3,
+    scrolloff = 6,
 
     list = true,
     listchars = 'tab:›■,trail:•,extends:#,nbsp:.',

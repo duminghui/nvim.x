@@ -135,6 +135,20 @@ local filetype_exclude = {
     'lspsagaoutline',
     'lspsagafinder',
     'help',
+    "startify",
+    "packer",
+    "neo-tree",
+    "neogitstatus",
+    "lir",
+    "spectre_panel",
+    "DressingSelect",
+    "Jaq",
+    "harpoon",
+    "dap-repl",
+    "dap-terminal",
+    "dapui_console",
+    "lab",
+    "Markdown",
 } -- Ignore float windows and exclude filetype
 
 local function config_winbar_or_statusline()
