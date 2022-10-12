@@ -91,7 +91,10 @@ function M.setup(server_name, user_config)
         return
     end
 
-    local server_mapping = require "mason-lspconfig.mappings.server"
+    local ok, server_mapping = safe_require("mason-lspconfig.mappings.server")
+    if not ok then
+        return
+    end
     local registry = require "mason-registry"
 
     local pkg_name = server_mapping.lspconfig_to_package[server_name]

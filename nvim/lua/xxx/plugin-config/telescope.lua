@@ -212,8 +212,8 @@ function M.setup()
 
     -- load_extension "ui-select"
     load_extension "notify"
-    load_extension "projects"
-    load_extension "fzf"
+    -- load_extension "projects"
+    -- load_extension "fzf"
 
     -- require("telescope").load_extension "projects"
 

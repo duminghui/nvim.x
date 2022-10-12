@@ -39,6 +39,9 @@ M.setup = function()
         return
     end
     project.setup(M.opts)
+
+    require("telescope").load_extension("projects")
+
 end
 
 return M

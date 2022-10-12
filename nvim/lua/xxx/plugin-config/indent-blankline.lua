@@ -17,6 +17,31 @@ M.opts = {
     use_treesitter_scope = true,
     show_current_context = true,
     show_current_context_start = false,
+    filetype_exclude = {
+        "lspinfo",
+        "packer",
+        "checkhealth",
+        "help",
+        "man",
+        "",
+        "alpha",
+        "gitcommit",
+        "dashboard",
+        "neo-tree",
+        "NvimTree",
+        "Startify",
+        "TelescopePrompt",
+        "TelescopeResults",
+        "terminal",
+        "Trouble",
+        "undotree",
+    },
+    buftype_exclude = {
+        "terminal",
+        "nofile",
+        "quickfix",
+        "prompt",
+    },
 }
 
 M.setup = function()

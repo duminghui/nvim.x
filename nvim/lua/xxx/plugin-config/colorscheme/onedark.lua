@@ -30,8 +30,8 @@ M.setup = function()
 
     -- for lualine
     require("xxx.plugin-config.lualine.components").set_highlight()
-    require("xxx.plugin-config.rainbow").set_highlight()
+    require("xxx.plugin-config.treesitter").set_rainbow_highlight()
     require("xxx.plugin-config.indent-blankline").set_highlight()
 end
 
-r
+return M

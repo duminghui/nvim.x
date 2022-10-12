@@ -69,6 +69,10 @@ function M.opts()
         vi_mode_colors = {},
         disable = M.disable,
         force_inactive = M.force_inactive,
+        -- components = {
+        -- active = {},
+        -- inactive = { { { provider = "" } } },
+        -- },
     }
 
     -- local lsp = require("feline.providers.lsp")
@@ -483,6 +487,7 @@ function M.opts()
             -- { provider = "scroll_bar" },
         },
     }
+
     components.inactive = { { { provider = "", hl = InactiveStatusHL } } }
 
     opts.vi_mode_colors = {

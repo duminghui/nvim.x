@@ -30,7 +30,7 @@ M.opts = {
         CursorColumn = { link = "CursorLine" },
         BufferlineOffset = { fg = "${red}", style = "bold" },
         ModeMsg = { link = "LineNr" }, -- Make command line text lighter
-        StatusLine = { bg = "NONE", fg = "NONE" }, -- 防止statusline出现^^^^^
+        StatusLine = { bg = "NONE", fg = "NONE" }, -- 防止statusline出现^^^^^.
 
         ["@text.uri.markdown"] = { fg = "${purple}" },
         -- Alpha (dashboard) plugin
@@ -109,7 +109,7 @@ M.opts = {
         marks = false,
         polygot = false,
         startify = false,
-        telescope = false,
+        telescope = true,
         trouble = true,
         vim_ultest = false,
         which_key = false,
@@ -151,7 +151,7 @@ M.setup = function()
     -- 会把整个替换掉
     -- vim.api.nvim_set_hl(0, "CursorLineNr", { fg = "#FFE700" })
 
-    require("xxx.plugin-config.rainbow").set_highlight()
+    require("xxx.plugin-config.treesitter").set_rainbow_highlight()
     require("xxx.plugin-config.indent-blankline").set_highlight()
 end
 

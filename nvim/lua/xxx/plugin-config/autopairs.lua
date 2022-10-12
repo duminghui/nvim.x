@@ -52,12 +52,6 @@ M.setup = function()
 
     autopairs.setup(M.opts)
 
-    require("nvim-treesitter.configs").setup {
-        autopairs = {
-            enable = true,
-        },
-    }
-
     -- local ts_conds = require "nvim-autopairs.ts-conds"
 
     -- TODO: can these rules be safely added from "config.lua" ?
@@ -69,10 +63,8 @@ M.setup = function()
     --     Rule("$", "$", "lua"):with_pair(ts_conds.is_not_ts_node { "function" }),
     -- }
 
-    pcall(function()
-        local cmp_autopairs = require "nvim-autopairs.completion.cmp"
-        require("cmp").event:on("confirm_done", cmp_autopairs.on_confirm_done())
-    end)
+    local cmp_autopairs = require "nvim-autopairs.completion.cmp"
+    require("cmp").event:on("confirm_done", cmp_autopairs.on_confirm_done())
 end
 
 return M

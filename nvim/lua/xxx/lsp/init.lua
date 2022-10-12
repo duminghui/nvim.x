@@ -111,20 +111,14 @@ function M.setup()
 
     require("xxx.lsp.handlers").setup(lsp_opts)
 
-    require("nlspsettings").setup(lsp_opts.nlsp_settings.setup)
+    -- require("nlspsettings").setup(lsp_opts.nlsp_settings.setup)
 
-    pcall(function()
-        require("mason-lspconfig").setup(lsp_opts.mason_lspconfig.setup)
-        local util = require "lspconfig.util"
-        -- automatic_installation is handled by lsp-manager
-        util.on_setup = nil
-    end)
+    require("mason-lspconfig").setup(lsp_opts.mason_lspconfig.setup)
+    local util = require "lspconfig.util"
+    -- automatic_installation is handled by lsp-manager
+    util.on_setup = nil
 
     require("xxx.lsp.null-ls").setup()
-
-    local _, lspconfig = pcall(require, "lspconfig")
-    lspconfig.sumneko_lua.setup {}
-
 
     autocmds.configure_format_on_save(true)
 end

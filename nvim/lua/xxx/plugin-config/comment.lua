@@ -4,7 +4,7 @@ local M = {}
 M.opts = function()
     local pre_hook = nil
 
-    if require("xxx.plugin-config.ts-context-commentstring").opts.treesitter.context_commentstring.enable then
+    if require("xxx.plugin-config.treesitter").opts.context_commentstring.enable then
         pre_hook = function(ctx)
             local U = require "Comment.utils"
 
