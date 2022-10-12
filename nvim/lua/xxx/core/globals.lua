@@ -3,6 +3,7 @@
 ---@param opts table?
 ---@return boolean, any
 function _G.safe_require(module, opts)
+    -- print(module)
     opts = opts or { silent = false }
     local ok, result = pcall(require, module)
     -- print("require:", module)

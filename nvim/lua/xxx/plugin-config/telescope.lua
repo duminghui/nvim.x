@@ -138,6 +138,10 @@ M.opts = function()
             borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
             color_devicons = true,
             set_env = { ["COLORTERM"] = "truecolor" }, -- default = nil,
+            history = {
+                path = join_paths(get_runtime_dir(), "telescope_history.sqlite3"),
+                limit = 133,
+            },
         },
         pickers = get_pickers(actions),
         extensions = {
@@ -165,7 +169,26 @@ M.opts = function()
                 --      do the following
                 --   codeactions = false,
                 -- }
-            }
+            },
+            frecency = {
+                -- default: nvim-data/file_frecency.sqlite3
+                -- db_root = get_runtime_dir(),
+                show_scores = true,
+                show_unindexed = true,
+                ignore_patterns = {
+                    "*.git/*",
+                    "*/tmp/*",
+                    "*/node_modules/*",
+                    "*/vendor/*",
+                },
+                workspaces = {
+                    -- ["nvim"] = os.getenv("HOME_DIR") .. ".config/nvim",
+                    -- ["dots"] = os.getenv("HOME_DIR") .. ".dotfiles",
+                    -- ["project"] = os.getenv("PROJECT_DIR"),
+                    -- ["project2"] = os.getenv("OTHER_PROJECT_DIR"),
+                },
+            },
+
         },
 
     }

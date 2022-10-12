@@ -35,9 +35,6 @@ M.disable = {
     },
 }
 
-
-
-
 local function using_session()
     return vim.g.persising ~= nil
 end
@@ -59,43 +56,17 @@ local function get_icon(filename, extension, opts)
     return icon
 end
 
-function M.opts()
-
-    local opts = {
-        -- theme = {
-        --     fg = "NONE",
-        --     bg = "NONE",
-        -- },
-        vi_mode_colors = {},
-        disable = M.disable,
-        force_inactive = M.force_inactive,
-        -- components = {
-        -- active = {},
-        -- inactive = { { { provider = "" } } },
-        -- },
-    }
+local function statusline_components()
 
     -- local lsp = require("feline.providers.lsp")
     local git = require("feline.providers.git")
     local vi_mode_utils = require("feline.providers.vi_mode")
 
-    local ok, onedarkpro = pcall(require, "onedarkpro")
-    if not ok then
-        return opts, {}
-    end
-    local colors = onedarkpro.get_colors(vim.g.onedarkpro_theme)
+    local colors = require("onedarkpro").get_colors(vim.g.onedarkpro_theme)
     if not colors then
-        vim.schedule(function()
-            vim.notify("onedarkpro get_colors failed", vim.log.levels.ERROR)
-        end)
-        return opts, {}
+        return {}
     end
 
-    local InactiveStatusHL = {
-        fg = colors.bg_statusline,
-        bg = "NONE",
-        style = "underline",
-    }
 
     local function default_hl()
         return {
@@ -214,10 +185,16 @@ function M.opts()
         },
         right_sep = {
             str = "slant_right",
+            -- hl = {
+            --     fg = "#FFFF00",
+            --     bg = "#FF0000"
+            -- }
             hl = function()
                 return block().sep_right
             end,
         },
+        show_mode_name = true,
+        padding = false,
     }
 
     local c_fileinfo = {
@@ -269,6 +246,8 @@ function M.opts()
                 return block(colors.red).sep_right
             end,
         },
+        show_mode_name = true,
+        padding = false,
     }
 
     local c_diagnostic_warnings = {
@@ -445,23 +424,6 @@ function M.opts()
 
 
 
-    local winbar_components = { active = {}, inactive = {} }
-
-    local navic_ok, navic = safe_require("nvim-navic")
-    if navic_ok then
-        winbar_components.active[1] = {
-            provider = function()
-                return navic.get_location()
-            end,
-            enabled = function()
-                return navic.is_available()
-            end,
-            hl = function()
-                return default_hl()
-            end,
-        }
-
-    end
 
     local components = { active = {}, inactive = {} }
 
@@ -470,7 +432,7 @@ function M.opts()
             c_vi_mode,
             c_fileinfo,
             c_git,
-            { provider = "git_diff_added", hl = { fg = colors.green, bg = "NONE", }, },
+            { provider = "git_diff_added", hl = { fg = colors.green, bg = "NONE", }, padding = false },
             { provider = "git_diff_removed", hl = { fg = colors.red, bg = "NONE", }, },
             { provider = "git_diff_changed", hl = { fg = colors.orange, bg = "NONE", }, },
             c_diagnostic_errors,
@@ -488,8 +450,69 @@ function M.opts()
         },
     }
 
+    local InactiveStatusHL = {
+        fg = colors.bg_statusline,
+        bg = "NONE",
+        style = "underline",
+    }
+
     components.inactive = { { { provider = "", hl = InactiveStatusHL } } }
 
+
+    return components
+end
+
+-- local function winbar_components()
+--     local winbar_components = { active = {}, inactive = {} }
+
+--     local colors = require("onedarkpro").get_colors(vim.g.onedarkpro_theme)
+--     if not colors then
+--         return winbar_components
+--     end
+
+--     local navic_ok, navic = safe_require("nvim-navic")
+--     if navic_ok then
+--         winbar_components.active[1] = {
+--             provider = function()
+--                 return navic.get_location()
+--             end,
+--             enabled = function()
+--                 return navic.is_available()
+--             end,
+--             hl = {
+--                 fg = colors.grey,
+--                 bg = "NONE",
+--             }
+--         }
+
+--     end
+--     return winbar_components
+-- end
+
+local function opts_with_empty_components()
+    local opts = {
+        -- theme = {
+        --     fg = "NONE",
+        --     bg = "NONE",
+        -- },
+        disable = M.disable,
+        force_inactive = M.force_inactive,
+        components = {
+            active = {},
+            inactive = { { { provider = "" } } },
+        },
+    }
+    local ok, onedarkpro = pcall(require, "onedarkpro")
+    if not ok then
+        return opts
+    end
+    local colors = onedarkpro.get_colors(vim.g.onedarkpro_theme)
+    if not colors then
+        vim.schedule(function()
+            vim.notify("onedarkpro get_colors failed", vim.log.levels.ERROR)
+        end)
+        return opts
+    end
     opts.vi_mode_colors = {
         NORMAL = colors.purple,
         OP = colors.purple,
@@ -507,12 +530,7 @@ function M.opts()
         TERM = colors.purple,
         NONE = colors.yellow,
     }
-    opts.components = components
-
-    local winbar_opts = {
-        components = winbar_components,
-    }
-    return opts, winbar_opts
+    return opts
 end
 
 function M.setup()
@@ -521,10 +539,13 @@ function M.setup()
         return
     end
     -- local opts, winbar_opts = M.opts()
-    local opts, _ = M.opts()
+    local opts = opts_with_empty_components()
+    opts.components = statusline_components()
     feline.setup(opts)
+    -- local winbar_opts = {
+    --     components = winbar_components()
+    -- }
     -- feline.winbar.setup(winbar_opts)
-    -- feline.setup()
 end
 
 return M

@@ -21,7 +21,7 @@ M.opts = {
             -- statusline_bg = "#2e323b", -- gray
             bg_statusline = "#2e323b", -- gray
 
-            telescope_prompt = "#2e323a",
+            telescope_prompt = "#2e323b",
             telescope_results = "#21252d",
         },
     }, -- Override default colors by specifying colors for 'onelight' or 'onedark' themes
@@ -64,14 +64,14 @@ M.opts = {
         -- MapRange = { fg = "${fg}" },
 
         -- Telescope
-        TelescopeBorder = {
-            fg = "${telescope_results}",
-            bg = "${telescope_results}",
-        },
-        TelescopePromptBorder = {
-            fg = "${telescope_prompt}",
-            bg = "${telescope_prompt}",
-        },
+        -- TelescopeBorder = {
+        --     fg = "${telescope_results}",
+        --     bg = "${telescope_results}",
+        -- },
+        -- TelescopePromptBorder = {
+        --     fg = "${telescope_prompt}",
+        --     bg = "${telescope_prompt}",
+        -- },
         TelescopePromptCounter = { fg = "${fg}" },
         TelescopePromptNormal = { fg = "${fg}", bg = "${telescope_prompt}" },
         TelescopePromptPrefix = {
@@ -88,8 +88,10 @@ M.opts = {
             bg = "${green}",
         },
         TelescopeResultsTitle = {
+            -- fg = "${telescope_results}",
+            -- bg = "${telescope_results}",
             fg = "${telescope_results}",
-            bg = "${telescope_results}",
+            bg = "${yellow}",
         },
 
         TelescopeMatching = { fg = "${blue}" },

@@ -121,6 +121,11 @@ M.load_default_options = function()
         vim.opt[k] = v
     end
 
+
+    if vim.loop.os_uname().version:match "Windows" then
+        vim.g.sqlite_clib_path = join_paths(get_config_dir(), "sqlite3", "sqlite3.dll")
+    end
+
 end
 
 M.load_headless_options = function()

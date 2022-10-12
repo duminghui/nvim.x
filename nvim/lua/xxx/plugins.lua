@@ -14,18 +14,18 @@ local plugins = {
         -- theme
         {
             "olimorris/onedarkpro.nvim",
-            -- as = "colorscheme",
+            as = "colorscheme",
             config = function()
                 require('xxx.plugin-config.colorscheme.onedarkpro').setup()
             end,
-            disable = true
         },
         {
             'navarasu/onedark.nvim',
-            as = "colorscheme",
+            -- as = "colorscheme",
             config = function()
                 require('xxx.plugin-config.colorscheme.onedark').setup()
             end,
+            disable = true
         },
         {
             -- SchemaStore
@@ -84,6 +84,26 @@ local plugins = {
                 end,
                 run = "make",
             },
+            {
+                "nvim-telescope/telescope-frecency.nvim", -- Get frequently opened files
+                after = "telescope.nvim",
+                requires = {
+                    { "tami5/sqlite.lua" },
+                },
+                config = function()
+                    require("telescope").load_extension("frecency")
+                end,
+            },
+            {
+                "nvim-telescope/telescope-smart-history.nvim", -- Show project dependant history
+                after = "telescope.nvim",
+                requires = {
+                    { "tami5/sqlite.lua" },
+                },
+                config = function()
+                    require("telescope").load_extension("smart_history")
+                end,
+            },
         },
         config = function()
             require("xxx.plugin-config.telescope").setup()
@@ -106,7 +126,7 @@ local plugins = {
         branch = "main",
         after = "colorscheme",
         -- event = "BufWinEnter",
-        requires = 'kyazdani42/nvim-web-devicons',
+        requires = { 'kyazdani42/nvim-web-devicons' },
         config = function()
             require('xxx.plugin-config.bufferline').setup()
         end,
@@ -115,10 +135,11 @@ local plugins = {
     {
         'nvim-lualine/lualine.nvim',
         after = "colorscheme",
-        requires = { 'kyazdani42/nvim-web-devicons', opt = true },
+        requires = { 'kyazdani42/nvim-web-devicons' },
         config = function()
             require("xxx.plugin-config.lualine").setup()
         end,
+        disable = true,
     },
     {
         "feline-nvim/feline.nvim", -- Statusline
@@ -129,7 +150,6 @@ local plugins = {
         config = function()
             require("xxx.plugin-config.statusline").setup()
         end,
-        disable = true,
     },
 
     {
@@ -140,7 +160,7 @@ local plugins = {
         after = "colorscheme",
         requires = {
             'nvim-telescope/telescope.nvim',
-            'kyazdani42/nvim-web-devicons', opt = true,
+            { 'kyazdani42/nvim-web-devicons', opt = true, }
         },
         config = function()
             require("xxx.plugin-config.nvimtree").setup()
@@ -237,7 +257,7 @@ local plugins = {
         },
         {
             "folke/trouble.nvim",
-            requires = "kyazdani42/nvim-web-devicons",
+            requires = { "kyazdani42/nvim-web-devicons", opt = true },
             config = function()
                 require("xxx.plugin-config.trouble").setup()
             end,
