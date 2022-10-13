@@ -36,7 +36,7 @@ M.opts = {
         min_width = { 60, 0.5 },
 
         -- Window transparency (0-100)
-        winblend = 10,
+        winblend = 9,
         -- Change default highlight groups (see :help winhl)
         winhighlight = "",
 
@@ -109,7 +109,7 @@ M.opts = {
                 filetype = "DressingSelect",
             },
             win_options = {
-                winblend = 10,
+                winblend = 9,
             },
             max_width = 80,
             max_height = 40,
@@ -126,7 +126,7 @@ M.opts = {
             relative = "editor",
 
             -- Window transparency (0-100)
-            winblend = 10,
+            winblend = 9,
             -- Change default highlight groups (see :help winhl)
             winhighlight = "",
 

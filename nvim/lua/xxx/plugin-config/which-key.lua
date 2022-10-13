@@ -32,7 +32,7 @@ M.opts = {
         position = "bottom", -- bottom, top
         margin = { 1, 0, 1, 0 }, -- extra window margin [top, right, bottom, left]
         padding = { 2, 2, 2, 2 }, -- extra window padding [top, right, bottom, left]
-        winblend = 0,
+        winblend = 9,
     },
     layout = {
         height = { min = 4, max = 25 }, -- min and max height of the columns
@@ -189,6 +189,7 @@ M.n_mappings = {
         M = { "<cmd>Telescope man_pages<CR>", "Man Pages" },
         -- r = { "<cmd>Telescope oldfiles<CR>", "Open Recent File" },
         r = { "<cmd>Telescope frecency workspace=CWD<CR>", "Frecency" },
+        s = { "<cmd>Telescope smart_history<CR>", "Smart History" },
         R = { "<cmd>Telescope registers<CR>", "Registers" },
         t = { "<cmd>Telescope live_grep<CR>", "Text" },
         k = { "<cmd>Telescope keymaps<CR>", "Keymaps" },

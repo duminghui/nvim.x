@@ -31,12 +31,14 @@ end
 ---Initialize the `&runtimepath` variables and prepare for startup
 ---@return table
 function M:init(root_dir, base_dir)
-    -- runtime_dir root_dir/nvim-data
-    -- base_dir: root_dir/nvim
     self.root_dir = root_dir
+    -- base_dir: root_dir/nvim
     self.base_dir = base_dir
+    -- runtime_dir root_dir/nvim-data
     self.runtime_dir = join_paths(root_dir, "nvim-data")
+    -- config_dir: root_dir/nvim
     self.config_dir = base_dir
+    -- cache_dir: temp_dir
     self.cache_dir = get_cache_dir()
 
 

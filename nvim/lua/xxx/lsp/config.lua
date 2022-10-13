@@ -68,7 +68,10 @@ local options = {
                 { name = "DiagnosticSignInfo", text = "" },
             },
         },
-        virtual_text = true,
+        virtual_text = {
+            -- prefix = "",
+            -- spacing = 12,
+        },
         update_in_insert = false,
         underline = true,
         severity_sort = true,

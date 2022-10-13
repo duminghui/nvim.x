@@ -10,11 +10,17 @@ vim.cmd [[
   endfunction
 ]]
 
+local cmd_bdelete = "bdelete"
+if vim.fn.has "nvim-0.8" == 1 then
+    cmd_bdelete = "Bdelete"
+end
+
 M.defaults = {
     {
         name = "BufferKill",
         fn = function()
-            require("xxx.core.buffers").buf_kill "bd"
+            -- require("xxx.core.buffers").buf_kill "bd"
+            require("xxx.core.buffers").buf_kill(cmd_bdelete)
         end,
     },
     {

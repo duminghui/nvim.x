@@ -8,8 +8,7 @@ M.setup = function()
 
     local utils = require "xxx.utils"
     local paths = {}
-    paths[#paths + 1] = join_paths(get_runtime_dir(), "site", "pack", "packer", "start",
-        "friendly-snippets")
+    paths[#paths + 1] = join_paths(get_runtime_dir(), "site", "pack", "packer", "start", "friendly-snippets")
     local user_snippets = join_paths(get_config_dir(), "snippets")
     if utils.is_directory(user_snippets) then
         paths[#paths + 1] = user_snippets

@@ -25,7 +25,7 @@ local plugins = {
             config = function()
                 require('xxx.plugin-config.colorscheme.onedark').setup()
             end,
-            disable = true
+            disable = true,
         },
         {
             -- SchemaStore
@@ -130,6 +130,11 @@ local plugins = {
         config = function()
             require('xxx.plugin-config.bufferline').setup()
         end,
+    },
+
+    {
+        "famiu/bufdelete.nvim", -- Easily close buffers whilst preserving your window layouts
+        cmd = { "Bdelete", "Bwipeout" },
     },
 
     {

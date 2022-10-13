@@ -6,7 +6,7 @@ M.opts = {
     border_style = "single",
     --the range of 0 for fully opaque window (disabled) to 100 for fully
     --transparent background. Values between 0-30 are typically most useful.
-    saga_winblend = 0,
+    saga_winblend = 9,
     -- when cursor in saga window you config these to move
     move_in_saga = { prev = '<C-p>', next = '<C-n>' },
     -- Error, Warn, Info, Hint
@@ -185,6 +185,11 @@ M.setup = function()
     local status_ok, lspsaga = safe_require("lspsaga")
     if not status_ok then
         return
+    end
+
+    if vim.fn.has "nvim-0.8" ~= 1 then
+        M.opts.symbol_in_winbar.in_custom = false
+        M.opts.symbol_in_winbar.enable = false
     end
 
     lspsaga.init_lsp_saga(M.opts)

@@ -7,6 +7,9 @@ M.opts = {
     lualine = {
         transparent = false,
     },
+    diagnostics = {
+        -- background = false,
+    },
     highlights = {
         CursorLineNr = { fg = "#FFD700" },
     },

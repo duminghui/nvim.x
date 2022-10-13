@@ -133,7 +133,7 @@ M.opts = function()
                 "dotbot",
             },
             path_display = { "smart" },
-            winblend = 0,
+            winblend = 3,
             border = {},
             borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
             color_devicons = true,

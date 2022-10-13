@@ -20,13 +20,13 @@ M.opts = {
     window = {
         relative = "win", -- where to anchor, either "win" or "editor"
         -- blend = 100, -- &winblend for the window
-        blend = 0, -- &winblend for the window
+        blend = 9, -- &winblend for the window
         zindex = nil, -- the zindex value for the window
         border = "none", -- style of border for the fidget window
     },
     fmt = {
         leftpad = true, -- right-justify text in fidget box
-        stack_upwards = false, -- list of tasks grows upwards
+        stack_upwards = true, -- list of tasks grows upwards
         max_width = 0, -- maximum width of the fidget box
         fidget = -- function to format fidget title
         function(fidget_name, spinner)
