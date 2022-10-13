@@ -1,5 +1,5 @@
-local conditions = require "xxx.plugin-config.lualine.conditions"
-local colors = require "xxx.plugin-config.lualine.colors"
+local conditions = require "xxx.plugin-config.statusline.lualine.conditions"
+local colors = require "xxx.plugin-config.statusline.lualine.colors"
 -- local color_hex = require "xxx.utils".color_hex
 
 local function diff_source()
@@ -89,7 +89,7 @@ return {
     },
     python_env  = {
         function()
-            local utils = require "xxx.plugin-config.lualine.utils"
+            local utils = require "xxx.plugin-config.statusline.lualine.utils"
             if vim.bo.filetype == "python" then
                 local venv = os.getenv "CONDA_DEFAULT_ENV" or os.getenv "VIRTUAL_ENV"
                 if venv then

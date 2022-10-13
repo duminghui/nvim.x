@@ -82,7 +82,7 @@ styles.default = {
     extensions = {}
 }
 
-local components = require "xxx.plugin-config.lualine.components"
+local components = require "xxx.plugin-config.statusline.lualine.components"
 styles.xxx = {
     options = {
         icons_enabled = true,

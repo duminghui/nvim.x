@@ -14,18 +14,19 @@ local plugins = {
         -- theme
         {
             "olimorris/onedarkpro.nvim",
-            as = "colorscheme",
+            -- as = "colorscheme",
             config = function()
                 require('xxx.plugin-config.colorscheme.onedarkpro').setup()
             end,
+            disable = true,
         },
         {
             'navarasu/onedark.nvim',
-            -- as = "colorscheme",
+            as = "colorscheme",
             config = function()
                 require('xxx.plugin-config.colorscheme.onedark').setup()
             end,
-            disable = true,
+            -- disable = true,
         },
         {
             -- SchemaStore
@@ -54,6 +55,28 @@ local plugins = {
         'NvChad/nvim-colorizer.lua',
         config = function()
             require('xxx.plugin-config.colorizer').setup()
+        end,
+    },
+
+    {
+        "petertriho/nvim-scrollbar", -- A scrollbar for the current window
+        after = "colorscheme",
+        requires = {
+            {
+                "kevinhwang91/nvim-hlslens", -- Highlight searches
+                config = function()
+                    require("xxx.plugin-config.scroll.hlslens").setup()
+                end,
+            },
+            {
+                "declancm/cinnamon.nvim", -- Smooth scrolling
+                config = function()
+                    require("xxx.plugin-config.scroll.cinnamon").setup()
+                end,
+            },
+        },
+        config = function()
+            require("xxx.plugin-config.scroll.scrollbar").setup()
         end,
     },
 
@@ -142,9 +165,8 @@ local plugins = {
         after = "colorscheme",
         requires = { 'kyazdani42/nvim-web-devicons' },
         config = function()
-            require("xxx.plugin-config.lualine").setup()
+            require("xxx.plugin-config.statusline.lualine").setup()
         end,
-        disable = true,
     },
     {
         "feline-nvim/feline.nvim", -- Statusline
@@ -153,8 +175,9 @@ local plugins = {
             { "kyazdani42/nvim-web-devicons" }, -- Web icons for various plugins
         },
         config = function()
-            require("xxx.plugin-config.statusline").setup()
+            require("xxx.plugin-config.statusline.statusline").setup()
         end,
+        disable = true,
     },
 
     {

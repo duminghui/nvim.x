@@ -62,7 +62,11 @@ local function statusline_components()
     local git = require("feline.providers.git")
     local vi_mode_utils = require("feline.providers.vi_mode")
 
-    local colors = require("onedarkpro").get_colors(vim.g.onedarkpro_theme)
+    local ok, onedarkpro = safe_require("onedarkpro", { silent = true })
+    if not ok then
+        return {}
+    end
+    local colors = onedarkpro.get_colors(vim.g.onedarkpro_theme)
     if not colors then
         return {}
     end
