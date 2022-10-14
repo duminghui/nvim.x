@@ -40,6 +40,9 @@ local default_options = {
     breakindentopt = "shift:2,sbr",
 
     mouse = "a",
+    -- for bufferline hover
+    mousemoveevent = true,
+
     -- 窗口分隔线和fold线
     -- fillchars = 'vert:|,fold:-',
     fillchars = {

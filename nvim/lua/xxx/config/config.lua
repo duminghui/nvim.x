@@ -1,21 +1,21 @@
 Xvim = {
-    colorscheme = "onedarkpro",
+    colorscheme = 'onedarkpro',
     -- colorscheme = "onedark",
     lualine = {
-        colorscheme = "onedark",
+        colorscheme = 'onedark',
         -- style = "default",
-        style = "xxx",
+        style = 'xxx',
     },
     log = {
         ---@usage can be { "trace", "debug", "info", "warn", "error", "fatal" },
-        level = "warn",
+        level = 'warn',
         viewer = {
             ---@usage this will fallback on "less +F" if not found
-            cmd = "lnav",
+            cmd = 'lnav',
             layout_config = {
                 ---@usage direction = 'vertical' | 'horizontal' | 'window' | 'float',
-                direction = "horizontal",
-                open_mapping = "",
+                direction = 'horizontal',
+                open_mapping = '',
                 size = 40,
                 float_opts = {},
             },

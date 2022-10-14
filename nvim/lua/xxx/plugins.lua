@@ -81,6 +81,10 @@ local plugins = {
     },
 
     {
+        "tpope/vim-sleuth", -- Automatically detects which indents should be used in the current buffer
+    },
+
+    {
         "kylechui/nvim-surround",
         config = function()
             require("xxx.plugin-config.surround").setup()
