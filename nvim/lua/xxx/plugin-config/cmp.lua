@@ -122,12 +122,13 @@ M.options = {}
 M.opts = function()
     local status_cmp_ok, cmp = pcall(require, "cmp")
     if not status_cmp_ok then
-        return
+        return {}
     end
     local status_luasnip_ok, luasnip = pcall(require, "luasnip")
     if not status_luasnip_ok then
-        return
+        return {}
     end
+    local icons = require("xxx.core.icons")
     M.options = {
         confirm_opts = {
             behavior = cmp.ConfirmBehavior.Replace,
@@ -145,31 +146,7 @@ M.opts = function()
             fields = { "kind", "abbr", "menu" },
             max_width = 0,
             kind_icons = {
-                Class = " ",
-                Color = " ",
-                Constant = "ﲀ ",
-                Constructor = " ",
-                Enum = "練",
-                EnumMember = " ",
-                Event = " ",
-                Field = " ",
-                File = "",
-                Folder = " ",
-                Function = " ",
-                Interface = "ﰮ ",
-                Keyword = " ",
-                Method = " ",
-                Module = " ",
-                Operator = "",
-                Property = " ",
-                Reference = " ",
-                Snippet = " ",
-                Struct = " ",
-                Text = " ",
-                TypeParameter = " ",
-                Unit = "塞",
-                Value = " ",
-                Variable = " ",
+
             },
             source_names = {
                 nvim_lsp = "(LSP)",
@@ -195,6 +172,36 @@ M.opts = function()
                     vim_item.abbr = string.sub(vim_item.abbr, 1, max_width - 1) .. "…"
                 end
                 vim_item.kind = M.options.formatting.kind_icons[vim_item.kind]
+
+                -- TODO: not sure why I can't put this anywhere else
+                vim.api.nvim_set_hl(0, "CmpItemKindCrate", { fg = "#F64D00" })
+                if entry.source.name == "copilot" then
+                    vim_item.kind = ""
+                    vim_item.kind_hl_group = "CmpItemKindCopilot"
+                end
+
+                vim.api.nvim_set_hl(0, "CmpItemKindTabnine", { fg = "#CA42F0" })
+                if entry.source.name == "cmp_tabnine" then
+                    vim_item.kind = "ﮧ"
+                    vim_item.kind_hl_group = "CmpItemKindTabnine"
+                end
+
+                if entry.source.name == "crates" then
+                    vim_item.kind = ""
+                    vim_item.kind_hl_group = "CmpItemKindCrate"
+                end
+
+                if entry.source.name == "lab.quick_data" then
+                    vim_item.kind = ""
+                    vim_item.kind_hl_group = "CmpItemKindConstant"
+                end
+
+                vim.api.nvim_set_hl(0, "CmpItemKindEmoji", { fg = "#FDE030" })
+                if entry.source.name == "emoji" then
+                    vim_item.kind = "ﲃ"
+                    vim_item.kind_hl_group = "CmpItemKindEmoji"
+                end
+
                 vim_item.menu = M.options.formatting.source_names[entry.source.name]
                 vim_item.dup = M.options.formatting.duplicates[entry.source.name]
                     or M.options.formatting.duplicates_default
@@ -211,7 +218,49 @@ M.opts = function()
             documentation = cmp.config.window.bordered(),
         },
         sources = {
-            { name = "nvim_lsp" },
+            {
+                name = "copilot",
+                -- keyword_length = 0,
+                max_item_count = 3,
+                trigger_characters = {
+                    {
+                        ".",
+                        ":",
+                        "(",
+                        "'",
+                        '"',
+                        "[",
+                        ",",
+                        "#",
+                        "*",
+                        "@",
+                        "|",
+                        "=",
+                        "-",
+                        "{",
+                        "/",
+                        "\\",
+                        "+",
+                        "?",
+                        " ",
+                        -- "\t",
+                        -- "\n",
+                    },
+                },
+            },
+            {
+                name = "nvim_lsp",
+                entry_filter = function(entry, ctx)
+                    local kind = require("cmp.types").lsp.CompletionItemKind[entry:get_kind()]
+                    if kind == "Snippet" and ctx.prev_context.filetype == "java" then
+                        return false
+                    end
+                    if kind == "Text" then
+                        return false
+                    end
+                    return true
+                end,
+            },
             { name = "path" },
             { name = "luasnip" },
             { name = "cmp_tabnine" },
@@ -285,6 +334,23 @@ M.opts = function()
                 fallback() -- if not exited early, always fallback
             end),
         },
+        cmdline = {
+            enable = true,
+            options = {
+                {
+                    type = ":",
+                    sources = {
+                        { name = "path" },
+                    },
+                },
+                {
+                    type = { "/", "?" },
+                    sources = {
+                        { name = "buffer" },
+                    },
+                },
+            },
+        },
     }
     return M.options
 end
@@ -295,7 +361,14 @@ function M.setup()
     if not status_ok then
         return
     end
-    cmp.setup(M.opts())
+    local opts = M.opts()
+    cmp.setup(opts)
+    for _, option in ipairs(opts.cmdline) do
+        cmp.setup.cmdline(option.type, {
+            mapping = cmp.mapping.preset.cmdline(),
+            source = option.sources,
+        })
+    end
 end
 
 return M

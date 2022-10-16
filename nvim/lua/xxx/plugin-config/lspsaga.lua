@@ -1,5 +1,7 @@
 local M = {}
 
+local icons = require("xxx.core.icons")
+
 M.opts = {
     -- Options with default value
     -- "single" | "double" | "rounded" | "bold" | "plus"
@@ -19,7 +21,9 @@ M.opts = {
     -- is function type it will have a param `entry`
     -- entry is a table type has these filed
     -- { bufnr, code, col, end_col, end_lnum, lnum, message, severity, source }
-    diagnostic_header = { " ", " ", " ", "ﴞ " },
+    -- diagnostic_header = { " ", " ", " ", "ﴞ " },
+    diagnostic_header = { icons.diagnostics.BoldError, icons.diagnostics.BoldWarning, icons.diagnostics.BoldInformation,
+        icons.diagnostics.BoldHint },
     -- preview lines of lsp_finder and definition preview
     max_preview_lines = 10,
     -- use emoji lightbulb in default

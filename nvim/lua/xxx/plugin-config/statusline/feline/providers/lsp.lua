@@ -1,8 +1,15 @@
 local M = {}
 
+local icons = require("xxx.core.icons")
+
 local use_opts = {
     update_in_insert = false,
-    symbols = { error = " ", warn = " ", info = " ", hint = " " },
+    symbols = {
+        error = icons.diagnostics.BoldError,
+        warn = icons.diagnostics.BoldWarning,
+        info = icons.diagnostics.BoldInformation,
+        hint = icons.diagnostics.BoldHint,
+    },
     sections = { "error", "warn", "info", "hint" },
     colors = {
         error = { fg = "red", bg = "black" },
@@ -53,7 +60,7 @@ function M.diagnostics_provider()
         local count = diagnostics_count[section]
         if count ~= nil and count > 0 then
             local symbol = use_opts.symbols[section]
-            table.insert(result, hls[section] .. ' ' .. symbol .. count)
+            table.insert(result, hls[section] .. ' ' .. symbol .. ' ' .. count)
         end
     end
     if #result > 0 then

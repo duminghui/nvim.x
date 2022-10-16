@@ -1,7 +1,14 @@
 local M = {}
 
+local icons = require("xxx.core.icons")
+
 local use_opts = {
-    symbols = { branch = " ", added = " ", changed = " ", removed = " " },
+    symbols = {
+        branch = icons.git.Branch,
+        added = icons.git.BoldLineAdd,
+        changed = icons.git.LineModified,
+        removed = icons.git.BoldLineRemove,
+    },
     diff_color = {
         branch = { fg = "white", bg = "black" },
         added = { fg = "green", bg = "black" },
@@ -28,11 +35,11 @@ M.git_provider = function()
         local symbol = use_opts.symbols[name]
         if name == "branch" then
             local branch = b.gitsigns_head or ''
-            table.insert(result, hls[name] .. ' ' .. symbol .. branch .. ' ')
+            table.insert(result, hls[name] .. ' ' .. symbol .. " " .. branch .. ' ')
         else
             local value = gitsigns[name]
             if value and value > 0 then
-                table.insert(result, hls[name] .. symbol .. value .. ' ')
+                table.insert(result, hls[name] .. symbol .. " " .. value .. ' ')
             end
         end
     end

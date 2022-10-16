@@ -92,6 +92,7 @@ local function make_client_info(client)
         fmt("* attached buffers:          %s", tostring(attached_buffers_list)),
         -- fmt("* root_dir pattern:          %s", tostring(attached_buffers_list)),
         fmt("* root_dir pattern:          %s", tostring(root_dir_list)),
+        "",
     }
     if not vim.tbl_isempty(client_enabled_caps) then
         local caps_text = "* capabilities:              "

@@ -1,4 +1,5 @@
 local Log = require("xxx.core.log")
+local icons = require("xxx.core.icons")
 local M = {}
 
 local function telescope_find_files(_)
@@ -29,10 +30,10 @@ M.opts = {
         enable = false,
         show_on_dirs = false,
         icons = {
-            hint = "",
-            info = "",
-            warning = "",
-            error = "",
+            hint = icons.diagnostics.BoldHint,
+            info = icons.diagnostics.BoldInformation,
+            warning = icons.diagnostics.BoldWarning,
+            error = icons.diagnostics.BoldError,
         },
     },
     update_focused_file = {
@@ -203,7 +204,7 @@ M.setup = function()
     M.opts.update_cwd = true
     M.opts.update_focused_file = {
         enable = true,
-        -- update_cwd = true,
+        update_cwd = true,
         update_root = true,
     }
 

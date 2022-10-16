@@ -1,5 +1,6 @@
 -- local navic = require('nvim-navic')
 local colors = require("xxx.plugin-config.colorscheme.colors").colors()
+local icons = require("xxx.core.icons")
 
 local M = {}
 
@@ -10,13 +11,20 @@ end
 -- local function diagnostics_indicator(num, _, diagnostics, _)
 local function diagnostics_indicator(_, _, diagnostics, _)
     local result = {}
-    local symbols = { error = '', warning = '', info = '' }
-    for name, count in pairs(diagnostics) do
-        if symbols[name] and count > 0 then
-            table.insert(result, symbols[name] .. '' .. count)
+    local types = { "error", "warning", "info" }
+    local symbols = {
+        error = icons.diagnostics.BoldError,
+        warning = icons.diagnostics.BoldWarning,
+        info = icons.diagnostics.BoldInformation,
+    }
+
+    for _, type in ipairs(types) do
+        local count = diagnostics[type]
+        if count and count > 0 then
+            table.insert(result, symbols[type] .. '' .. count)
         end
     end
-    return #result > 0 and table.concat(result, " ") or ''
+    return #result > 0 and table.concat(result, "") or ''
 end
 
 local function custom_filter(buf, buf_nums)
@@ -92,7 +100,7 @@ M.opts = {
                 text = 'Explorer',
                 highlight = 'PanelHeading',
                 -- padding = 1,
-                separator = true,
+                separator = "┃",
             },
             {
                 filetype = 'DiffviewFiles',
@@ -144,108 +152,6 @@ M.opts = {
     --         fg = '#51afef'
     --     }
     -- },
-    highlights2 = {
-        background = {
-            bg = colors.bg,
-        },
-        buffer = {
-            fg = colors.gray,
-        },
-        duplicate = {
-            fg = colors.gray,
-            bg = colors.bg,
-            italic = true,
-        },
-        fill = {
-            bg = colors.bg,
-        },
-        modified = {
-            fg = colors.gray,
-            bg = colors.bg,
-        },
-        numbers = {
-            fg = colors.gray,
-            bg = colors.bg,
-            italic = true,
-        },
-        pick = {
-            fg = colors.purple,
-            bg = colors.bg,
-        },
-        separator = {
-            fg = colors.bg,
-            bg = colors.bg,
-        },
-        tab = {
-            fg = colors.gray,
-            bg = colors.bg,
-        },
-        buffer_selected = {
-            fg = colors.bufferline_text_focus,
-            bg = colors.statusline_bg,
-            bold = true,
-            italic = false,
-        },
-        duplicate_selected = {
-            fg = colors.purple,
-            bg = colors.statusline_bg,
-            italic = true,
-        },
-        indicator_selected = {
-            bg = colors.statusline_bg,
-        },
-        modified_selected = {
-            fg = colors.red,
-            bg = colors.statusline_bg,
-        },
-        numbers_selected = {
-            fg = colors.purple,
-            bg = colors.statusline_bg,
-            bold = false,
-            italic = true,
-        },
-        pick_selected = {
-            fg = colors.gray,
-            bg = colors.statusline_bg,
-            bold = true,
-            italic = false,
-        },
-        separator_selected = {
-            bg = colors.red,
-            fg = colors.blue
-        },
-        tab_selected = {
-            fg = colors.fg,
-            bg = colors.statusline_bg,
-            bold = true,
-        },
-        buffer_visible = {
-            fg = colors.gray,
-            bg = colors.statusline_bg,
-            bold = true,
-            italic = false,
-        },
-        duplicate_visible = {
-            bg = colors.statusline_bg,
-            italic = true,
-        },
-        indicator_visible = {
-            bg = colors.statusline_bg,
-        },
-        modified_visible = {
-            fg = colors.gray,
-            bg = colors.statusline_bg,
-        },
-        numbers_visible = {
-            fg = colors.gray,
-            bg = colors.statusline_bg,
-            italic = true,
-        },
-        separator_visible = {
-            bg = colors.statusline_bg,
-        },
-
-    },
     highlights = {
         fill = {
             -- fg = '<colour-value-here>',
@@ -428,8 +334,8 @@ M.opts = {
             -- fg = '<colour-value-here>',
             bg = colors.statusline_bg,
             -- sp = '<colour-value-here>',
-            bold = true,
-            italic = true,
+            bold = false,
+            italic = false,
         },
         error_diagnostic = {
             -- fg = '<colour-value-here>',
@@ -444,8 +350,8 @@ M.opts = {
             -- fg = '<colour-value-here>',
             bg = colors.statusline_bg,
             -- sp = '<colour-value-here>',
-            bold = true,
-            italic = true,
+            bold = false,
+            italic = false,
         },
         modified = {
             fg = colors.gray,

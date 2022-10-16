@@ -56,16 +56,18 @@ local diagnostic_float = {
     end,
 }
 
+local icons = require("xxx.core.icons")
+
 local options = {
     templates_dir = join_paths(get_runtime_dir(), "site", "after", "ftplugin"),
     diagnostics = {
         signs = {
             active = true,
             values = {
-                { name = "DiagnosticSignError", text = "" },
-                { name = "DiagnosticSignWarn", text = "" },
-                { name = "DiagnosticSignHint", text = "" },
-                { name = "DiagnosticSignInfo", text = "" },
+                { name = "DiagnosticSignError", text = icons.diagnostics.BoldError },
+                { name = "DiagnosticSignWarn", text = icons.diagnostics.BoldWarning },
+                { name = "DiagnosticSignHint", text = icons.diagnostics.Hint },
+                { name = "DiagnosticSignInfo", text = icons.diagnostics.BoldInformation },
             },
         },
         virtual_text = {

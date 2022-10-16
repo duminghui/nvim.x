@@ -1,6 +1,7 @@
 local M = {}
 
 local Log = require "xxx.core.log"
+local icons = require "xxx.core.icons"
 
 -- TODO how to config background transparent?
 M.opts = {
@@ -27,11 +28,11 @@ M.opts = {
 
     ---@usage Icons for the different levels
     icons = {
-        ERROR = "",
-        WARN = "",
-        INFO = "",
-        DEBUG = "",
-        TRACE = "✎",
+        ERROR = icons.diagnostics.BoldError,
+        WARN = icons.diagnostics.BoldWarning,
+        INFO = icons.diagnostics.BoldInformation,
+        DEBUG = icons.diagnostics.Debug,
+        TRACE = icons.diagnostics.Trace,
     },
 
 }

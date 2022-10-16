@@ -106,7 +106,7 @@ local default_options = {
 M.load_default_options = function()
     -- vim.opt.colorcolumn =  vim.opt.colorcolumn+1
 
-    vim.opt.shortmess:append 'filmnrwxoOtT'
+    vim.opt.shortmess:append 'fxtOrmnlTwoi'
     vim.opt.whichwrap:append 'b,s,h,l,<,>,[,]'
     vim.opt.iskeyword:remove({ '.', '#', '-' })
 

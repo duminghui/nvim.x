@@ -3,32 +3,42 @@ local M = {}
 
 M.opts = function()
     local pre_hook = nil
-
-    if require("xxx.plugin-config.treesitter").opts.context_commentstring.enable then
-        pre_hook = function(ctx)
-            local U = require "Comment.utils"
-
-            -- Determine whether to use linewise or blockwise commentstring
-            local type = ctx.ctype == U.ctype.linewise and "__default" or "__multiline"
-
-            -- Determine the location where to calculate commentstring from
-            local location = nil
-            if ctx.ctype == U.ctype.blockwise then
-                location = require("ts_context_commentstring.utils").get_cursor_location()
-            elseif ctx.cmotion == U.cmotion.v or ctx.cmotion == U.cmotion.V then
-                location = require("ts_context_commentstring.utils").get_visual_start_location()
-            end
-
-            return require("ts_context_commentstring.internal").calculate_commentstring {
-                key = type,
-                location = location,
-            }
-        end
+    local loaded, ts_comment = pcall(require, "ts_context_commentstring.integrations.comment_nvim")
+    if loaded and ts_comment then
+        pre_hook = ts_comment.create_pre_hook()
     end
+
+    -- if require("xxx.plugin-config.treesitter").opts.context_commentstring.enable then
+    --     pre_hook =
+    --     -- function(ctx)
+    --     local U = require "Comment.utils"
+
+    --     -- Determine whether to use linewise or blockwise commentstring
+    --     local type = ctx.ctype == U.ctype.linewise and "__default" or "__multiline"
+
+    --     -- Determine the location where to calculate commentstring from
+    --     local location = nil
+    --     if ctx.ctype == U.ctype.blockwise then
+    --         location = require("ts_context_commentstring.utils").get_cursor_location()
+    --     elseif ctx.cmotion == U.cmotion.v or ctx.cmotion == U.cmotion.V then
+    --         location = require("ts_context_commentstring.utils").get_visual_start_location()
+    --     end
+
+    --     return require("ts_context_commentstring.internal").calculate_commentstring {
+    --         key = type,
+    --         location = location,
+    --     }
+    -- end
+    -- end
     return {
         ---Add a space b/w comment and the line
         ---@type boolean
         padding = true,
+
+        ---Whether cursor should stay at the
+        ---same position. Only works in NORMAL
+        ---mode mappings
+        sticky = true,
 
         ---Lines to be ignored while comment/uncomment.
         ---Could be a regex string or a function that returns a regex string.
