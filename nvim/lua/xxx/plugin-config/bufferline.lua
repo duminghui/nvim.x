@@ -1,4 +1,5 @@
 -- local navic = require('nvim-navic')
+local colors = require("xxx.plugin-config.colorscheme.colors").colors()
 
 local M = {}
 
@@ -6,19 +7,16 @@ local function is_ft(b, ft)
     return vim.bo[b].filetype == ft
 end
 
-local function diagnostics_indicator(num, _, diagnostics, _)
+-- local function diagnostics_indicator(num, _, diagnostics, _)
+local function diagnostics_indicator(_, _, diagnostics, _)
     local result = {}
-    local symbols = {error = '', warning = '', info = ''}
-    -- if not xvim.use_icons then
-    --     return "(" .. num .. ")"
-    -- end
+    local symbols = { error = '', warning = '', info = '' }
     for name, count in pairs(diagnostics) do
         if symbols[name] and count > 0 then
-            table.insert(result, symbols[name] .. ' ' .. count)
+            table.insert(result, symbols[name] .. '' .. count)
         end
     end
-    result = table.concat(result, ' ')
-    return #result > 0 and result or ''
+    return #result > 0 and table.concat(result, " ") or ''
 end
 
 local function custom_filter(buf, buf_nums)
@@ -42,20 +40,6 @@ M.opts = {
     -- keymap = {
     --     normal_mode = {},
     -- },
-    highlights = {
-        background = {
-            italic = true,
-        },
-        buffer_selected = {
-            bold = true,
-        },
-        fill = {
-            bg = '#202328'
-        },
-        indicator_selected = {
-            fg = '#51afef'
-        }
-    },
     options = {
         mode = 'buffers', -- set to "tabs" to only show tabpages instead
         numbers = 'none', -- can be "none" | "ordinal" | "buffer_id" | "both" | function
@@ -67,10 +51,11 @@ M.opts = {
         right_mouse_command = 'vert sbuffer %d', -- can be a string | function, see "Mouse actions"
         left_mouse_command = 'buffer %d', -- can be a string | function, see "Mouse actions"
         middle_mouse_command = nil, -- can be a string | function, see "Mouse actions"
-        indicator = {
-            icon = '▎', -- this should be omitted if indicator style is not 'icon'
-            style = 'icon', -- can also be 'underline'|'none',
-        },
+        -- indicator = {
+        --     icon = '▎', -- this should be omitted if indicator style is not 'icon'
+        --     style = 'icon', -- can also be 'underline'|'none',
+        -- },
+        indicator = "",
         buffer_close_icon = '',
         modified_icon = '●',
         close_icon = '',
@@ -86,10 +71,10 @@ M.opts = {
                 return vim.fn.fnamemodify(buf.name, ':t:r')
             end
         end,
-        max_name_length = 18,
+        max_name_length = 12,
         max_prefix_length = 15, -- prefix used when a buffer is de-duplicated
-        truncate_names = true, -- whether or not tab names should be truncated
-        tab_size = 18,
+        -- truncate_names = true, -- whether or not tab names should be truncated
+        tab_size = 15,
         diagnostics = 'nvim_lsp',
         diagnostics_update_in_insert = false,
         diagnostics_indicator = diagnostics_indicator,
@@ -106,7 +91,8 @@ M.opts = {
                 filetype = 'NvimTree',
                 text = 'Explorer',
                 highlight = 'PanelHeading',
-                padding = 1,
+                -- padding = 1,
+                separator = true,
             },
             {
                 filetype = 'DiffviewFiles',
@@ -129,20 +115,408 @@ M.opts = {
         color_icons = true, -- whether or not to add the filetype icon highlights
         show_buffer_icons = true, -- disable filetype icons for buffers
         show_buffer_close_icons = true,
-        show_close_icon = true,
-        show_tab_indicators = true,
-        persist_buffer_sort = true, -- whether or not custom sorted buffers should persist
+        show_close_icon = false,
+        -- show_tab_indicators = true,
+        -- persist_buffer_sort = true, -- whether or not custom sorted buffers should persist
         -- can also be a table containing 2 custom separators
         -- [focused and unfocused]. eg: { '|', '|' }
-        separator_style = 'thin',
-        enforce_regular_tabs = false,
+        separator_style = 'slant', -- slant, thin, {'any','any'}
+        -- enforce_regular_tabs = false,
         always_show_bufferline = true,
         hover = {
             enabled = true, -- requires nvim 0.8+
             delay = 200,
-            reveal = {'close'},
+            reveal = { 'close' },
         },
-        sort_by = 'id',
+        -- sort_by = 'id',
+    },
+    -- highlights = {
+    --     background = {
+    --         italic = true,
+    --     },
+    --     buffer_selected = {
+    --         bold = true,
+    --     },
+    --     fill = {
+    --         bg = '#202328'
+    --     },
+    --     indicator_selected = {
+    --         fg = '#51afef'
+    --     }
+    -- },
+    highlights2 = {
+        background = {
+            bg = colors.bg,
+        },
+        buffer = {
+            fg = colors.gray,
+        },
+        duplicate = {
+            fg = colors.gray,
+            bg = colors.bg,
+            italic = true,
+        },
+        fill = {
+            bg = colors.bg,
+        },
+        modified = {
+            fg = colors.gray,
+            bg = colors.bg,
+        },
+        numbers = {
+            fg = colors.gray,
+            bg = colors.bg,
+            italic = true,
+        },
+        pick = {
+            fg = colors.purple,
+            bg = colors.bg,
+        },
+        separator = {
+            fg = colors.bg,
+            bg = colors.bg,
+        },
+        tab = {
+            fg = colors.gray,
+            bg = colors.bg,
+        },
+        buffer_selected = {
+            fg = colors.bufferline_text_focus,
+            bg = colors.statusline_bg,
+            bold = true,
+            italic = false,
+        },
+        duplicate_selected = {
+            fg = colors.purple,
+            bg = colors.statusline_bg,
+            italic = true,
+        },
+        indicator_selected = {
+            bg = colors.statusline_bg,
+        },
+        modified_selected = {
+            fg = colors.red,
+            bg = colors.statusline_bg,
+        },
+        numbers_selected = {
+            fg = colors.purple,
+            bg = colors.statusline_bg,
+            bold = false,
+            italic = true,
+        },
+        pick_selected = {
+            fg = colors.gray,
+            bg = colors.statusline_bg,
+            bold = true,
+            italic = false,
+        },
+        separator_selected = {
+            bg = colors.red,
+            fg = colors.blue
+        },
+        tab_selected = {
+            fg = colors.fg,
+            bg = colors.statusline_bg,
+            bold = true,
+        },
+        buffer_visible = {
+            fg = colors.gray,
+            bg = colors.statusline_bg,
+            bold = true,
+            italic = false,
+        },
+        duplicate_visible = {
+            bg = colors.statusline_bg,
+            italic = true,
+        },
+        indicator_visible = {
+            bg = colors.statusline_bg,
+        },
+        modified_visible = {
+            fg = colors.gray,
+            bg = colors.statusline_bg,
+        },
+        numbers_visible = {
+            fg = colors.gray,
+            bg = colors.statusline_bg,
+            italic = true,
+        },
+        separator_visible = {
+            bg = colors.statusline_bg,
+        },
+
+    },
+    highlights = {
+        fill = {
+            -- fg = '<colour-value-here>',
+            bg = colors.bg,
+        },
+        background = {
+            -- fg = '<colour-value-here>',
+            bg = colors.bg,
+        },
+        tab = {
+            fg = colors.gray,
+            bg = colors.bg,
+        },
+        tab_selected = {
+            fg = colors.fg,
+            bg = colors.statusline_bg,
+        },
+        tab_close = {
+            -- fg = '<colour-value-here>',
+            bg = colors.bg,
+        },
+        close_button = {
+            -- fg = '<colour-value-here>',
+            bg = colors.bg,
+        },
+        close_button_visible = {
+            -- fg = '<colour-value-here>',
+            bg = colors.statusline_bg,
+        },
+        close_button_selected = {
+            -- fg = '<colour-value-here>',
+            bg = colors.statusline_bg,
+        },
+        buffer_visible = {
+            fg = colors.gray,
+            bg = colors.statusline_bg,
+            bold = true,
+            italic = true,
+        },
+        buffer_selected = {
+            fg = colors.bufferline_text_focus,
+            bg = colors.statusline_bg,
+            bold = true,
+            italic = true,
+        },
+        numbers = {
+            fg = colors.gray,
+            bg = colors.bg,
+        },
+        numbers_visible = {
+            fg = colors.gray,
+            bg = colors.statusline_bg,
+        },
+        numbers_selected = {
+            fg = colors.purple,
+            bg = colors.statusline_bg,
+            bold = false,
+            italic = true,
+        },
+        diagnostic = {
+            -- fg = '<colour-value-here>',
+            bg = colors.bg,
+        },
+        diagnostic_visible = {
+            -- fg = '<colour-value-here>',
+            bg = colors.statusline_bg,
+        },
+        diagnostic_selected = {
+            -- fg = '<colour-value-here>',
+            bg = colors.statusline_bg,
+            -- bold = true,
+            -- italic = true,
+        },
+        hint = {
+            -- fg = '<colour-value-here>',
+            -- sp = '<colour-value-here>',
+            bg = colors.bg,
+        },
+        hint_visible = {
+            -- fg = '<colour-value-here>',
+            bg = colors.statusline_bg,
+        },
+        hint_selected = {
+            -- fg = '<colour-value-here>',
+            bg = colors.statusline_bg,
+            -- sp = '<colour-value-here>',
+            -- bold = true,
+            -- italic = true,
+        },
+        hint_diagnostic = {
+            -- fg = '<colour-value-here>',
+            -- sp = '<colour-value-here>',
+            bg = colors.bg,
+        },
+        hint_diagnostic_visible = {
+            -- fg = '<colour-value-here>',
+            bg = colors.statusline_bg,
+        },
+        hint_diagnostic_selected = {
+            -- fg = '<colour-value-here>',
+            bg = colors.statusline_bg,
+            -- sp = '<colour-value-here>',
+            -- bold = true,
+            -- italic = true,
+        },
+        info = {
+            -- fg = '<colour-value-here>',
+            -- sp = '<colour-value-here>',
+            bg = colors.bg,
+        },
+        info_visible = {
+            -- fg = '<colour-value-here>',
+            bg = colors.statusline_bg,
+        },
+        info_selected = {
+            -- fg = '<colour-value-here>',
+            bg = colors.statusline_bg,
+            -- sp = '<colour-value-here>',
+            -- bold = true,
+            -- italic = true,
+        },
+        info_diagnostic = {
+            -- fg = '<colour-value-here>',
+            -- sp = '<colour-value-here>',
+            bg = colors.bg,
+        },
+        info_diagnostic_visible = {
+            -- fg = '<colour-value-here>',
+            bg = colors.statusline_bg,
+        },
+        info_diagnostic_selected = {
+            -- fg = '<colour-value-here>',
+            bg = colors.statusline_bg,
+            -- sp = '<colour-value-here>',
+            -- bold = true,
+            -- italic = true,
+        },
+        warning = {
+            -- fg = '<colour-value-here>',
+            -- sp = '<colour-value-here>',
+            bg = colors.bg,
+        },
+        warning_visible = {
+            -- fg = '<colour-value-here>',
+            bg = colors.statusline_bg,
+        },
+        warning_selected = {
+            -- fg = '<colour-value-here>',
+            bg = colors.statusline_bg,
+            -- sp = '<colour-value-here>',
+            -- bold = true,
+            --     italic = true,
+        },
+        warning_diagnostic = {
+            -- fg = '<colour-value-here>',
+            -- sp = '<colour-value-here>',
+            bg = colors.bg,
+        },
+        warning_diagnostic_visible = {
+            -- fg = '<colour-value-here>',
+            bg = colors.statusline_bg,
+        },
+        warning_diagnostic_selected = {
+            -- fg = '<colour-value-here>',
+            bg = colors.statusline_bg,
+            -- sp = warning_diagnostic_fg,
+            -- bold = true,
+            -- italic = true,
+        },
+        error = {
+            -- fg = '<colour-value-here>',
+            bg = colors.bg,
+            -- sp = '<colour-value-here>'
+        },
+        error_visible = {
+            -- fg = '<colour-value-here>',
+            bg = colors.statusline_bg,
+        },
+        error_selected = {
+            -- fg = '<colour-value-here>',
+            bg = colors.statusline_bg,
+            -- sp = '<colour-value-here>',
+            bold = true,
+            italic = true,
+        },
+        error_diagnostic = {
+            -- fg = '<colour-value-here>',
+            bg = colors.bg,
+            -- sp = '<colour-value-here>'
+        },
+        error_diagnostic_visible = {
+            -- fg = '<colour-value-here>',
+            bg = colors.statusline_bg,
+        },
+        error_diagnostic_selected = {
+            -- fg = '<colour-value-here>',
+            bg = colors.statusline_bg,
+            -- sp = '<colour-value-here>',
+            bold = true,
+            italic = true,
+        },
+        modified = {
+            fg = colors.gray,
+            bg = colors.bg,
+        },
+        modified_visible = {
+            fg = colors.gray,
+            bg = colors.statusline_bg,
+        },
+        modified_selected = {
+            fg = colors.red,
+            bg = colors.statusline_bg,
+        },
+        duplicate_selected = {
+            -- fg = colors.purple,
+            fg = colors.blue,
+            bg = colors.statusline_bg,
+            italic = true,
+        },
+        duplicate_visible = {
+            -- fg = '<colour-value-here>',
+            bg = colors.statusline_bg,
+            italic = true,
+        },
+        duplicate = {
+            fg = colors.gray,
+            bg = colors.bg,
+            italic = true,
+        },
+        separator_selected = {
+            fg = colors.bg,
+            bg = colors.statusline_bg,
+        },
+        separator_visible = {
+            -- fg = '<colour-value-here>',
+            fg = colors.bg,
+            bg = colors.statusline_bg,
+        },
+        separator = {
+            fg = colors.bg,
+            bg = colors.bg,
+        },
+        indicator_visible = {
+            bg = colors.statusline_bg,
+        },
+        indicator_selected = {
+            -- fg = '<colour-value-here>',
+            bg = colors.statusline_bg,
+        },
+        pick_selected = {
+            fg = colors.gray,
+            bg = colors.statusline_bg,
+            bold = true,
+            italic = false,
+        },
+        pick_visible = {
+            -- fg = '<colour-value-here>',
+            bg = colors.statusline_bg,
+            bold = true,
+            italic = true,
+        },
+        pick = {
+            fg = colors.purple,
+            bg = colors.bg,
+            -- bold = true,
+            -- italic = true,
+        },
+        offset_separator = {
+            -- fg = win_separator_fg,
+            bg = colors.statusline_bg,
+        },
     },
 
 

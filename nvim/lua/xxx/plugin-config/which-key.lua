@@ -78,7 +78,7 @@ M.n_opts = {
 
 M.n_mappings = {
     [";"] = { "<cmd>Alpha<CR>", "Dashboard" },
-    ["/"] = { "<cmd>nohlsearch<CR>", "No Highlight" },
+    ["/"] = { ":nohlsearch<CR>", "No Highlight" },
     w = { "<cmd>w!<CR>", "Save" },
     c = { "<cmd>BufferKill<CR>", "Close Buffer(Keep window)" },
     q = { "<cmd>lua require('xxx.utils.functions').smart_quit()<CR>", "Quit current window" },

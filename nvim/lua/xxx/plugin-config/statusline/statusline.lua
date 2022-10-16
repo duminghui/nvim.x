@@ -183,19 +183,23 @@ local function statusline_components()
         end,
         left_sep = {
             str = "slant_right",
-            hl = function()
-                return block().sep_left
-            end,
+            -- hl = function()
+            --     return block().sep_left
+            -- end,
+            hl = {
+                fg = "#FFFF00",
+                bg = "#FF0000"
+            }
         },
         right_sep = {
             str = "slant_right",
-            -- hl = {
-            --     fg = "#FFFF00",
-            --     bg = "#FF0000"
-            -- }
-            hl = function()
-                return block().sep_right
-            end,
+            hl = {
+                fg = "#FFFF00",
+                bg = "#FF00FF"
+            }
+            -- hl = function()
+            --     return block().sep_right
+            -- end,
         },
         show_mode_name = true,
         padding = false,
@@ -436,20 +440,20 @@ local function statusline_components()
             c_vi_mode,
             c_fileinfo,
             c_git,
-            { provider = "git_diff_added", hl = { fg = colors.green, bg = "NONE", }, padding = false },
-            { provider = "git_diff_removed", hl = { fg = colors.red, bg = "NONE", }, },
-            { provider = "git_diff_changed", hl = { fg = colors.orange, bg = "NONE", }, },
-            c_diagnostic_errors,
-            c_diagnostic_warnings,
-            c_diagnostic_hints,
-            c_diagnostic_info,
+            -- { provider = "git_diff_added", hl = { fg = colors.green, bg = "NONE", }, padding = false },
+            -- { provider = "git_diff_removed", hl = { fg = colors.red, bg = "NONE", }, },
+            -- { provider = "git_diff_changed", hl = { fg = colors.orange, bg = "NONE", }, },
+            -- c_diagnostic_errors,
+            -- c_diagnostic_warnings,
+            -- c_diagnostic_hints,
+            -- c_diagnostic_info,
             c_filler,
         },
         {
-            c_filetype,
-            c_session,
-            c_line_column,
-            c_line_percentage,
+            -- c_filetype,
+            -- c_session,
+            -- c_line_column,
+            -- c_line_percentage,
             -- { provider = "scroll_bar" },
         },
     }

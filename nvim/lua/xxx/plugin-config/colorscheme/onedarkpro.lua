@@ -18,8 +18,9 @@ M.opts = {
 
             bufferline_text_focus = "#949aa2",
 
-            -- statusline_bg = "#2e323b", -- gray
-            bg_statusline = "#2e323b", -- gray
+            statusline_bg = "#2e323b", -- gray
+            -- bg_statusline = "#2e323b", -- gray
+            -- bg_statusline = "#FFFFFF", -- gray
 
             telescope_prompt = "#2e323b",
             telescope_results = "#21252d",
@@ -124,7 +125,7 @@ M.opts = {
         keywords = "NONE", -- Style that is applied to keywords
         functions = "NONE", -- Style that is applied to functions
         variables = "NONE", -- Style that is applied to variables
-        virtual_text = "NONE", -- Style that is applied to virtual text
+        virtual_text = "italic", -- Style that is applied to virtual text
     },
     options = {
         bold = false, -- Use the colorscheme's opinionated bold styles?
@@ -148,6 +149,10 @@ M.setup = function()
     vim.api.nvim_command('colorscheme onedarkpro')
 
     vim.g.colors_name = "onedarkpro"
+
+    local colors = onedarkpro.get_colors(vim.g.onedarkpro_theme)
+
+    require("xxx.plugin-config.colorscheme.colors").generate_colors_with(colors);
 
     -- vim.cmd(string.format("highlight CursorLineNr guifg=%s", "#FFD700"))
     -- 会把整个替换掉

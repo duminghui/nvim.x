@@ -14,18 +14,18 @@ local plugins = {
         -- theme
         {
             "olimorris/onedarkpro.nvim",
-            -- as = "colorscheme",
+            as = "colorscheme",
             config = function()
                 require('xxx.plugin-config.colorscheme.onedarkpro').setup()
             end,
-            disable = true,
+            -- disable = true,
         },
         {
             'navarasu/onedark.nvim',
-            as = "colorscheme",
-            config = function()
-                require('xxx.plugin-config.colorscheme.onedark').setup()
-            end,
+            -- as = "colorscheme",
+            -- config = function()
+            --     require('xxx.plugin-config.colorscheme.onedark').setup()
+            -- end,
             -- disable = true,
         },
         {
@@ -168,9 +168,10 @@ local plugins = {
         'nvim-lualine/lualine.nvim',
         after = "colorscheme",
         requires = { 'kyazdani42/nvim-web-devicons' },
-        config = function()
-            require("xxx.plugin-config.statusline.lualine").setup()
-        end,
+        -- config = function()
+        --     require("xxx.plugin-config.statusline.lualine").setup()
+        -- end,
+        -- disable = true,
     },
     {
         "feline-nvim/feline.nvim", -- Statusline
@@ -179,9 +180,9 @@ local plugins = {
             { "kyazdani42/nvim-web-devicons" }, -- Web icons for various plugins
         },
         config = function()
-            require("xxx.plugin-config.statusline.statusline").setup()
+            -- require("xxx.plugin-config.statusline.statusline").setup()
+            require("xxx.plugin-config.statusline.feline").setup()
         end,
-        disable = true,
     },
 
     {
