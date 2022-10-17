@@ -328,7 +328,7 @@ M.scroll_bar = {
     provider = {
         name = "scroll_bar",
         opts = {
-            reverse = true,
+            reverse = false,
         }
     },
     hl = {
