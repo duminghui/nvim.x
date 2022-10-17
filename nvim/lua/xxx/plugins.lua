@@ -217,9 +217,15 @@ local plugins = {
     {
         "Shatur/neovim-session-manager",
         config = function()
-            require("xxx.plugin-config.session-manager").setup()
-        end
+            require("xxx.plugin-config.session.session-manager").setup()
+        end,
     },
+    -- {
+    --     "olimorris/persisted.nvim",
+    --     config = function()
+    --         require("xxx.plugin-config.session.persisted").setup()
+    --     end,
+    -- },
     {
         "ahmedkhalf/project.nvim",
         after = "telescope.nvim",

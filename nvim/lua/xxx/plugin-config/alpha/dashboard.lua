@@ -1,6 +1,9 @@
 local M = {}
 local version = vim.version()
-local ver_str = string.format("%s.%s.%s", version.major, version.minor, version.patch)
+local ver_str = ""
+if version then
+    ver_str = string.format("%s.%s.%s", version.major, version.minor, version.patch)
+end
 
 local banner = {
     "",
@@ -56,6 +59,8 @@ function M.get_sections()
                 button("p", "  Projects ", "<CMD>Telescope projects<CR>"),
                 button("s", "ﭯ  Sessions", "<CMD>SessionManager load_session<CR>"),
                 button("S", "  Open last session", "<CMD>SessionManager load_last_session<CR>"),
+                -- button("s", "ﭯ  Sessions", "<CMD>Telescope persisted<CR>"),
+                -- button("S", "  Open last session", ":SessionLoadLast<CR>"),
             },
         }
     end

@@ -1,3 +1,4 @@
+-- autorun when lsp working
 local client_notifs = {}
 local spinner_frames = { "⣾", "⣽", "⣻", "⢿", "⡿", "⣟", "⣯", "⣷" } -- spinners
 

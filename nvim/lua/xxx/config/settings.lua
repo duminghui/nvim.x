@@ -100,7 +100,7 @@ local default_options = {
     -- treesitter
     foldmethod = "manual", -- folding, set to "expr" for treesitter based folding
     foldexpr = "", -- set to "nvim_treesitter#foldexpr()" for treesitter based folding
-
+    sessionoptions = "buffers,curdir,folds,globals,tabpages,winpos,winsize", -- Session options to store in the session
 }
 
 M.load_default_options = function()

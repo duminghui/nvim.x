@@ -337,6 +337,34 @@ M.scroll_bar = {
     },
 }
 
+M.persisted = {
+    provider = function()
+        if vim.g.persisting then
+            -- return "  "
+            return " ﬽ "
+        end
+        -- return "  "
+        return "  "
+    end,
+    -- enabled = function()
+    --     return (vim.g.persisting ~= nil)
+    -- end,
+    hl = function()
+        local fg = colors.orange
+        if vim.g.persisting then
+            fg = colors.green
+        end
+        return {
+            fg = fg,
+            bg = com_bg,
+        }
+    end,
+    left_sep = right_section_left_sep,
+    right_sep = right_section_right_sep,
+    truncate_hide = true,
+    priority = 4,
+}
+
 function M.init()
     provider_git.init {
         diff_color = {

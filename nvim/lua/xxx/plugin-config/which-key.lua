@@ -203,7 +203,11 @@ M.n_mappings = {
         L = { "<cmd>SessionManager load_last_session<CR>", "Load Last Session" },
         c = { "<cmd>SessionManager load_current_dir_session<CR>", "Load Current Dir Session" },
         s = { "<cmd>SessionManager save_current_session<CR>", "Save Current Session" },
-        d = { "<cmd>SessionManager delete_session<CR>", "Delete Session" }
+        d = { "<cmd>SessionManager delete_session<CR>", "Delete Session" },
+        -- t = { "<cmd>SessionToggle<CR>", "Session Toggle" },
+        -- l = { "<cmd>Telescope persisted<CR>", "Session list" },
+        -- s = { "<cmd>SessionSave<CR>", "Save Current Session" },
+
     },
     t = {
         name = "Trouble",
