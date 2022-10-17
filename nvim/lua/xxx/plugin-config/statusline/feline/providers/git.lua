@@ -25,7 +25,7 @@ end
 
 local hls = {}
 
-M.git_provider = function()
+function M.git_provider()
     local gitsigns = b.gitsigns_status_dict
     if not gitsigns then
         return ""
@@ -35,16 +35,16 @@ M.git_provider = function()
         local symbol = use_opts.symbols[name]
         if name == "branch" then
             local branch = b.gitsigns_head or ''
-            table.insert(result, hls[name] .. ' ' .. symbol .. " " .. branch .. ' ')
+            table.insert(result, hls[name] .. ' ' .. symbol .. " " .. branch)
         else
             local value = gitsigns[name]
             if value and value > 0 then
-                table.insert(result, hls[name] .. symbol .. " " .. value .. ' ')
+                table.insert(result, hls[name] .. symbol .. " " .. value)
             end
         end
     end
     if #result > 0 then
-        return table.concat(result, '')
+        return table.concat(result, ' ') .. " "
     else
         return ''
     end

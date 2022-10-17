@@ -50,7 +50,8 @@ return {
         LineModified = "",
         BoldLineRemove = "",
         LineRemoved = "",
-        Octoface = "",
+        Octoface = "", --eb27
+        -- Octoface = "", --f406
     },
     diagnostics = {
         BoldError = "",

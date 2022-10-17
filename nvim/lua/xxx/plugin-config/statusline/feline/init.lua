@@ -82,6 +82,7 @@ M.setup = function()
                 coms.file_info,
                 coms.git,
                 coms.lsp_diagnostics,
+                -- coms.filler,
             },
             {
                 coms.treesitter,
@@ -90,6 +91,9 @@ M.setup = function()
                 coms.file_encoding,
                 coms.file_format,
                 coms.file_type,
+                coms.position,
+                coms.line_percentage,
+                coms.scroll_bar,
             }
         },
         inactive = { {}, {} },
@@ -101,10 +105,14 @@ M.setup = function()
         components = components,
     })
     feline.setup(setup_opts)
+
     -- local winbar_opts = {
     --     components = winbar_components()
     -- }
     -- feline.winbar.setup(winbar_opts)
+
+    -- statusbar demo
+    -- require("xxx.plugin-config.statusline.demo").init()
 
 end
 

@@ -21,7 +21,11 @@ local function diagnostics_indicator(_, _, diagnostics, _)
     for _, type in ipairs(types) do
         local count = diagnostics[type]
         if count and count > 0 then
-            table.insert(result, symbols[type] .. '' .. count)
+            local count_str = tostring(count)
+            if count > 9 then
+                count_str = "9+"
+            end
+            table.insert(result, symbols[type] .. '' .. count_str)
         end
     end
     return #result > 0 and table.concat(result, "") or ''

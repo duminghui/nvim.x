@@ -113,7 +113,7 @@ function M.lsp_info_provider()
         language_servers = language_servers .. hls["copilot"] .. " " .. icons.git.Octoface -- .. "%*"
     end
 
-    return language_servers .. " "
+    return "LSP:" .. language_servers .. " "
 end
 
 local hl_name_key = "xxx_statusline_lsp_"

@@ -4,7 +4,10 @@ local colors = require("xxx.plugin-config.colorscheme.colors").colors()
 local vi_mode_utils = require("feline.providers.vi_mode")
 
 -- local com_bg = "#33373E"
-local com_bg = "#2E323B"
+-- local com_bg = "#2E323B"
+local com_bg = colors.statusline_bg
+-- local com_bg = "#282c34"
+-- local com_bg = "#22252C"
 
 M.filetypes_to_mask = {
     "^aerial$",
@@ -12,7 +15,9 @@ M.filetypes_to_mask = {
     "^neo--tree--popup$",
     "^NvimTree$",
     "^toggleterm$",
+    "^lspsagaoutline$",
 }
+
 local function hide_in_width()
     return vim.api.nvim_win_get_width(0) > 80
 end
@@ -40,27 +45,7 @@ M.vi_mode = {
             bg = vi_mode_utils.get_mode_color(),
         }
     end,
-    priority = 100,
-    -- left_sep = {
-    --     str = "vertical_bar_thin",
-    --     hl = function()
-    --         return {
-    --             fg = vi_mode_utils.get_mode_color(),
-    --             bg = vi_mode_utils.get_mode_color(),
-    --         }
-    --     end,
-    -- },
     right_sep = {
-        -- {
-        --     str = "vertical_bar_thin",
-        --     hl = function()
-        --         return {
-        --             fg = vi_mode_utils.get_mode_color(),
-        --             bg = vi_mode_utils.get_mode_color(),
-        --         }
-        --     end
-
-        -- },
         {
             str = "slant_right",
             hl = function()
@@ -71,6 +56,7 @@ M.vi_mode = {
             end,
         }
     },
+    priority = 100,
 
 }
 
@@ -78,7 +64,7 @@ local left_section_left_sep = {
     str = "slant_left_2",
     hl = {
         fg = com_bg,
-        bg = colors.bg,
+        bg = "None"
     }
 }
 
@@ -86,7 +72,7 @@ local left_section_right_sep = {
     str = "slant_right",
     hl = {
         fg = com_bg,
-        bg = colors.bg,
+        bg = "None"
     }
 }
 
@@ -95,19 +81,13 @@ M.file_info = {
         local file = require("feline.providers.file").file_info({ icon = "" },
             { type = "short", file_readonly_icon = " " })
 
+        -- print(file, vim.bo.filetype)
         if mask_plugin() then
             file = vim.bo.filetype
         end
 
         return " " .. file .. " "
     end,
-    -- provider = {
-    --     name = "file_info",
-    --     opts = {
-    --         colored_icon = false,
-    --         file_readonly_icon = " ",
-    --     },
-    -- },
     icon = "",
     -- enabled = hide_in_width,
     hl = {
@@ -116,6 +96,7 @@ M.file_info = {
     },
     left_sep = left_section_left_sep,
     right_sep = left_section_right_sep,
+    priority = 100,
 }
 
 local provider_git = require("xxx.plugin-config.statusline.feline.providers.git")
@@ -124,15 +105,18 @@ local provider_git = require("xxx.plugin-config.statusline.feline.providers.git"
 M.git = {
     provider = provider_git.git_provider,
     enabled = function()
-        return vim.b.gitsigns_head or vim.b.gitsigns_status_dict
+        return provider_git.git_info_exists()
     end,
-    truncate_hide = true,
     hl = {
-        fg = com_bg,
-        bg = com_bg,
+        -- fg = colors.gray,
+        -- bg = com_bg,
+        fg = "None",
+        bg = "None",
     },
     left_sep = left_section_left_sep,
     right_sep = left_section_right_sep,
+    truncate_hide = true,
+    priority = 10,
 }
 
 local provider_lsp = require("xxx.plugin-config.statusline.feline.providers.lsp")
@@ -143,18 +127,20 @@ M.lsp_diagnostics = {
         return provider_lsp.is_diagnostics_attached()
     end,
     hl = {
-        fg = com_bg,
-        bg = com_bg,
+        fg = "None",
+        bg = "None",
     },
     left_sep = left_section_left_sep,
     right_sep = left_section_right_sep,
+    truncate_hide = true,
+    priority = 10,
 }
 
 local right_section_left_sep = {
     str = "slant_left",
     hl = {
         fg = com_bg,
-        bg = colors.bg,
+        bg = "None",
     }
 }
 
@@ -162,20 +148,25 @@ local right_section_right_sep = {
     str = "slant_right_2",
     hl = {
         fg = com_bg,
-        bg = colors.bg,
+        bg = "None",
     }
 }
 
-local right_section_right_sep_thin = {
-    str = "vertical_bar_thin",
-    hl = {
-        fg = com_bg,
-        bg = colors.bg,
-    }
-}
+-- local right_section_right_sep_thin = {
+--     str = "vertical_bar_thin",
+--     hl = {
+--         fg = com_bg,
+--         bg = "None"
+--     }
+-- }
 
 M.lsp_info = {
-    provider = provider_lsp.lsp_info_provider,
+    provider = function()
+        return provider_lsp.lsp_info_provider()
+    end,
+    short_provider = function()
+        return ""
+    end,
     hl = function()
         local fg = colors.orange
         if provider_lsp.is_lsp_info_attached() then
@@ -186,9 +177,29 @@ M.lsp_info = {
             bg = com_bg,
         }
     end,
-    left_sep = right_section_left_sep,
-    right_sep = right_section_right_sep,
-    icon = '  LSP:',
+    icon = {
+        str = '  ',
+        always_visible = true,
+    },
+    left_sep = {
+        str = "slant_left",
+        hl = {
+            fg = com_bg,
+            bg = "None",
+        },
+        always_visible = true,
+    },
+    right_sep = {
+        str = "slant_right_2",
+        hl = {
+            fg = com_bg,
+            bg = "None",
+        },
+        always_visible = true,
+    },
+    -- enabled = hide_in_width,
+    truncate_hide = true,
+    priority = 9,
 }
 
 M.treesitter = {
@@ -204,6 +215,8 @@ M.treesitter = {
     end,
     left_sep = right_section_left_sep,
     right_sep = right_section_right_sep,
+    truncate_hide = true,
+    priority = 8,
 }
 
 M.space = {
@@ -217,6 +230,8 @@ M.space = {
     },
     left_sep = right_section_left_sep,
     -- right_sep = right_section_right_sep_thin,
+    truncate_hide = true,
+    priority = 7,
 }
 
 M.file_encoding = {
@@ -228,18 +243,21 @@ M.file_encoding = {
         bg = com_bg,
     },
     -- right_sep = right_section_right_sep_thin,
+    truncate_hide = true,
+    priority = 5,
 }
 
 M.file_format = {
     provider = function()
         return "" .. ((vim.bo.fileformat ~= '' and vim.bo.fileformat) or vim.o.fileformat):upper() .. " "
     end,
-    truncate_hide = true,
     hl = {
         fg = colors.gray,
         bg = com_bg,
     },
     -- right_sep = right_section_right_sep_thin,
+    truncate_hide = true,
+    priority = 5,
 }
 
 M.file_type = {
@@ -248,11 +266,73 @@ M.file_type = {
             { filetype_icon = true, colored_icon = true, case = "lowercase" })
         return file_type .. " ", icon
     end,
+    short_provider = function()
+        local _, icon = require("feline.providers.file").file_type({},
+            { filetype_icon = true, colored_icon = true, case = "lowercase" })
+        return " ", icon
+    end,
     hl = {
         fg = colors.gray,
         bg = com_bg,
     },
-    -- right_sep = right_section_right_sep_thin,
+    right_sep = {
+        str = "slant_right_2",
+        hl = {
+            fg = com_bg,
+            bg = "None",
+        },
+        always_visible = true,
+    },
+    truncate_hide = true,
+    priority = 6,
+}
+
+M.position = {
+    provider = {
+        name = "position",
+        opts = {
+            padding = {
+                line = 2,
+                col = 2,
+            },
+            format = " {line}:{col} "
+        }
+    },
+    hl = {
+        fg = colors.statusline_bg,
+        bg = colors.green,
+    },
+    left_sep = {
+        str = "slant_left",
+        hl = {
+            fg = colors.green,
+            bg = "NONE",
+        }
+    },
+}
+
+M.line_percentage = {
+    provider = function()
+        local line_percentage = require("feline.providers.cursor").line_percentage()
+        return " " .. line_percentage .. " "
+    end,
+    hl = {
+        fg = colors.statusline_bg,
+        bg = colors.orange,
+    },
+}
+
+M.scroll_bar = {
+    provider = {
+        name = "scroll_bar",
+        opts = {
+            reverse = false,
+        }
+    },
+    hl = {
+        fg = "#FFD700",
+        bg = "None",
+    },
 }
 
 function M.init()
