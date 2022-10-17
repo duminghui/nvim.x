@@ -16,11 +16,12 @@ M.filetypes_to_mask = {
     "^NvimTree$",
     "^toggleterm$",
     "^lspsagaoutline$",
+    "^mason$"
 }
 
-local function hide_in_width()
-    return vim.api.nvim_win_get_width(0) > 80
-end
+-- local function hide_in_width()
+--     return vim.api.nvim_win_get_width(0) > 80
+-- end
 
 local function mask_plugin()
     return find_pattern_match(M.filetypes_to_mask, vim.bo.filetype)
@@ -178,7 +179,8 @@ M.lsp_info = {
         }
     end,
     icon = {
-        str = '  ',
+        -- str = '  ',
+        str = '  ',
         always_visible = true,
     },
     left_sep = {
@@ -326,7 +328,7 @@ M.scroll_bar = {
     provider = {
         name = "scroll_bar",
         opts = {
-            reverse = false,
+            reverse = true,
         }
     },
     hl = {

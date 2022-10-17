@@ -25,8 +25,9 @@ M.opts = {
         "man",
         "",
         "alpha",
-        "gitcommit",
         "dashboard",
+        "gitcommit",
+        "mason",
         "neo-tree",
         "NvimTree",
         "Startify",
@@ -41,6 +42,7 @@ M.opts = {
         "nofile",
         "quickfix",
         "prompt",
+        "mason",
     },
 }
 
