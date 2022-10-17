@@ -2,7 +2,8 @@ local default_workspace = {
     library = {
         vim.fn.expand "$VIMRUNTIME",
         get_base_dir(),
-        require("lua-dev.sumneko").types(),
+        -- require("lua-dev.sumneko").types(),
+        require("neodev.config").types(),
     },
 
     maxPreload = 1000,
@@ -44,6 +45,12 @@ local opts = {
     settings = {
         Lua = {
             telemetry = { enable = false },
+            runtime = {
+                version = "LuaJIT",
+                special = {
+                    reload = "require",
+                },
+            },
             diagnostics = {
                 globals = { "vim", "xxx", "packer_plugins" },
             },

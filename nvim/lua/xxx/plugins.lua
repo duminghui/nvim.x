@@ -18,7 +18,6 @@ local plugins = {
             config = function()
                 require('xxx.plugin-config.colorscheme.onedarkpro').setup()
             end,
-            -- disable = true,
         },
         {
             'navarasu/onedark.nvim',
@@ -26,7 +25,6 @@ local plugins = {
             -- config = function()
             --     require('xxx.plugin-config.colorscheme.onedark').setup()
             -- end,
-            -- disable = true,
         },
         {
             -- SchemaStore
@@ -171,7 +169,6 @@ local plugins = {
         -- config = function()
         --     require("xxx.plugin-config.statusline.lualine").setup()
         -- end,
-        -- disable = true,
     },
     {
         "feline-nvim/feline.nvim", -- Statusline
@@ -180,7 +177,6 @@ local plugins = {
             { "kyazdani42/nvim-web-devicons" }, -- Web icons for various plugins
         },
         config = function()
-            -- require("xxx.plugin-config.statusline.statusline").setup()
             require("xxx.plugin-config.statusline.feline").setup()
         end,
     },
@@ -251,7 +247,6 @@ local plugins = {
         },
         {
             "williamboman/mason-lspconfig.nvim",
-            after = "mason.nvim",
             requires = {
                 { "neovim/nvim-lspconfig" },
 
@@ -333,10 +328,15 @@ local plugins = {
                 require("xxx.plugin-config.cmp").setup()
             end,
         },
+        -- {
+        --     -- vim functions for dev
+        --     "folke/lua-dev.nvim",
+        --     module = "lua-dev",
+        -- },
         {
             -- vim functions for dev
-            "folke/lua-dev.nvim",
-            module = "lua-dev",
+            "folke/neodev.nvim",
+            module = "neodev",
         },
     },
 

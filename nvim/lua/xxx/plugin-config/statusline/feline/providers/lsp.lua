@@ -15,7 +15,9 @@ local use_opts = {
         error = { fg = "red", bg = "black" },
         warn = { fg = "orange", bg = "black" },
         info = { fg = "blue", bg = "black" },
-        hint = { fg = "cyan", bg = "black" }
+        hint = { fg = "cyan", bg = "black" },
+        copilot = { fg = "#6CC644", bg = "black" }
+
     },
 }
 
@@ -26,11 +28,13 @@ local default_from_highlights = {
     hint = "DiagnosticHint",
 }
 
-function M.is_lsp_attached()
-    return next(vim.lsp.buf_get_clients(0)) ~= nil
-end
 
 local hls = {}
+
+function M.is_diagnostics_attached()
+    local diagnostics = vim.diagnostic.get(0)
+    return diagnostics and #diagnostics > 0
+end
 
 local last_diagnostcis_count = {}
 
@@ -70,6 +74,48 @@ function M.diagnostics_provider()
     end
 end
 
+function M.is_lsp_info_attached()
+    return next(vim.lsp.get_active_clients({ bufnr = 0 })) ~= nil
+end
+
+function M.lsp_info_provider()
+    local buf_clients = vim.lsp.get_active_clients({ bufnr = 0 })
+    if not buf_clients or #buf_clients == 0 then
+        return "Inactive "
+    end
+    local buf_ft = vim.bo.filetype
+    local buf_client_names = {}
+    local copilot_active = false
+    for _, client in pairs(buf_clients) do
+        if client.name ~= "null-ls" then
+            table.insert(buf_client_names, client.name)
+        end
+        if client.name == "copilot" then
+            copilot_active = true
+        end
+    end
+
+    -- add formatter
+    local formatters = require "xxx.lsp.null-ls.formatters"
+    local supported_formatters = formatters.list_registered(buf_ft)
+    vim.list_extend(buf_client_names, supported_formatters)
+
+    -- add linter
+    local linters = require "xxx.lsp.null-ls.linters"
+    local supported_linters = linters.list_registered(buf_ft)
+    vim.list_extend(buf_client_names, supported_linters)
+
+    local unique_client_names = vim.fn.uniq(buf_client_names)
+
+    local language_servers = "[" .. table.concat(unique_client_names, ", ") .. "]"
+
+    if copilot_active then
+        language_servers = language_servers .. hls["copilot"] .. " " .. icons.git.Octoface -- .. "%*"
+    end
+
+    return language_servers .. " "
+end
+
 local hl_name_key = "xxx_statusline_lsp_"
 function M.init(opts)
     local highlight = require("xxx.utils.highlight")
@@ -87,7 +133,6 @@ function M.init(opts)
         highlight.highlight(hl_name, color.fg, color.bg)
         hls[key] = "%#" .. hl_name .. "#"
     end
-
 end
 
 return M

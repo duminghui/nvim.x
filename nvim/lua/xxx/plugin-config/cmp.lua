@@ -145,9 +145,7 @@ M.opts = function()
         formatting = {
             fields = { "kind", "abbr", "menu" },
             max_width = 0,
-            kind_icons = {
-
-            },
+            kind_icons = icons.kind,
             source_names = {
                 nvim_lsp = "(LSP)",
                 emoji = "(Emoji)",
@@ -174,9 +172,9 @@ M.opts = function()
                 vim_item.kind = M.options.formatting.kind_icons[vim_item.kind]
 
                 -- TODO: not sure why I can't put this anywhere else
-                vim.api.nvim_set_hl(0, "CmpItemKindCrate", { fg = "#F64D00" })
+                vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { fg = "#6CC644" })
                 if entry.source.name == "copilot" then
-                    vim_item.kind = ""
+                    vim_item.kind = icons.git.Octoface
                     vim_item.kind_hl_group = "CmpItemKindCopilot"
                 end
 
@@ -186,6 +184,7 @@ M.opts = function()
                     vim_item.kind_hl_group = "CmpItemKindTabnine"
                 end
 
+                vim.api.nvim_set_hl(0, "CmpItemKindCrate", { fg = "#F64D00" })
                 if entry.source.name == "crates" then
                     vim_item.kind = ""
                     vim_item.kind_hl_group = "CmpItemKindCrate"

@@ -83,7 +83,14 @@ M.setup = function()
                 coms.git,
                 coms.lsp_diagnostics,
             },
-            {}
+            {
+                coms.treesitter,
+                coms.lsp_info,
+                coms.space,
+                coms.file_encoding,
+                coms.file_format,
+                coms.file_type,
+            }
         },
         inactive = { {}, {} },
     }

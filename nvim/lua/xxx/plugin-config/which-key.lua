@@ -143,8 +143,8 @@ M.n_mappings = {
     g = {
         name = "Git",
         g = { "<cmd>lua require 'xxx.plugin-config.terminal'.lazygit_toggle()<CR>", "Lazygit" },
-        j = { "<cmd>lua require 'gitsigns'.next_hunk()<CR>", "Next Hunk" },
-        k = { "<cmd>lua require 'gitsigns'.prev_hunk()<CR>", "Prev Hunk" },
+        j = { "<cmd>lua require 'gitsigns'.next_hunk({navigation_message=false})<CR>", "Next Hunk" },
+        k = { "<cmd>lua require 'gitsigns'.prev_hunk({navigation_message=false})<CR>", "Prev Hunk" },
         l = { "<cmd>lua require 'gitsigns'.blame_line()<CR>", "Blame" },
         p = { "<cmd>lua require 'gitsigns'.preview_hunk()<CR>", "Preview Hunk" },
         r = { "<cmd>lua require 'gitsigns'.reset_hunk()<CR>", "Reset Hunk" },

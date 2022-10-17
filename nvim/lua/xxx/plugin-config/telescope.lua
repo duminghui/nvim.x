@@ -1,7 +1,7 @@
 -- local Log = require("xxx.core.log")
 local M = {}
 
-local icons = require("xxx.core.icons")
+-- local icons = require("xxx.core.icons")
 
 local function get_pickers(actions)
     return {
