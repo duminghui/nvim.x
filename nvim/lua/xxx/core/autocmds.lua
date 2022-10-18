@@ -8,7 +8,7 @@ function M.load_defaults()
         pattern = {
             "Jaq",
             "qf",
-            "help",
+            -- "help",
             "man",
             "lspinfo",
             "spectre_panel",
@@ -87,7 +87,15 @@ function M.load_defaults()
             "FileType",
             {
                 group = "_buffer_mappings",
-                pattern = { "qf", "help", "man", "floaterm", "lspinfo", "lsp-installer", "null-ls-info" },
+                pattern = {
+                    "qf",
+                    -- "help",
+                    "man",
+                    "floaterm",
+                    "lspinfo",
+                    "lsp-installer",
+                    "null-ls-info",
+                },
                 command = "nnoremap <silent> <buffer> q :close<CR>",
             },
         },

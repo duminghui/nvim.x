@@ -1,7 +1,6 @@
 local M = {}
 function M.opts()
     local sessions_dir = join_paths(vim.fn.stdpath('data'), 'sessions', '') -- The directory where the session files will be saved.
-    print(sessions_dir)
     return {
         save_dir = sessions_dir,
         command = "VimLeavePre", -- the autocommand for which the session is saved
@@ -40,7 +39,6 @@ function M.opts()
 end
 
 function M.setup()
-    M.opts()
     local status_ok, persisted = safe_require("persisted")
     if not status_ok then
         return

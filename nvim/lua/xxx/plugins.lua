@@ -100,6 +100,13 @@ local plugins = {
         branch = "0.1.x",
         requires = {
             'nvim-lua/plenary.nvim',
+            -- {
+            --     "nvim-telescope/telescope-project.nvim", -- Switch between projects
+            --     after = "telescope.nvim",
+            --     config = function()
+            --         require("telescope").load_extension("project")
+            --     end,
+            -- },
             {
                 "nvim-telescope/telescope-fzf-native.nvim",
                 after = "telescope.nvim",
@@ -221,10 +228,11 @@ local plugins = {
         end,
     },
     -- {
-    --     "olimorris/persisted.nvim",
-    --     config = function()
-    --         require("xxx.plugin-config.session.persisted").setup()
-    --     end,
+    -- session-manager has bugs in windows
+    -- "olimorris/persisted.nvim",
+    -- config = function()
+    --     require("xxx.plugin-config.session.persisted").setup()
+    -- end,
     -- },
     {
         "ahmedkhalf/project.nvim",
@@ -361,6 +369,9 @@ local plugins = {
         "nvim-treesitter/nvim-treesitter",
         -- run = ":TSUpdate",
         requires = {
+            {
+                "nvim-treesitter/nvim-treesitter-textobjects", -- Syntax aware text-objects, select, move, swap, and peek support.
+            },
             {
                 "windwp/nvim-autopairs",
                 -- event = "InsertEnter",

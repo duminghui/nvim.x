@@ -50,6 +50,9 @@ function M.setup()
     end
 
     notify.setup(M.opts)
+
+    require("telescope").load_extension "notify"
+
     vim.notify = notify
     Log:configure_notifications(notify)
 

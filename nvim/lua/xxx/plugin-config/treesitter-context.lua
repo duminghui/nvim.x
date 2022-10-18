@@ -13,6 +13,7 @@ M.setup = function()
         mode = "topline",
     })
 
+    -- 行数背景色保持一样
     vim.cmd("highlight link TreesitterContextLineNumber TreesitterContext")
 
 end

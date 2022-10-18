@@ -7,9 +7,9 @@ M.opts = {
         -- the presets plugin, adds help for a bunch of default keybindings in Neovim
         -- No actual key bindings are created
         presets = {
-            operators = false, -- adds help for operators like d, y, ...
+            operators = true, -- adds help for operators like d, y, ...
             motions = false, -- adds help for motions
-            text_objects = false, -- help for text objects triggered after entering an operator
+            text_objects = true, -- help for text objects triggered after entering an operator
             windows = true, -- default bindings on <c-w>
             nav = false, -- misc bindings to work with windows
             z = false, -- bindings for folds, spelling and others prefixed with z
@@ -77,7 +77,7 @@ M.n_opts = {
 }
 
 M.n_mappings = {
-    [";"] = { "<cmd>Alpha<CR>", "Dashboard" },
+    -- [";"] = { "<cmd>Alpha<CR>", "Dashboard" },
     ["/"] = { ":nohlsearch<CR>", "No Highlight" },
     w = { "<cmd>w!<CR>", "Save" },
     c = { "<cmd>BufferKill<CR>", "Close Buffer(Keep window)" },
@@ -189,13 +189,14 @@ M.n_mappings = {
         M = { "<cmd>Telescope man_pages<CR>", "Man Pages" },
         -- r = { "<cmd>Telescope oldfiles<CR>", "Open Recent File" },
         r = { "<cmd>Telescope frecency workspace=CWD<CR>", "Frecency" },
-        s = { "<cmd>Telescope smart_history<CR>", "Smart History" },
+        s = { "<cmd>Telescope smart_history<CR>", "Smart History(No UI)" },
         R = { "<cmd>Telescope registers<CR>", "Registers" },
         t = { "<cmd>Telescope live_grep<CR>", "Text" },
         k = { "<cmd>Telescope keymaps<CR>", "Keymaps" },
         C = { "<cmd>Telescope commands<CR>", "Commands" },
         P = { "<cmd>lua require('telescope.builtin').colorscheme({enable_preview = true})<CR>",
             "Colorscheme with Preview" },
+        p = { "<cmd>Telescope projects<CR>", "Projects" }
     },
     S = {
         name = "SessionManager",
@@ -231,6 +232,7 @@ M.n_mappings = {
     },
     X = {
         name = "XVim",
+        [";"] = { "<cmd>Alpha<CR>", "Dashboard" },
         f = { "<cmd>lua require('xxx.plugin-config.telescope.custom-finders').find_xvim_files()<CR>", "Find XVim files" },
         g = { "<cmd>lua require('xxx.plugin-config.telescope.custom-finders').grep_xvim_files()<CR>", "Grep XVim files" },
         k = { "<cmd>Telescope keymaps<CR>", "Keymapings" },

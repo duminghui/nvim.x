@@ -87,7 +87,7 @@ M.setup = function()
             {
                 coms.treesitter,
                 coms.lsp_info,
-                -- coms.persisted,
+                coms.sessions,
                 coms.space,
                 coms.file_encoding,
                 coms.file_format,

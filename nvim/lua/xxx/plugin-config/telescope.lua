@@ -140,10 +140,13 @@ M.opts = function()
             borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
             color_devicons = true,
             set_env = { ["COLORTERM"] = "truecolor" }, -- default = nil,
+
+            -- nvim-telescope/telescope-smart-history.nvim (No UI), use in dialog input history
             history = {
                 path = join_paths(get_runtime_dir(), "telescope_history.sqlite3"),
                 limit = 133,
             },
+
         },
         pickers = get_pickers(actions),
         extensions = {
@@ -154,6 +157,7 @@ M.opts = function()
                 case_mode = "smart_case", -- or "ignore_case" or "respect_case"
             },
             ["ui-select"] = {
+                -- no use
                 require("telescope.themes").get_dropdown {
                     -- even more opts
                 }
@@ -175,6 +179,7 @@ M.opts = function()
             frecency = {
                 -- default: nvim-data/file_frecency.sqlite3
                 -- db_root = get_runtime_dir(),
+
                 show_scores = true,
                 show_unindexed = true,
                 ignore_patterns = {
@@ -196,17 +201,17 @@ M.opts = function()
     }
 end
 
-local function load_extension(name)
-    local ok = pcall(function()
-        require("telescope").load_extension(name)
-    end)
+-- local function load_extension(name)
+--     local ok = pcall(function()
+--         require("telescope").load_extension(name)
+--     end)
 
-    if not ok then
-        vim.schedule(function()
-            vim.notify("telescope load extension '" .. name .. "' failed.", vim.log.levels.WARN, { title = "Telescope" })
-        end)
-    end
-end
+--     if not ok then
+--         vim.schedule(function()
+--             vim.notify("telescope load extension '" .. name .. "' failed.", vim.log.levels.WARN, { title = "Telescope" })
+--         end)
+--     end
+-- end
 
 function M.setup()
     local status_ok, telescope = safe_require("telescope")
@@ -236,7 +241,7 @@ function M.setup()
     telescope.setup(opts)
 
     -- load_extension "ui-select"
-    load_extension "notify"
+    -- load_extension "notify"
     -- load_extension "projects"
     -- load_extension "fzf"
 

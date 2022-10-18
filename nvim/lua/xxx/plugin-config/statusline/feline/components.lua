@@ -337,9 +337,14 @@ M.scroll_bar = {
     },
 }
 
-M.persisted = {
+local function is_session()
+    -- return vim.g.persisting
+    return require("session_manager.utils").is_session
+end
+
+M.sessions = {
     provider = function()
-        if vim.g.persisting then
+        if is_session() then
             -- return "  "
             return " ﬽ "
         end
@@ -351,7 +356,7 @@ M.persisted = {
     -- end,
     hl = function()
         local fg = colors.orange
-        if vim.g.persisting then
+        if is_session() then
             fg = colors.green
         end
         return {
