@@ -88,10 +88,11 @@ M.setup = function()
                 coms.treesitter,
                 coms.lsp_info,
                 coms.sessions,
-                coms.space,
-                coms.file_encoding,
-                coms.file_format,
-                coms.file_type,
+                -- coms.space,
+                -- coms.file_encoding,
+                -- coms.file_format,
+                -- coms.file_type,
+                coms.file_detail,
                 coms.position,
                 coms.line_percentage,
                 coms.scroll_bar,
@@ -99,8 +100,6 @@ M.setup = function()
         },
         inactive = { {}, {} },
     }
-
-
 
     local setup_opts = vim.tbl_deep_extend("force", opts, {
         components = components,

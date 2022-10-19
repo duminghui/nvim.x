@@ -1,35 +1,6 @@
 local M = {}
 
-local icons = require("xxx.core.icons")
-
-local use_opts = {
-    update_in_insert = false,
-    symbols = {
-        error = icons.diagnostics.BoldError,
-        warn = icons.diagnostics.BoldWarning,
-        info = icons.diagnostics.BoldInformation,
-        hint = icons.diagnostics.BoldHint,
-    },
-    sections = { "error", "warn", "info", "hint" },
-    colors = {
-        error = { fg = "red", bg = "black" },
-        warn = { fg = "orange", bg = "black" },
-        info = { fg = "blue", bg = "black" },
-        hint = { fg = "cyan", bg = "black" },
-        copilot = { fg = "#6CC644", bg = "black" }
-
-    },
-}
-
-local default_from_highlights = {
-    error = "DiagnosticError",
-    warn = "DiagnosticWarn",
-    info = "DiagnosticInfo",
-    hint = "DiagnosticHint",
-}
-
-
-local hls = {}
+local highlight = require("xxx.utils.highlight")
 
 function M.is_diagnostics_attached()
     local diagnostics = vim.diagnostic.get(0)
@@ -38,10 +9,11 @@ end
 
 local last_diagnostcis_count = {}
 
-function M.diagnostics_provider()
+function M.diagnostics_provider(component)
+    local opts = component.opts or {}
     local bufnr = vim.api.nvim_get_current_buf()
     local diagnostics_count
-    if use_opts.update_in_insert or vim.api.nvim_get_mode().mode:sub(1, 1) ~= "i" then
+    if opts.update_in_insert or vim.api.nvim_get_mode().mode:sub(1, 1) ~= "i" then
         local count = { 0, 0, 0, 0 }
         local diagnostics = vim.diagnostic.get(0)
         for _, diagnostic in ipairs(diagnostics) do
@@ -60,11 +32,20 @@ function M.diagnostics_provider()
 
     local result = {}
 
-    for _, section in ipairs(use_opts.sections) do
+    for _, section in ipairs(opts.sections) do
         local count = diagnostics_count[section]
         if count ~= nil and count > 0 then
-            local symbol = use_opts.symbols[section]
-            table.insert(result, hls[section] .. ' ' .. symbol .. ' ' .. count)
+            local symbol = opts.symbols[section]
+            -- hl = {
+            --     scope = "fg",
+            --     parent = "XXXX",
+            --     bg = "#XXXXX",
+            -- }
+            local hl = opts.hls[section]
+            hl = highlight.highlight_from_parent("XXX_hl_stl_diagnostic_" .. section, hl.scope, hl.parent, hl)
+
+            table.insert(result,
+                highlight.format_statusline_hl(hl.name) .. ' ' .. symbol .. ' ' .. count)
         end
     end
     if #result > 0 then
@@ -78,7 +59,8 @@ function M.is_lsp_info_attached()
     return next(vim.lsp.get_active_clients({ bufnr = 0 })) ~= nil
 end
 
-function M.lsp_info_provider()
+function M.lsp_info_provider(component)
+    local opts = component.opts or {}
     local buf_clients = vim.lsp.get_active_clients({ bufnr = 0 })
     if not buf_clients or #buf_clients == 0 then
         return "Inactive "
@@ -110,29 +92,12 @@ function M.lsp_info_provider()
     local language_servers = "[" .. table.concat(unique_client_names, ", ") .. "]"
 
     if copilot_active then
-        language_servers = language_servers .. hls["copilot"] .. " " .. icons.git.Octoface -- .. "%*"
+        local copilot = opts.clients["copilot"]
+        language_servers = language_servers ..
+            highlight.format_statusline_hl(copilot.hl) .. " " .. copilot.symbol -- .. "%*"
     end
 
     return "LSP:" .. language_servers .. " "
-end
-
-local hl_name_key = "xxx_statusline_lsp_"
-function M.init(opts)
-    local highlight = require("xxx.utils.highlight")
-    for type, hl in pairs(default_from_highlights) do
-        local color = highlight.extract_color_from_hllist("fg", hl, use_opts.colors[type].fg)
-        if color then
-            use_opts.colors[type].fg = color
-        end
-    end
-    opts = opts or {}
-    use_opts = vim.tbl_deep_extend("force", use_opts, opts)
-
-    for key, color in pairs(use_opts.colors) do
-        local hl_name = hl_name_key .. key
-        highlight.highlight(hl_name, color.fg, color.bg)
-        hls[key] = "%#" .. hl_name .. "#"
-    end
 end
 
 return M

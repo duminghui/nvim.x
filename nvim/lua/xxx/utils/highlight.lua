@@ -2,103 +2,131 @@ local M = {}
 
 local loaded_highlights = {}
 
-local function highlight_exists(highlight_name)
-    return loaded_highlights[highlight_name] or false
+local function add_hl(name, fg, bg, gui)
+    local cmd = string.format('highlight %s guifg=%s guibg=%s gui=%s', name, fg, bg, gui)
+    vim.api.nvim_command(cmd)
+
+    loaded_highlights[name] = {
+        name = name,
+        fg = fg,
+        bg = bg,
+        gui = gui,
+    }
 end
 
----converts cterm, color_name type colors to #rrggbb format
----@param color string|number
----@return string
-local function sanitize_color(color)
-    if color == nil or color == '' or (type(color) == 'string' and color:lower() == 'none') then
-        return 'None'
-    end
-    return tostring(color)
+function M.format_statusline_hl(hl)
+    local hl_name = M.get_hl_name(hl)
+    local str = string.format("%%#%s#", hl_name)
+    return str
 end
 
-function M.highlight(name, foreground, background, gui, link)
+function M.sanitize_hl(hl, parent_hl)
+    hl = hl or {}
+    parent_hl = parent_hl or {}
+    local name = hl.name or ""
+    local fg = hl.fg or parent_hl.fg or "None"
+    local bg = hl.bg or parent_hl.bg or "None"
+    local gui = hl.gui or "None"
     if name == nil or name == '' then
-        return
-    end
-    if highlight_exists(name) then
-        return
-    end
+        -- If first character of the color starts with '#', remove the '#' and keep the rest
+        -- If it doesn't start with '#', do nothing
+        local fg_str = fg:sub(1, 1) == '#' and fg:sub(2) or fg
+        local bg_str = bg:sub(1, 1) == '#' and bg:sub(2) or bg
+        local gui_str = string.gsub(gui, ",", "_")
 
-    local command = { "highlight!" }
-    if link and #link > 0 then
-        vim.list_extend(command, { "link", name, link })
-    else
-        foreground = sanitize_color(foreground)
-        background = sanitize_color(background)
-        gui = (gui ~= nil and gui ~= '') and gui or "None"
-        table.insert(command, name)
-        table.insert(command, 'guifg=' .. foreground)
-        table.insert(command, 'guibg=' .. background)
-        table.insert(command, 'gui=' .. gui)
+        -- Generate unique hl name from color strings if a name isn't provided
+        name = string.format(
+            'XXX_hl_%s_%s_%s',
+            fg_str:upper(),
+            bg_str:upper(),
+            gui_str:upper()
+        )
+
     end
-    vim.cmd(table.concat(command, " "))
-    loaded_highlights[name] = true
+    return {
+        name = name,
+        fg = fg,
+        bg = bg,
+        gui = gui,
+    }
 end
 
--- Note for now only works for termguicolors scope can be bg or fg or any other
--- attr parameter like bold/italic/reverse
----@param color_group string hl_group name
----@param scope       string|nil bg | fg | sp
----@return table|string|nil returns #rrggbb formatted color when scope is specified
-----                       or complete color table when scope isn't specified
-function M.extract_highlight_colors(color_group, scope)
-    if vim.fn.hlexists(color_group) == 0 then
-        return nil
+--- @param hl table|string fg, bg, gui
+--- @return string
+function M.get_hl_name(hl)
+    if type(hl) == 'string' then
+        return hl
     end
-    local color = vim.api.nvim_get_hl_by_name(color_group, true)
-    if color.background ~= nil then
-        color.bg = string.format('#%06x', color.background)
-        color.background = nil
+
+    -- If highlight name exists and is cached, just return it
+    if hl.name and loaded_highlights[hl.name] then
+        return hl.name
     end
-    if color.foreground ~= nil then
-        color.fg = string.format('#%06x', color.foreground)
-        color.foreground = nil
+
+    hl = M.sanitize_hl(hl)
+
+
+    if not loaded_highlights[hl.name] then
+        add_hl(hl.name, hl.fg, hl.bg, hl.gui)
     end
-    if color.special ~= nil then
-        color.sp = string.format('#%06x', color.special)
-        color.special = nil
-    end
-    if scope then
-        return color[scope]
-    end
-    return color
+
+    return hl.name
 end
 
---- retrieves color value from highlight group name in syntax_list
---- first present highlight is returned
----@param scope string|table
----@param syntaxlist string|table
----@param default string
----@return string|nil
-function M.extract_color_from_hllist(scope, syntaxlist, default)
-    scope = type(scope) == 'string' and { scope } or scope
-    syntaxlist = type(syntaxlist) == 'string' and { syntaxlist } or syntaxlist
-    for _, hl_name in ipairs(syntaxlist) do
-        if vim.fn.hlexists(hl_name) ~= 0 then
-            local color = M.extract_highlight_colors(hl_name)
-            if color ~= nil then
-                for _, sc in ipairs(scope) do
-                    if color.reverse then
-                        if sc == 'bg' then
-                            sc = 'fg'
-                        else
-                            sc = 'bg'
-                        end
-                    end
-                    if color[sc] then
-                        return color[sc]
-                    end
-                end
-            end
+function M.get_hl_by_name(hl_name)
+    if vim.fn.hlexists(hl_name) == 0 then
+        return {}
+    end
+    if hl_name and loaded_highlights[hl_name] then
+        return loaded_highlights[hl_name]
+    end
+    local attrs = vim.api.nvim_get_hl_by_name(hl_name, true)
+    local styles = {}
+    for k, v in ipairs(attrs) do
+        if v == true then
+            styles[#styles + 1] = k
         end
     end
-    return default
+    local hl = {
+        name = hl_name,
+        fg = attrs.foreground and string.format("#%06x", attrs.foreground),
+        bg = attrs.background and string.format("#%06x", attrs.background),
+        -- sp = attrs.special and string.format('#%06x', attrs.special),
+        gui = next(styles) and table.concat(styles, ",") or nil,
+    }
+    loaded_highlights[hl_name] = hl
+    return hl
+end
 
+--- new highlight from parent and extend default by scope
+--- @param name string hl name
+--- @param scope string|table fg, bg, gui, which get from parent highlight
+--- @param parent_hl_name string  parent highlight
+--- @param default table fg, bg, gui
+--- @return table
+function M.highlight_from_parent(name, scope, parent_hl_name, default)
+    local new_hl = loaded_highlights[name]
+    if new_hl then
+        return new_hl
+    end
+    new_hl = {}
+    scope = type(scope) == 'string' and { scope } or scope
+    local hl = M.get_hl_by_name(parent_hl_name)
+    if hl ~= nil then
+        for _, sc in ipairs(scope) do
+            new_hl[sc] = hl[sc]
+        end
+        --     new_hl = vim.tbl_deep_extend("force", default, new_hl)
+        -- else
+        --     new_hl = default
+    end
+    if name and name ~= "" then
+        new_hl.name = name
+    end
+    new_hl = M.sanitize_hl(new_hl, default)
+    local hl_name = M.get_hl_name(new_hl)
+    new_hl.name = hl_name
+    return new_hl
 end
 
 return M
