@@ -12,35 +12,35 @@ local function add_lsp_buffer_options(bufnr)
     end
 end
 
-local function add_lsp_buffer_keybindings(bufnr)
-    local mappings = {
-        normal_mode = "n",
-        insert_mode = "i",
-        visual_mode = "v",
-    }
-    for mode_name, mode_char in pairs(mappings) do
-        for key, remap in pairs(lsp_opts.buffer_mappings[mode_name]) do
-            local opts = { buffer = bufnr, desc = remap[2], noremap = true, silent = true }
-            vim.keymap.set(mode_char, key, remap[1], opts)
-        end
-    end
-end
+-- local function add_lsp_buffer_keybindings(bufnr)
+--     local mappings = {
+--         normal_mode = "n",
+--         insert_mode = "i",
+--         visual_mode = "v",
+--     }
+--     for mode_name, mode_char in pairs(mappings) do
+--         for key, remap in pairs(lsp_opts.buffer_mappings[mode_name]) do
+--             local opts = { buffer = bufnr, desc = remap[2], noremap = true, silent = true }
+--             vim.keymap.set(mode_char, key, remap[1], opts)
+--         end
+--     end
+-- end
 
 function M.common_capabilities()
+    local capabilities = vim.lsp.protocol.make_client_capabilities()
     local status_ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
     if status_ok then
-        return cmp_nvim_lsp.default_capabilities()
+        return cmp_nvim_lsp.default_capabilities(capabilities)
     end
 
-    local capabilities = vim.lsp.protocol.make_client_capabilities()
-    capabilities.textDocument.completion.completionItem.snippetSupport = true
-    capabilities.textDocument.completion.completionItem.resolveSupport = {
-        properties = {
-            "documentation",
-            "detail",
-            "additionalTextEdits",
-        },
-    }
+    -- capabilities.textDocument.completion.completionItem.snippetSupport = true
+    -- capabilities.textDocument.completion.completionItem.resolveSupport = {
+    --     properties = {
+    --         "documentation",
+    --         "detail",
+    --         "additionalTextEdits",
+    --     },
+    -- }
 
     -- local status_ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
     -- if status_ok then
@@ -62,13 +62,15 @@ function M.common_on_init(_, _)
 end
 
 function M.common_on_attach(client, bufnr)
-    -- print("common_on_attach")
+    -- print("common_on_attach", client.name)
     local lu = require "xxx.lsp.utils"
 
     lu.setup_document_highlight(client, bufnr)
 
     lu.setup_codelens_refresh(client, bufnr)
-    add_lsp_buffer_keybindings(bufnr)
+
+    require "xxx.lsp.keymappings".add_lsp_buffer_keybindings(client, bufnr)
+    -- add_lsp_buffer_keybindings(bufnr)
     add_lsp_buffer_options(bufnr)
     lu.setup_document_symbols(client, bufnr)
 

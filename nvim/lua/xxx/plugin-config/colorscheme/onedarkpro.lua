@@ -27,13 +27,36 @@ M.opts = {
         },
     }, -- Override default colors by specifying colors for 'onelight' or 'onedark' themes
     highlights = {
-        CursorLineNr = { fg = "#FFD700" },
+        -- Editor
+        -- CursorLineNr = { fg = "#FFD700" },
         CursorColumn = { link = "CursorLine" },
-        BufferlineOffset = { fg = "${red}", style = "bold" },
+
+        BufferlineOffset = { fg = "${purple}", style = "bold" },
+        CursorLineNR = {
+            -- fg = "${purple}",
+            fg = "#FFD700",
+            bg = "${cursorline}",
+            style = "bold",
+        },
+        DiffChange = { style = "underline" }, -- diff mode: Changed line |diff.txt|
+        MatchParen = { fg = "${cyan}", style = "underline" },
         ModeMsg = { link = "LineNr" }, -- Make command line text lighter
+        Search = { bg = "${selection}", fg = "${yellow}", style = "underline" },
+
         StatusLine = { bg = "NONE", fg = "NONE" }, -- 防止statusline出现^^^^^.
 
-        ["@text.uri.markdown"] = { fg = "${purple}" },
+        -- ["@text.uri.markdown"] = { fg = "${purple}" },
+
+        -- Aerial plugin
+        AerialClass = { fg = "${purple}", style = "bold,italic" },
+        AerialClassIcon = { fg = "${purple}" },
+        AerialConstructorIcon = { fg = "${yellow}" },
+        AerialEnumIcon = { fg = "${blue}" },
+        AerialFunctionIcon = { fg = "${red}" },
+        AerialInterfaceIcon = { fg = "${orange}" },
+        AerialMethodIcon = { fg = "${green}" },
+        AerialStructIcon = { fg = "${cyan}" },
+
         -- Alpha (dashboard) plugin
         AlphaHeader = {
             fg = (vim.o.background == "dark" and "${green}" or "${red}"),
@@ -49,7 +72,21 @@ M.opts = {
         AlphaFooter = { fg = "${gray}", style = "italic" },
 
         -- Cmp
+        CmpItemAbbrMatch = { fg = "${blue}", style = "bold" },
+        CmpItemAbbrMatchFuzzy = { fg = "${blue}", style = "underline" },
         GhostText = { fg = "${ghost_text}" },
+
+        -- Copilot
+        CopilotSuggestion = { fg = "${gray}", style = "italic" },
+
+        -- DAP
+        DebugBreakpointLine = { fg = "${red}", style = "underline" },
+        DebugHighlightLine = { fg = "${purple}", style = "italic" },
+        NvimDapVirtualText = { fg = "${cyan}", style = "italic" },
+
+        -- DAP UI
+        DapUIBreakpointsCurrentLine = { fg = "${yellow}", style = "bold" },
+
 
         -- Fidget plugin
         FidgetTitle = { fg = "${purple}" },
@@ -63,6 +100,18 @@ M.opts = {
         MapBase = { fg = "${gray}" },
         MapCursor = { fg = "${purple}", bg = "${cursorline}" },
         -- MapRange = { fg = "${fg}" },
+
+        -- Navic
+        NavicText = { fg = "${gray}", style = "italic" },
+
+        -- Neotest
+        NeotestAdapterName = { fg = "${purple}", style = "bold" },
+        NeotestFocused = { style = "bold" },
+        NeotestNamespace = { fg = "${blue}", style = "bold" },
+
+        -- Neotree
+        NeoTreeRootName = { fg = "${purple}", style = "bold" },
+        NeoTreeFileNameOpened = { fg = "${purple}", style = "italic" },
 
         -- Telescope
         -- TelescopeBorder = {

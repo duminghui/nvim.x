@@ -116,7 +116,7 @@ M.load_default_options = function()
     -- vim.cmd("colorscheme xxx")
 
     vim.g.mapleader = ","
-    vim.g.maplocalleader = "_"
+    vim.g.maplocalleader = ","
 
 
     for k, v in pairs(default_options) do

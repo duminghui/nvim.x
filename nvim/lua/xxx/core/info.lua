@@ -17,8 +17,8 @@ local function make_formatters_info(ft)
         "Formatters info",
         fmt(
             "* Active: %s%s",
-            table.concat(registered_formatters, "  , "),
-            vim.tbl_count(registered_formatters) > 0 and "  " or ""
+            table.concat(registered_formatters, "  , "), -- 
+            vim.tbl_count(registered_formatters) > 0 and "  " or ""
         ),
         fmt("* Supported: %s", str_list(supported_formatters)),
     }
@@ -92,7 +92,6 @@ local function make_client_info(client)
         fmt("* attached buffers:          %s", tostring(attached_buffers_list)),
         -- fmt("* root_dir pattern:          %s", tostring(attached_buffers_list)),
         fmt("* root_dir pattern:          %s", tostring(root_dir_list)),
-        "",
     }
     if not vim.tbl_isempty(client_enabled_caps) then
         local caps_text = "* capabilities:              "
@@ -152,10 +151,15 @@ function M.toggle_popup(ft)
         "Active client(s)",
     }
 
+    local client_count = 0
     for _, client in pairs(clients) do
         local client_info = make_client_info(client)
         if client_info then
+            if client_count > 0 then
+                table.insert(lsp_info, "-----------------------")
+            end
             vim.list_extend(lsp_info, client_info)
+            client_count = client_count + 1
         end
         table.insert(client_names, client.name)
     end
@@ -201,7 +205,8 @@ function M.toggle_popup(ft)
         vim.fn.matchadd("XvimInfoIdentifier", " " .. ft .. "$")
         vim.fn.matchadd("string", "true")
         vim.fn.matchadd("string", "active")
-        vim.fn.matchadd("string", "")
+        -- vim.fn.matchadd("string", "")
+        vim.fn.matchadd("string", "")
         vim.fn.matchadd("boolean", "inactive")
         vim.fn.matchadd("error", "false")
         tbl_set_highlight(require("xxx.lsp.null-ls.formatters").list_registered(ft), "XvimInfoIdentifier")

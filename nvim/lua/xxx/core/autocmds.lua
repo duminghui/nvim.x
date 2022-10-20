@@ -15,7 +15,7 @@ function M.load_defaults()
             "lir",
             "DressingSelect",
             "tsplayground",
-            "Markdown",
+            -- "Markdown",
         },
         callback = function()
             vim.cmd [[
@@ -126,8 +126,8 @@ function M.enable_format_on_save()
         pattern = "*",
         ---@usage timeout number timeout in ms for the format request (Default: 1000)
         timeout = 1000,
-        ---@usage filter func to select client
-        filter = require("xxx.lsp.utils").format_filter,
+        -- ---@usage filter func to select client
+        -- filter = require("xxx.lsp.utils").format_filter,
     }
     vim.api.nvim_create_augroup("lsp_format_on_save", {})
     vim.api.nvim_create_autocmd("BufWritePre", {

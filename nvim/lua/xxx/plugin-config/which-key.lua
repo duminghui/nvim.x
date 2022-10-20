@@ -167,7 +167,7 @@ M.n_mappings = {
         d = { "<cmd>Trouble document_diagnostics<CR>", "Buffer Diagnostics" },
         -- config in lsp/config.lua
         r = { "<cmd>Trouble lsp_references<CR>", "References" },
-        f = { require("xxx.lsp.utils").format, "Format" },
+        -- m = { require("xxx.lsp.utils").format, "Format" }, -- set in lsp/keymapping.lua
         i = { "<cmd>LspInfo<CR>", "Lsp Info" },
         I = { "<cmd>Mason<CR>", "Mason Info" },
         j = { vim.diagnostic.goto_next, "Next Diagnostic", },
@@ -178,6 +178,7 @@ M.n_mappings = {
         s = { "<cmd> Telescope lsp_document_symbols<CR>", "Document Symbols" },
         S = { "<cmd>Telescope lsp_dynamic_workspace_symbols<CR>", "Workspace Symbols" },
         e = { "<cmd>Telescope quickfix<CR>", "Telescope Quickfix" },
+        p = { "<cmd>Lspsaga peek_definition<CR>", "Peek Definition" },
     },
     s = {
         name = "Search",

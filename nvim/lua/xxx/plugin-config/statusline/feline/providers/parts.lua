@@ -10,7 +10,7 @@ local function evaluate_if_function(key, ...)
 end
 
 ---
----@param hl table|function|string
+---@param hl table|fun()|string
 ---@param parent_hl table|nil
 ---@return table
 local function parse_hl(hl, parent_hl)
@@ -40,15 +40,15 @@ local function parse_icon(icon, parent_hl)
     return string.format('%s%s', highlight.format_statusline_hl(hl), str)
 end
 
-local function parse_str(str)
-    if str == nil then
-        return '', nil
-    elseif type(str) == 'string' then
-        return str, nil
-    elseif type(str) == 'function' then
-        return str()
+local function parse_content(content)
+    if content == nil then
+        return ''
+    elseif type(content) == 'string' then
+        return content
+    elseif type(content) == 'function' then
+        return content()
     end
-    return '', nil
+    return ''
 end
 
 -- local _parts_templace = {
@@ -71,16 +71,14 @@ function M.provider(component, opts)
 
     local result = {}
     for _, part in ipairs(parts) do
-        local part_hl    = parse_hl(part.hl, com_hl)
-        local str, icon2 = parse_str(part.str)
-        local icon
-        if icon2 then
-            icon = parse_icon(icon2, part_hl)
-        else
-            icon = parse_icon(part.icon, part_hl)
-        end
-        local part_str = string.format("%s%s%s", icon, highlight.format_statusline_hl(part_hl), str)
-        table.insert(result, part_str)
+        local part_hl = parse_hl(part.hl, com_hl)
+
+        local content, icon2 = parse_content(part.content)
+        local icon       = icon2 and icon2 ~= '' and icon2 or part.icon
+        icon             = parse_icon(icon, part_hl)
+
+        local part_content = string.format("%s%s%s", icon, highlight.format_statusline_hl(part_hl), content)
+        table.insert(result, part_content)
     end
     local sep_hl = highlight.format_statusline_hl(com_hl) .. sep
     return sep_hl .. table.concat(result, sep) .. sep_hl

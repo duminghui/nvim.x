@@ -89,7 +89,7 @@ function M.lsp_info_provider(component)
 
     local unique_client_names = vim.fn.uniq(buf_client_names)
 
-    local language_servers = "[" .. table.concat(unique_client_names, ", ") .. "]"
+    local language_servers = "[" .. table.concat(unique_client_names, ",") .. "]"
 
     if copilot_active then
         local copilot = opts.clients["copilot"]
@@ -97,7 +97,7 @@ function M.lsp_info_provider(component)
             highlight.format_statusline_hl(copilot.hl) .. " " .. copilot.symbol -- .. "%*"
     end
 
-    return "LSP:" .. language_servers .. " "
+    return language_servers .. " "
 end
 
 return M

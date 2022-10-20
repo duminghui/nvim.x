@@ -261,23 +261,23 @@ M.file_detail = {
         return provider_parts.provider(component, {
             parts = {
                 {
-                    str = function()
+                    content = function()
                         local shiftwidth = vim.api.nvim_buf_get_option(0, "shiftwidth")
                         return "" .. shiftwidth
-                    end
+                    end,
                 },
                 {
-                    str = function()
+                    content = function()
                         return ((vim.bo.fenc ~= '' and vim.bo.fenc) or vim.o.enc):upper()
                     end
                 },
                 {
-                    str = function()
+                    content = function()
                         return ((vim.bo.fileformat ~= '' and vim.bo.fileformat) or vim.o.fileformat):upper()
                     end,
                 },
                 {
-                    str = function()
+                    content = function()
                         return require("feline.providers.file").file_type({},
                             { filetype_icon = true, colored_icon = true, case = "lowercase" })
                     end,
@@ -290,18 +290,18 @@ M.file_detail = {
         return provider_parts.provider(component, {
             parts = {
                 {
-                    str = function()
+                    content = function()
                         local shiftwidth = vim.api.nvim_buf_get_option(0, "shiftwidth")
                         return shiftwidth
                     end
                 },
                 {
-                    str = function()
+                    content = function()
                         return ((vim.bo.fenc ~= '' and vim.bo.fenc) or vim.o.enc):upper()
                     end,
                 },
                 {
-                    str = function()
+                    content = function()
                         local _, icon = require("feline.providers.file").file_type({},
                             { filetype_icon = true, colored_icon = true, case = "lowercase" })
                         return "", icon
@@ -462,7 +462,7 @@ M.sessions = {
     --     return (vim.g.persisting ~= nil)
     -- end,
     hl = function()
-        local fg = colors.orange
+        local fg = colors.red
         if is_session() then
             fg = colors.green
         end

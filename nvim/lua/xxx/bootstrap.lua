@@ -23,7 +23,7 @@ end
 
 function _G.get_cache_dir()
     -- cache_dir = Local\Temp\nvim.x
-    local cache_dir = vim.call("stdpath", "cache")
+    local cache_dir = vim.call("stdpath", "cache") or ""
     cache_dir = join_paths(cache_dir:match("(.*[/\\])"):sub(1, -2), "nvim.x")
     return cache_dir
 end
@@ -79,7 +79,7 @@ function M:init(root_dir, base_dir)
             path = _G.get_cache_dir()
             -- what_msg = what .. " "
         else
-            path = vim.call("stdpath", what)
+            path = vim.call("stdpath", what) or ""
         end
         -- print("what:" .. what_msg .. ":" .. path)
         return path

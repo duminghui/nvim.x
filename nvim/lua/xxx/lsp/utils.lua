@@ -163,7 +163,6 @@ function M.format_filter(client)
     local s = require "null-ls.sources"
     local method = n.methods.FORMATTING
     local avalable_formatters = s.get_available(filetype, method)
-
     if #avalable_formatters > 0 then
         return client.name == "null-ls"
     elseif client.supports_method "textDocument/formatting" then
@@ -178,7 +177,8 @@ end
 function M.format(opts)
     opts = opts or {}
     opts.filter = opts.filter or M.format_filter
-
+    -- opts.async = true
+    vim.b.format_changedtick = vim.b.changedtick
     return vim.lsp.buf.format(opts)
 
     -- local bufnr = opts.bufnr or vim.api.nvim_get_current_buf()
