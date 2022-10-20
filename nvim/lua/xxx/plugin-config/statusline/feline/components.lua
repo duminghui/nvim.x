@@ -103,13 +103,23 @@ local icons = require("xxx.core.icons")
 
 -- Common function used by the git providers
 M.git = {
-    provider = provider_git.git_provider,
+    provider = function(component)
+        return provider_git.git_provider(component, false)
+    end,
+    short_provider = function(component)
+        return provider_git.git_provider(component, true)
+    end,
     opts = {
         symbols = {
             branch = icons.git.Branch,
             added = icons.git.BoldLineAdd,
             changed = icons.git.LineModified,
             removed = icons.git.BoldLineRemove,
+        },
+        short_symbols = {
+            added = "+",
+            changed = "~",
+            removed = "-",
         },
         diff_hls = {
             branch = { fg = colors.gray, bg = com_bg },
@@ -136,7 +146,12 @@ M.git = {
 local provider_lsp = require("xxx.plugin-config.statusline.feline.providers.lsp")
 
 M.lsp_diagnostics = {
-    provider = provider_lsp.diagnostics_provider,
+    provider = function(component)
+        return provider_lsp.diagnostics_provider(component, false)
+    end,
+    short_provider = function(component)
+        return provider_lsp.diagnostics_provider(component, true)
+    end,
     opts = {
         update_in_insert = false,
         symbols = {
@@ -164,7 +179,7 @@ M.lsp_diagnostics = {
     left_sep = left_section_left_sep,
     right_sep = left_section_right_sep,
     truncate_hide = true,
-    priority = 10,
+    priority = 11,
 }
 
 local right_section_left_sep = {

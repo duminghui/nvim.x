@@ -9,7 +9,7 @@ end
 
 local last_diagnostcis_count = {}
 
-function M.diagnostics_provider(component)
+function M.diagnostics_provider(component, is_short)
     local opts = component.opts or {}
     local bufnr = vim.api.nvim_get_current_buf()
     local diagnostics_count
@@ -35,7 +35,6 @@ function M.diagnostics_provider(component)
     for _, section in ipairs(opts.sections) do
         local count = diagnostics_count[section]
         if count ~= nil and count > 0 then
-            local symbol = opts.symbols[section]
             -- hl = {
             --     scope = "fg",
             --     parent = "XXXX",
@@ -43,9 +42,15 @@ function M.diagnostics_provider(component)
             -- }
             local hl = opts.hls[section]
             hl = highlight.highlight_from_parent("XXX_hl_stl_diagnostic_" .. section, hl.scope, hl.parent, hl)
+            if is_short then
+                table.insert(result,
+                    highlight.format_statusline_hl(hl.name) .. ' ' .. count)
+            else
+                local symbol = opts.symbols[section]
+                table.insert(result,
+                    highlight.format_statusline_hl(hl.name) .. ' ' .. symbol .. ' ' .. count)
+            end
 
-            table.insert(result,
-                highlight.format_statusline_hl(hl.name) .. ' ' .. symbol .. ' ' .. count)
         end
     end
     if #result > 0 then
