@@ -1,4 +1,5 @@
 local M = {}
+local icons = require("xxx.core.icons")
 
 M.opts = {
     space_char_blankline = " ",
@@ -10,7 +11,7 @@ M.opts = {
         "IndentBlanklineIndent5",
         "IndentBlanklineIndent6",
     },
-    char = "▏",
+    char = icons.ui.LineLeft,
     show_trailing_blankline_indent = false,
     show_first_indent_level = false,
     use_treesitter = true,

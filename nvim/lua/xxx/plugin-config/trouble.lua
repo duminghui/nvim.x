@@ -1,5 +1,7 @@
 local M = {}
 
+local icons = require("xxx.core.icons")
+
 M.opts = {
     position = "bottom", -- position of the list can be: bottom, top, left, right
     height = 10, -- height of the trouble list when position is top or bottom
@@ -39,11 +41,11 @@ M.opts = {
     auto_jump = { "lsp_definitions" }, -- for the given modes, automatically jump if there is only a single result
     signs = {
         -- icons / text used for a diagnostic
-        error = "",
-        warning = "",
-        hint = "",
-        information = "",
-        other = "﫠"
+        error = icons.diagnostics.BoldError,
+        warning = icons.diagnostics.BoldWarning,
+        hint = icons.diagnostics.BoldHint,
+        information = icons.diagnostics.BoldInformation,
+        other = icons.ui.CircleCheck2,
     },
     use_diagnostic_signs = false -- enabling this will use the signs defined in your lsp client
 }

@@ -1,6 +1,7 @@
 local M = {}
 
 local colors = require("xxx.plugin-config.colorscheme.colors").colors()
+local icons = require("xxx.core.icons")
 local vi_mode_utils = require("feline.providers.vi_mode")
 
 -- local com_bg = "#33373E"
@@ -80,7 +81,7 @@ local left_section_right_sep = {
 M.file_info = {
     provider = function()
         local file = require("feline.providers.file").file_info({ icon = "" },
-            { type = "short", file_readonly_icon = " " })
+            { type = "short", file_readonly_icon = icons.ui.Lock2 .. " " })
         if mask_plugin() then
             file = vim.bo.filetype
         end
@@ -99,7 +100,6 @@ M.file_info = {
 }
 
 local provider_git = require("xxx.plugin-config.statusline.feline.providers.git")
-local icons = require("xxx.core.icons")
 
 -- Common function used by the git providers
 M.git = {
@@ -228,7 +228,7 @@ M.lsp_info = {
     end,
     icon = {
         -- str = '  ',
-        str = '  ',
+        str = ' ' .. icons.ui.Lsp .. ' ',
         always_visible = true,
     },
     left_sep = {
@@ -253,7 +253,7 @@ M.lsp_info = {
 }
 
 M.treesitter = {
-    provider = "  ",
+    provider = " " .. icons.ui.Tree .. " ",
     hl = function()
         local buf = vim.api.nvim_get_current_buf()
         local ts = vim.treesitter.highlighter.active[buf]
@@ -278,7 +278,7 @@ M.file_detail = {
                 {
                     content = function()
                         local shiftwidth = vim.api.nvim_buf_get_option(0, "shiftwidth")
-                        return "" .. shiftwidth
+                        return icons.ui.Tab .. shiftwidth
                     end,
                 },
                 {
@@ -340,7 +340,7 @@ M.file_detail = {
 M.space = {
     provider = function()
         local shiftwidth = vim.api.nvim_buf_get_option(0, "shiftwidth")
-        return "  " .. shiftwidth .. " "
+        return " " .. icons.ui.Tab .. " " .. shiftwidth .. " "
     end,
     hl = {
         fg = colors.gray,
@@ -431,10 +431,22 @@ M.position = {
     priority = 99,
 }
 
+local function line_percentage()
+    local curr_line = vim.api.nvim_win_get_cursor(0)[1]
+    local lines = vim.api.nvim_buf_line_count(0)
+    local percent = string.format("%s", 100)
+
+    if curr_line ~= lines then
+        percent = string.format("%s", math.ceil(curr_line / lines * 99))
+    end
+
+    return lines, percent
+end
+
 M.line_percentage = {
     provider = function()
-        local line_percentage = require("feline.providers.cursor").line_percentage()
-        return " " .. line_percentage .. " "
+        local lines, percent = line_percentage()
+        return " " .. percent .. "%%|" .. lines .. " "
     end,
     hl = {
         fg = colors.statusline_bg,
@@ -468,10 +480,10 @@ M.sessions = {
     provider = function()
         if is_session() then
             -- return "  "
-            return " ﬽ "
+            return " " .. icons.ui.SessionIn .. " "
         end
         -- return "  "
-        return "  "
+        return " " .. icons.ui.SessionOut .. " "
     end,
     -- enabled = function()
     --     return (vim.g.persisting ~= nil)

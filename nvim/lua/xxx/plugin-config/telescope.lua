@@ -1,7 +1,7 @@
 -- local Log = require("xxx.core.log")
 local M = {}
 
--- local icons = require("xxx.core.icons")
+local icons = require("xxx.core.icons")
 
 local function get_pickers(actions)
     return {
@@ -67,9 +67,9 @@ M.opts = function()
     return {
         defaults = {
             -- prompt_prefix = " ",
-            prompt_prefix = " ",
+            prompt_prefix = icons.ui.Search .. " ",
             -- selection_caret = " ",
-            selection_caret = " ",
+            selection_caret = icons.ui.ArrowRight .. " ",
             entry_prefix = "  ",
             initial_mode = "insert",
             selection_strategy = "reset",

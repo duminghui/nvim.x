@@ -37,7 +37,7 @@ local default_options = {
     wrap = true,
     wrapmargin = 1,
     breakindent = true,
-    breakindentopt = "shift:2,sbr",
+    breakindentopt = "shift:2,sbr", -- lin wrap opts
 
     mouse = "a",
     -- for bufferline hover

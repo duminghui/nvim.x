@@ -1,11 +1,13 @@
 local M = {}
 
+local icons = require("xxx.core.icons")
+
 M.opts = {
     text = {
         -- spinner = "pipe", -- animation shown when tasks are ongoing
         -- spinner = "moon", -- animation shown when tasks are ongoing
         spinner = "dots_negative", -- animation shown when tasks are ongoing
-        done = "", -- character shown when all tasks are complete
+        done = icons.ui.SquareCheck, -- character shown when all tasks are complete
         -- done = "✔", -- character shown when all tasks are complete
         commenced = "Started", -- message shown when task starts
         completed = "Completed", -- message shown when task completes
@@ -22,7 +24,7 @@ M.opts = {
     window = {
         relative = "win", -- where to anchor, either "win" or "editor"
         -- blend = 100, -- &winblend for the window
-        blend = 9, -- &winblend for the window
+        blend = 33, -- &winblend for the window
         zindex = nil, -- the zindex value for the window
         border = "none", -- style of border for the fidget window
     },

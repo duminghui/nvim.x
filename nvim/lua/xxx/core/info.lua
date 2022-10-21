@@ -4,6 +4,7 @@ local fmt = string.format
 local text = require "xxx.interface.text"
 local lsp_utils = require "xxx.lsp.utils"
 local lsp_opts = require "xxx.lsp.config"
+local icons = require "xxx.core.icons"
 
 local function str_list(list)
     return #list == 1 and list[1] or fmt("[%s]", table.concat(list, ", "))
@@ -17,8 +18,8 @@ local function make_formatters_info(ft)
         "Formatters info",
         fmt(
             "* Active: %s%s",
-            table.concat(registered_formatters, "  , "), -- 
-            vim.tbl_count(registered_formatters) > 0 and "  " or ""
+            table.concat(registered_formatters, " " .. icons.ui.CircleCheck .. " , "), -- 
+            vim.tbl_count(registered_formatters) > 0 and " " .. icons.ui.CircleCheck .. " " or ""
         ),
         fmt("* Supported: %s", str_list(supported_formatters)),
     }
@@ -33,8 +34,8 @@ local function make_code_actions_info(ft)
         "Code actions info",
         fmt(
             "* Active: %s%s",
-            table.concat(registered_actions, "  , "),
-            vim.tbl_count(registered_actions) > 0 and "  " or ""
+            table.concat(registered_actions, " " .. icons.ui.CircleCheck .. " , "),
+            vim.tbl_count(registered_actions) > 0 and " " .. icons.ui.CircleCheck .. " " or ""
         ),
     }
 
@@ -49,8 +50,8 @@ local function make_linters_info(ft)
         "Linters info",
         fmt(
             "* Active: %s%s",
-            table.concat(registered_linters, "  , "),
-            vim.tbl_count(registered_linters) > 0 and "  " or ""
+            table.concat(registered_linters, " " .. icons.ui.CircleCheck .. " , "),
+            vim.tbl_count(registered_linters) > 0 and " " .. icons.ui.CircleCheck .. " " or ""
         ),
         fmt("* Supported: %s", str_list(supported_linters)),
     }
@@ -206,7 +207,7 @@ function M.toggle_popup(ft)
         vim.fn.matchadd("string", "true")
         vim.fn.matchadd("string", "active")
         -- vim.fn.matchadd("string", "")
-        vim.fn.matchadd("string", "")
+        vim.fn.matchadd("string", icons.ui.CircleCheck)
         vim.fn.matchadd("boolean", "inactive")
         vim.fn.matchadd("error", "false")
         tbl_set_highlight(require("xxx.lsp.null-ls.formatters").list_registered(ft), "XvimInfoIdentifier")

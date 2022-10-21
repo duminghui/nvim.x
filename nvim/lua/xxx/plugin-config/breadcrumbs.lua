@@ -1,41 +1,44 @@
 local M = {}
 
+local icons = require("xxx.core.icons")
+local icons_kind = icons.kind
+
 M.opts = {
     icons = {
-        Text = " ",
-        Method = " ",
-        Function = " ",
-        Constructor = " ",
-        Field = " ",
-        Variable = " ",
-        Class = " ",
-        Interface = " ",
-        Module = " ",
-        Property = " ",
-        Unit = " ",
-        Value = " ",
-        Enum = " ",
-        Keyword = " ",
-        Snippet = " ",
-        Color = " ",
-        File = " ",
-        Reference = " ",
-        Folder = " ",
-        EnumMember = " ",
-        Constant = " ",
-        Struct = " ",
-        Event = " ",
-        Operator = " ",
-        TypeParameter = " ",
-        Array = " ",
-        Number = " ",
-        String = " ",
-        Boolean = "蘒",
-        Object = " ",
-        Package = " ",
-        Namespace = "",
-        Key = "",
-        Null = "ﳠ",
+        Array = icons_kind.Array .. " ",
+        Boolean = icons_kind.Boolean,
+        Class = icons_kind.Class .. " ",
+        Color = icons_kind.Color .. " ",
+        Constant = icons_kind.Constant .. " ",
+        Constructor = icons_kind.Constructor .. " ",
+        Enum = icons_kind.Enum .. " ",
+        EnumMember = icons_kind.EnumMember .. " ",
+        Event = icons_kind.Event .. " ",
+        Field = icons_kind.Field .. " ",
+        File = icons_kind.File .. " ",
+        Folder = icons_kind.Folder .. " ",
+        Function = icons_kind.Function .. " ",
+        Interface = icons_kind.Interface .. " ",
+        Key = icons_kind.Key .. " ",
+        Keyword = icons_kind.Keyword .. " ",
+        Method = icons_kind.Method .. " ",
+        Module = icons_kind.Module .. " ",
+        Namespace = icons_kind.Namespace .. " ",
+        Null = icons_kind.Null .. " ",
+        Number = icons_kind.Number .. " ",
+        Object = icons_kind.Object .. " ",
+        Operator = icons_kind.Operator .. " ",
+        Package = icons_kind.Package .. " ",
+        Property = icons_kind.Property .. " ",
+        Reference = icons_kind.Reference .. " ",
+        Snippet = icons_kind.Snippet .. " ",
+        String = icons_kind.String .. " ",
+        Struct = icons_kind.Struct .. " ",
+        Text = icons_kind.Text .. " ",
+        TypeParameter = icons_kind.TypeParameter .. " ",
+        Unit = icons_kind.Unit .. " ",
+        Value = icons_kind.Value .. " ",
+        Variable = icons_kind.Variable .. " ",
     },
     highlight = true,
     separator = " " .. ">" .. " ",
@@ -95,9 +98,10 @@ M.get_filename = function()
 
         vim.api.nvim_set_hl(0, hl_group, { fg = file_icon_color })
         if f.isempty(file_icon) then
-            file_icon = ""
+            file_icon = icons_kind.File
         end
 
+        -- TODO cache highlight
         local navic_text = vim.api.nvim_get_hl_by_name("Normal", true)
         vim.api.nvim_set_hl(0, "Winbar", { fg = navic_text.foreground })
 
@@ -153,7 +157,7 @@ M.get_winbar = function()
 
     if not f.isempty(value) and f.get_buf_option "mod" then
         -- TODO: replace with circle
-        local mod = "%#LspCodeLens#" .. "" .. "%*"
+        local mod = "%#LspCodeLens#" .. icons.ui.Circle .. "%*"
         if gps_added then
             value = value .. " " .. mod
         else

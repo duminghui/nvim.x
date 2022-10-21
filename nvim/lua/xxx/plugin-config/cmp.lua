@@ -180,24 +180,24 @@ M.opts = function()
 
                 vim.api.nvim_set_hl(0, "CmpItemKindTabnine", { fg = "#CA42F0" })
                 if entry.source.name == "cmp_tabnine" then
-                    vim_item.kind = "ﮧ"
+                    vim_item.kind = icons.misc.Robot
                     vim_item.kind_hl_group = "CmpItemKindTabnine"
                 end
 
                 vim.api.nvim_set_hl(0, "CmpItemKindCrate", { fg = "#F64D00" })
                 if entry.source.name == "crates" then
-                    vim_item.kind = ""
+                    vim_item.kind = icons.misc.Package
                     vim_item.kind_hl_group = "CmpItemKindCrate"
                 end
 
                 if entry.source.name == "lab.quick_data" then
-                    vim_item.kind = ""
+                    vim_item.kind = icons.misc.CircuitBoard
                     vim_item.kind_hl_group = "CmpItemKindConstant"
                 end
 
                 vim.api.nvim_set_hl(0, "CmpItemKindEmoji", { fg = "#FDE030" })
                 if entry.source.name == "emoji" then
-                    vim_item.kind = "ﲃ"
+                    vim_item.kind = icons.misc.Smiley
                     vim_item.kind_hl_group = "CmpItemKindEmoji"
                 end
 

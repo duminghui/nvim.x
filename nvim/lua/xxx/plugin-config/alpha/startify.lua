@@ -3,6 +3,8 @@ local M = {}
 local version = vim.version()
 local ver_str = string.format("%s.%s.%s", version.major, version.minor, version.patch)
 
+local icons = require("xxx.core.icons")
+
 local banner = {
     "Neovim " .. ver_str,
 }
@@ -20,7 +22,7 @@ function M.get_sections()
 
     local top_buttons = {
         entries = {
-            { "e", "  New File", "<CMD>ene!<CR>" },
+            { "e", icons.ui.File .. "  New File", "<CMD>ene!<CR>" },
         },
         val = {},
     }

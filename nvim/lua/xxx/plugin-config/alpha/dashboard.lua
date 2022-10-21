@@ -5,6 +5,8 @@ if version then
     ver_str = string.format("%s.%s.%s", version.major, version.minor, version.patch)
 end
 
+local icons = require("xxx.core.icons")
+
 local banner = {
     "",
     "",
@@ -52,13 +54,13 @@ function M.get_sections()
 
         buttons = {
             val = {
-                button("n", "  New File", "<CMD>ene!<CR>"),
-                button("t", "  Find Text", "<CMD>Telescope live_grep<CR>"),
-                button("f", "  Find File", "<CMD>Telescope find_files<CR>"),
-                button("r", "  Recent files", ":Telescope oldfiles <CR>"),
-                button("p", "  Projects ", "<CMD>Telescope projects<CR>"),
-                button("s", "ﭯ  Sessions", "<CMD>SessionManager load_session<CR>"),
-                button("S", "  Open last session", "<CMD>SessionManager load_last_session<CR>"),
+                button("n", icons.ui.File .. "  New File", "<CMD>ene!<CR>"),
+                button("t", icons.ui.FindText .. "  Find Text", "<CMD>Telescope live_grep<CR>"),
+                button("f", icons.ui.FindFile .. "  Find File", "<CMD>Telescope find_files<CR>"),
+                button("r", icons.ui.History .. "  Recent files", ":Telescope oldfiles <CR>"),
+                button("p", icons.ui.Project .. "  Projects ", "<CMD>Telescope projects<CR>"),
+                button("s", icons.ui.Session .. "  Sessions", "<CMD>SessionManager load_session<CR>"),
+                button("S", icons.ui.Session2 .. "  Open last session", "<CMD>SessionManager load_last_session<CR>"),
                 -- button("s", "ﭯ  Sessions", "<CMD>Telescope persisted<CR>"),
                 -- button("S", "  Open last session", ":SessionLoadLast<CR>"),
             },

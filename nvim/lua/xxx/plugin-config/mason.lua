@@ -1,4 +1,5 @@
 local M = {}
+local icons = require("xxx.core.icons")
 
 M.opts = {
     ui = {
@@ -16,9 +17,9 @@ M.opts = {
             -- package_pending = "◍",
             -- -- The list icon to use for packages that are not installed.
             -- package_uninstalled = "◍",
-            package_installed = "",
-            package_pending = "",
-            package_uninstalled = "落"
+            package_installed = icons.ui.CircleCheck,
+            package_pending = icons.ui.Pending,
+            package_uninstalled = icons.ui.Plus2
         },
 
         keymaps = {

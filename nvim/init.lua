@@ -40,5 +40,11 @@ commands.load(commands.defaults)
 -- --Lsp配置
 require("xxx.lsp").setup()
 
-
--- vim.pretty_print(vim.opt.rtp:get())
+-- local ProgressNotify = require("xxx.core.progress-notify")
+-- local notif = ProgressNotify:new()
+-- vim.defer_fn(function()
+--     notif:start("this is a test", "This is a test")
+--     vim.defer_fn(function()
+--         notif:finish("This is end", "warn", "XX")
+--     end, 2000)
+-- end, 1000)
