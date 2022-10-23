@@ -6,19 +6,17 @@ local ProgressNotify = {
     spinner = 1,
 }
 
-function ProgressNotify:update_spinner()
-    -- if self.spinner then
+function ProgressNotify:_update_spinner()
     if not self.is_finish then
         local new_spinnter = (self.spinner + 1) % #spinner_frames
         self.spinner = new_spinnter
-        local msg = "::" .. self.spinner .. "  "
-        self.notificate = vim.notify(msg, nil, {
+        self.notificate = vim.notify(nil, nil, {
             hide_from_history = true,
             icon = spinner_frames[new_spinnter],
             replace = self.notificate,
         })
         vim.defer_fn(function()
-            self:update_spinner()
+            self:_update_spinner()
         end, 100)
     end
 end
@@ -33,7 +31,7 @@ function ProgressNotify:start(title, msg)
         hide_from_history = false,
     })
     self.spinner = 1
-    self:update_spinner()
+    self:_update_spinner()
 end
 
 local icons = require("xxx.core.icons")
@@ -47,6 +45,7 @@ function ProgressNotify:finish(msg, level, icon)
     self.notificate = vim.notify(msg, level, {
         icon = icon,
         replace = self.notificate,
+        hide_from_history = false,
         timeout = 3000,
     })
 end

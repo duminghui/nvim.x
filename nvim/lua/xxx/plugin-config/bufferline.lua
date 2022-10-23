@@ -103,8 +103,8 @@ M.opts = {
                 filetype = 'NvimTree',
                 text = 'Explorer',
                 highlight = 'PanelHeading',
-                -- padding = 1,
-                separator = "┃",
+                padding = 1,
+                -- separator = "┃",
             },
             {
                 filetype = 'DiffviewFiles',

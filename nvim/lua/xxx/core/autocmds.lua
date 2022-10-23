@@ -104,7 +104,8 @@ function M.load_defaults()
             {
                 group = "_format_options",
                 pattern = "*",
-                command = "setlocal formatoptions-=c formatoptions-=r formatoptions-=o",
+                -- command = "setlocal formatoptions-=c formatoptions-=r formatoptions-=o",
+                command = "setlocal formatoptions-=c",
             },
         },
         {

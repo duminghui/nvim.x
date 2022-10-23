@@ -78,10 +78,12 @@ function M:init(root_dir, base_dir)
         elseif what == "cache" then
             path = _G.get_cache_dir()
             -- what_msg = what .. " "
+        elseif what == "log" then
+            path = _G.get_runtime_dir()
         else
             path = vim.call("stdpath", what) or ""
         end
-        -- print("what:" .. what_msg .. ":" .. path)
+        -- print(what .. ": " .. path)
         return path
     end
 

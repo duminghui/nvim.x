@@ -152,6 +152,7 @@ return {
         Plus = "",
         Plus2 = "ﭝ",
         Project = "",
+        RunError = "",
         Search = "",
         Session = "ﭯ",
         Session2 = "",

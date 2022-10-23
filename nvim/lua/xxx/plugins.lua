@@ -145,6 +145,7 @@ local plugins = {
     {
         -- vim.ui.select, vim.ui.input hooks
         'stevearc/dressing.nvim',
+        after = "telescope.nvim",
         config = function()
             require("xxx.plugin-config.dressing").setup()
         end,

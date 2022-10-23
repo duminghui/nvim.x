@@ -43,7 +43,7 @@ M.opts = {
             apply_language_filter = "<C-f>",
         },
     },
-    log_level = vim.log.levels.info,
+    log_level = vim.log.levels.DEBUG,
     max_concurrent_installers = 3,
     -- github = {
     --     -- The template URL to use when downloading assets from GitHub.

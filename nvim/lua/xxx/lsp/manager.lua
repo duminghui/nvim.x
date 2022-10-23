@@ -1,10 +1,12 @@
 local M = {}
 
 local Log = require "xxx.core.log"
-local fmt = string.format
+local ProgressNotify = require("xxx.core.progress-notify")
+local icons = require("xxx.core.icons")
 local lsp = require "xxx.lsp"
 local lsp_utils = require "xxx.lsp.utils"
 local lsp_opts = require "xxx.lsp.config"
+local fmt = string.format
 local is_windows = vim.loop.os_uname().version:match "Windows"
 
 local function resolve_mason_config(server_name)
@@ -111,25 +113,61 @@ function M.setup(server_name, user_config)
     end
 
     if not registry.is_installed(pkg_name) then
+        local notify_title = "LSP automatic installer"
         if should_auto_install(server_name) then
             Log:debug "Automatic server installation detected"
-            vim.notify_once(string.format("Installation in progress for [%s], await...", server_name),
-                vim.log.levels.INFO, { title = "LSP Install Manager " })
+
             local pkg = registry.get_package(pkg_name)
-            pkg:install():once("closed", function()
-                if pkg:is_installed() then
-                    vim.schedule(function()
-                        vim.notify_once(string.format("Installation complete for [%s]", server_name),
-                            vim.log.levels.INFO, { title = "LSP Install Manager" })
-                        -- mason config is only available once the server has been installed
-                        local config = resolve_config(server_name, resolve_mason_config(server_name), user_config)
-                        launch_server(server_name, config)
-                    end)
-                end
+
+            local pn = ProgressNotify:new()
+
+            vim.schedule(function()
+                pn:start(notify_title, string.format("Installation in progress for [%s:%s]...", server_name, pkg_name))
+                -- vim.notify_once(string.format("Installation in progress for [%s], await...", server_name),
+                --     vim.log.levels.INFO, notify_opts)
             end)
+
+            pkg:once("install:success", function()
+                vim.schedule(function()
+                    pn:finish(string.format("'%s:%s' was successfully installed", server_name, pkg_name))
+                    -- mason config is only available once the server has been installed
+                    local config = resolve_config(server_name, resolve_mason_config(server_name), user_config)
+                    launch_server(server_name, config)
+                end)
+            end)
+
+            pkg:once("install:failed", function()
+                vim.schedule(function()
+                    pn:finish(string.format("'%s:%s' was failingly installed", server_name, pkg_name),
+                        vim.log.levels.ERROR, icons.ui.RunError)
+                end)
+            end)
+
+            pkg:install()
+            -- local notify_opts = { title = "LSP automatic installer" }
+            -- local handle = pkg:install()
+            -- pkg:install():once("closed", function()
+            --     print("manager.lua pkg:", pkg:is_installed())
+            --     if pkg:is_installed() then
+            --         print("Installation in installed")
+            --         vim.schedule(function()
+            --             vim.notify_once(string.format("Installation complete for [%s]", server_name),
+            --                 vim.log.levels.INFO, { title = "LSP Install Manager" })
+            --             -- mason config is only available once the server has been installed
+            --             local config = resolve_config(server_name, resolve_mason_config(server_name), user_config)
+            --             launch_server(server_name, config)
+            --         end)
+            --     else
+            --         print("Installation in failed")
+            --     end
+            -- end)
             return
         else
-            Log:debug(server_name .. " is not managed by the automatic installer")
+            local msg = server_name .. " is not managed by the automatic installer"
+            Log:debug(msg)
+            vim.schedule(function()
+                vim.notify_once(msg, vim.log.levels.WARN, { title = notify_title })
+            end)
         end
     end
 
