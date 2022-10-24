@@ -43,7 +43,7 @@ M.opts = {
         ModeMsg = { link = "LineNr" }, -- Make command line text lighter
         Search = { bg = "${selection}", fg = "${yellow}", style = "underline" },
 
-        StatusLine = { bg = "NONE", fg = "NONE" }, -- 防止statusline出现^^^^^.
+        -- StatusLine = { bg = "NONE", fg = "NONE" }, -- 防止statusline出现^^^^^.
 
         -- ["@text.uri.markdown"] = { fg = "${purple}" },
 
