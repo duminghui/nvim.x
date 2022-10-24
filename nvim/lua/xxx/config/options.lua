@@ -103,7 +103,7 @@ local default_options = {
     -- sessionoptions = "buffers,curdir,folds,globals,tabpages,winpos,winsize", -- Session options to store in the session
 }
 
-M.load_default_options = function()
+function M.load_default_options()
     -------------------- GLOBAL OPTIONS --------------------
     vim.g.mapleader = ","
     vim.g.maplocalleader = ","
@@ -135,12 +135,14 @@ M.load_default_options = function()
     vim.opt.relativenumber = true -- Set the relative number
     vim.opt.signcolumn = "yes:1" -- Show information next to the line numbers
 
+    -- wrap
     vim.opt.wrap = true -- Do not display text over multiple lines
     vim.opt.wrapmargin = 1
     vim.opt.breakindent = true
     vim.opt.breakindentopt = "shift:2,sbr" -- lin wrap opts
     vim.opt.linebreak = true
     -- vim.wo.breakat = ""
+    vim.opt.whichwrap:append 'b,s,h,l,<,>,[,]'
 
     -------------------- VIM OPTIONS --------------------
     vim.o.background = "dark"
@@ -168,7 +170,6 @@ M.load_default_options = function()
     -- vim.opt.foldmethod = "marker" -- Fold based on markers as opposed to indentation
     vim.opt.foldmethod = "manual" -- folding, set to "expr" for treesitter based folding
     vim.opt.foldexpr = "" -- set to "nvim_treesitter#foldexpr()" for treesitter based folding
-    vim.opt.ignorecase = true -- Ignore case
     vim.opt.laststatus = 3 -- Use global statusline **
     vim.opt.modelines = 1 -- Only use folding settings for this file
     vim.opt.mouse = "a" -- Use the mouse in all modes
@@ -196,10 +197,12 @@ M.load_default_options = function()
     vim.opt.showmatch = true -- Show matching brackets by flickering
     vim.opt.incsearch = true
     vim.opt.hlsearch = true
+    vim.opt.smartcase = true -- Don't ignore case with capitals
+    vim.opt.ignorecase = true -- Ignore case
+    vim.opt.iskeyword:remove({ '.', '#', '-' })
 
     vim.opt.showmode = true -- Do not show the mode
     vim.opt.sidescrolloff = 8 -- The minimal number of columns to keep to the left and to the right of the cursor if 'nowrap' is set **
-    vim.opt.smartcase = true -- Don't ignore case with capitals
     vim.opt.splitbelow = true -- Put new windows below current
     vim.opt.splitright = true -- Put new windows right of current
     vim.o.termguicolors = true -- True color support
@@ -234,8 +237,6 @@ M.load_default_options = function()
     --------------------------------------------------------
 
     -- vim.opt.shortmess:append 'fxtOrmnlTwoi'
-    vim.opt.whichwrap:append 'b,s,h,l,<,>,[,]'
-    vim.opt.iskeyword:remove({ '.', '#', '-' })
 
     -- syntax on 会引起site/after/ftplugin中的文件加载两次, 造成启动两次lsp, 不要启用
     -- vim.cmd('syntax on')
@@ -255,7 +256,7 @@ M.load_default_options = function()
 
 end
 
-M.load_headless_options = function()
+function M.load_headless_options()
     vim.opt.shortmess = "" -- try to prevent echom from cutting messages off or prompting
     vim.opt.more = false -- don't pause listing when screen is filled
     vim.opt.cmdheight = 9999 -- helps avoiding |hit-enter| prompts.
@@ -263,7 +264,7 @@ M.load_headless_options = function()
     vim.opt.swapfile = false -- don't use a swap file
 end
 
-M.load_defaults = function()
+function M.load_defaults()
     if #vim.api.nvim_list_uis() == 0 then
         M.load_headless_options()
         return

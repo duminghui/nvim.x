@@ -3,8 +3,8 @@ local Log = require("xxx.core.log")
 
 function M:init()
     Log:debug("config:init")
-    require("xxx.core.keymappings").load_defaults()
     require("xxx.config.options").load_defaults()
+    require("xxx.core.keymappings").load_defaults()
     require("xxx.core.autocmds").load_defaults()
 end
 

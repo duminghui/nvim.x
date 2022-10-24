@@ -30,7 +30,7 @@ end
 
 ---Initialize the `&runtimepath` variables and prepare for startup
 ---@return table
-function M:init(root_dir, base_dir)
+function M:init_rtp(root_dir, base_dir)
     self.root_dir = root_dir
     -- base_dir: root_dir/nvim
     self.base_dir = base_dir
@@ -125,15 +125,15 @@ function M:init(root_dir, base_dir)
         require "xxx.impatient"
     end
 
-    require("xxx.config"):init()
+    return self
+end
 
+function M:init_plugin_loader()
     require("xxx.plugin-loader").init {
         package_root = self.pack_dir,
         install_path = self.packer_install_dir,
         compile_path = self.packer_compile_path,
     }
-
-    return self
 end
 
 return M
