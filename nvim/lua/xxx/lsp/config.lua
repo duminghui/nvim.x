@@ -64,7 +64,6 @@ local options = {
     templates_dir = join_paths(get_runtime_dir(), "site", "after", "ftplugin"),
     diagnostics = {
         signs = {
-            active = true,
             values = {
                 { name = "DiagnosticSignError", text = icons.diagnostics.BoldError },
                 { name = "DiagnosticSignWarn", text = icons.diagnostics.BoldWarning },
