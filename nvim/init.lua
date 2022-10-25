@@ -26,16 +26,16 @@ local bootstrap = require("xxx.bootstrap")
 bootstrap:init_rtp(root_dir, nvim_base_dir)
 
 local config = require("xxx.config")
-config:init()
+
+config.init()
 
 bootstrap:init_plugin_loader()
 
--- 基本配置
-config:load()
+config.load()
 
 --插件配置
 local plugins = require "xxx.plugins"
-require("xxx.plugin-loader").load(plugins)
+require("xxx.plugin-loader").load { plugins = plugins }
 
 local Log = require "xxx.core.log"
 Log:debug "Starting XVim"

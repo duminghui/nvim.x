@@ -78,9 +78,9 @@ local plugins = {
         end,
     },
 
-    {
-        "tpope/vim-sleuth", -- Automatically detects which indents should be used in the current buffer
-    },
+    -- {
+    --   "tpope/vim-sleuth", -- Automatically detects which indents should be used in the current buffer
+    -- },
 
     {
         "kylechui/nvim-surround",
@@ -333,6 +333,7 @@ local plugins = {
                 },
                 -- cmp sources --
                 { "hrsh7th/cmp-nvim-lsp" },
+                { "hrsh7th/cmp-nvim-lsp-signature-help" },
                 { "hrsh7th/cmp-nvim-lua" },
                 { "hrsh7th/cmp-buffer" },
                 { "hrsh7th/cmp-path" },

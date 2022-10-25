@@ -39,6 +39,7 @@ function plugin_loader.init(opts)
     if in_headless then init_opts.display = nil end
 
     if not utils.is_directory(install_path) then
+        vim.notify("Downloading packer.nvim to " .. install_path .. "... ", nil, { title = "Packer" })
         vim.fn.system {
             "git", "clone", "--depth", "1",
             "https://github.com/wbthomason/packer.nvim", install_path
@@ -89,6 +90,8 @@ function plugin_loader.recompile()
 end
 
 function plugin_loader.load(configurations)
+    configurations = configurations or {}
+    local plugins = configurations.plugins or {}
     Log:debug "loading plugins configuration"
     local packer_available, packer = pcall(require, "packer")
     if not packer_available then
@@ -98,11 +101,8 @@ function plugin_loader.load(configurations)
     local status_ok, _ = xpcall(function()
         packer.reset()
         packer.startup(function(use)
-            for _, plugins in ipairs(configurations) do
-                for _, plugin in ipairs(plugins) do
-                    -- print(plugin[1])
-                    use(plugin)
-                end
+            for _, plugin in ipairs(plugins) do
+                use(plugin)
             end
         end)
     end, debug.traceback)

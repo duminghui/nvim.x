@@ -260,6 +260,7 @@ M.opts = function()
                     return true
                 end,
             },
+            { name = "nvim_lsp_signature_help" },
             { name = "path" },
             { name = "luasnip" },
             { name = "cmp_tabnine" },

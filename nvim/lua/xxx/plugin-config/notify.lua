@@ -51,7 +51,11 @@ function M.setup()
 
     notify.setup(M.opts)
 
-    require("telescope").load_extension "notify"
+    local telescope_ok, telescope = pcall(require, "telescope")
+    if telescope_ok then
+        telescope.load_extension "notify"
+    end
+
 
     vim.notify = notify
     Log:configure_notifications(notify)

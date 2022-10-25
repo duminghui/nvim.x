@@ -62,8 +62,10 @@ local function get_pickers(actions)
 end
 
 -- Define this minimal config so that it's available if telescope is not yet available.
-M.opts = function()
+function M.opts()
     local actions = require "telescope.actions"
+    local previewers = require "telescope.previewers"
+    local sorters = require "telescope.sorters"
     return {
         defaults = {
             -- prompt_prefix = " ",
@@ -117,6 +119,11 @@ M.opts = function()
                 },
             },
             pickers = get_pickers(actions),
+            file_previewer = previewers.vim_buffer_cat.new,
+            grep_previewer = previewers.vim_buffer_vimgrep.new,
+            qflist_previewer = previewers.vim_buffer_qflist.new,
+            file_sorter = sorters.get_fuzzy_file,
+            generic_sorter = sorters.get_generic_fuzzy_sorter,
             file_ignore_patterns = {
                 ".git/",
                 "%.csv",
@@ -178,7 +185,7 @@ M.opts = function()
             },
             frecency = {
                 -- default: nvim-data/file_frecency.sqlite3
-                -- db_root = get_runtime_dir(),
+                db_root = get_runtime_dir(),
 
                 show_scores = true,
                 show_unindexed = true,
@@ -219,18 +226,6 @@ function M.setup()
         return
     end
 
-    local previewers = require "telescope.previewers"
-    local sorters = require "telescope.sorters"
-    -- local actions = require "telescope.actions"
-
-    local opts = vim.tbl_extend("keep", {
-        file_previewer = previewers.vim_buffer_cat.new,
-        grep_previewer = previewers.vim_buffer_vimgrep.new,
-        qflist_previewer = previewers.vim_buffer_qflist.new,
-        file_sorter = sorters.get_fuzzy_file,
-        generic_sorter = sorters.get_generic_fuzzy_sorter,
-    }, M.opts())
-
     -- vim.cmd [[autocmd User TelescopePreviewerLoaded setlocal wrap]]
 
     vim.api.nvim_create_autocmd("User", {
@@ -238,7 +233,7 @@ function M.setup()
         command = "setlocal wrap",
     })
 
-    telescope.setup(opts)
+    telescope.setup(M.opts())
 
     -- load_extension "ui-select"
     -- load_extension "notify"

@@ -158,7 +158,7 @@ M.opts = {
         -- See the Supported Plugins section for a list of available plugins
         barbar = false,
         lsp_saga = true,
-        marks = false,
+        marks = true,
         polygot = false,
         startify = false,
         telescope = true,
@@ -167,6 +167,7 @@ M.opts = {
         which_key = false,
         nvim_tree = true,
         nvim_cmp = true,
+        hop = false,
     },
     styles = { -- Choose from "bold,italic,underline"
         strings = "NONE", -- Style that is applied to strings.
