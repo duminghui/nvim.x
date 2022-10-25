@@ -1,6 +1,7 @@
 local M = {}
 M.opts  = {
-    multi_windows = true,
+    -- true: when treesitter-context show had bug
+    multi_windows = false,
 }
 
 M.setup = function()

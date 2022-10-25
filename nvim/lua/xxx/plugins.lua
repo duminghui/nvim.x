@@ -1,6 +1,8 @@
 local plugins = {
     { 'wbthomason/packer.nvim' },
 
+    { "Tastyep/structlog.nvim" },
+
     -- Log --
     {
         "rcarriga/nvim-notify",
@@ -8,7 +10,11 @@ local plugins = {
             require("xxx.plugin-config.notify").setup()
         end,
     },
-    { "Tastyep/structlog.nvim" },
+
+    {
+        "tpope/vim-sleuth", -- Automatically detects which indents should be used in the current buffer
+    },
+
 
     {
         -- theme
@@ -54,7 +60,6 @@ local plugins = {
     },
     {
         -- Highlight hex and rgb colors within Neovim
-        -- "norcalli/nvim-colorizer.lua",
         'NvChad/nvim-colorizer.lua',
         config = function()
             require('xxx.plugin-config.colorizer').setup()
@@ -83,9 +88,6 @@ local plugins = {
         end,
     },
 
-    -- {
-    --   "tpope/vim-sleuth", -- Automatically detects which indents should be used in the current buffer
-    -- },
 
     {
         "kylechui/nvim-surround",
@@ -249,7 +251,7 @@ local plugins = {
     -- end,
     -- },
     {
-        "ahmedkhalf/project.nvim",
+        "ahmedkhalf/project.nvim", -- Automatically set the cwd to the project root
         after = "telescope.nvim",
         config = function()
             require("xxx.plugin-config.project").setup()
@@ -319,7 +321,7 @@ local plugins = {
             end,
         },
         {
-            -- has breadcrumbs
+            -- include breadcrumbs
             "glepnir/lspsaga.nvim",
             after = "colorscheme",
             branch = "main",

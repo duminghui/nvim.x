@@ -34,7 +34,6 @@ M.opts = {
         DEBUG = icons.diagnostics.Debug,
         TRACE = icons.diagnostics.Trace,
     },
-
 }
 
 function M.setup()
@@ -50,12 +49,6 @@ function M.setup()
     end
 
     notify.setup(M.opts)
-
-    local telescope_ok, telescope = pcall(require, "telescope")
-    if telescope_ok then
-        telescope.load_extension "notify"
-    end
-
 
     vim.notify = notify
     Log:configure_notifications(notify)

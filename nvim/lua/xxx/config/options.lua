@@ -134,7 +134,7 @@ function M.load_default_options()
     vim.opt.number = true -- Set the absolute number
     vim.opt.relativenumber = true -- Set the relative number
     -- vim.opt.signcolumn = "yes:1" -- Show information next to the line numbers
-    vim.opt.signcolumn = "auto:3" -- Show information next to the line numbers
+    vim.opt.signcolumn = "auto:1-3" -- Show information next to the line numbers
 
     -- wrap
     vim.opt.wrap = true -- Do not display text over multiple lines
