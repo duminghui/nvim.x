@@ -180,7 +180,10 @@ function M.format(opts)
     -- opts.async = true
     vim.b.format_changedtick = vim.b.changedtick
     vim.lsp.buf.format(opts)
-    vim.diagnostic.show(nil, nil)
+    local ok = pcall(vim.diagnostic.show, nil, nil)
+    if not ok then
+        print("pcall(vim.diagnostic.show) failed")
+    end
 end
 
 return M

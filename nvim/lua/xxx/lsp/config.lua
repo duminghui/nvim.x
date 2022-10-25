@@ -75,7 +75,7 @@ local options = {
             -- prefix = "",
             -- spacing = 12,
         },
-        update_in_insert = false,
+        update_in_insert = true,
         underline = true,
         severity_sort = true,
         float = diagnostic_float,
