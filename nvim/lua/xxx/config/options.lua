@@ -133,7 +133,8 @@ function M.load_default_options()
     ---https://jeffkreeftmeijer.com/vim-number/
     vim.opt.number = true -- Set the absolute number
     vim.opt.relativenumber = true -- Set the relative number
-    vim.opt.signcolumn = "yes:1" -- Show information next to the line numbers
+    -- vim.opt.signcolumn = "yes:1" -- Show information next to the line numbers
+    vim.opt.signcolumn = "auto:3" -- Show information next to the line numbers
 
     -- wrap
     vim.opt.wrap = true -- Do not display text over multiple lines
@@ -177,11 +178,12 @@ function M.load_default_options()
     vim.o.sessionoptions = "buffers,curdir,folds,globals,tabpages,winpos,winsize" -- Session options to store in the session
     vim.opt.scrolljump = 1
     vim.opt.scrolloff = 6 -- Set the cursor 5 lines down instead of directly at the top of the file
+
     --[[
         NOTE: don't store marks as they are currently broken in Neovim!
         @credit: wincent
     ]]
-    vim.opt.shada = "!,'0,f0,<50,s10,h" -- **
+    -- vim.opt.shada = "!,'0,f0,<50,s10,h" -- **
     vim.opt.shiftround = true -- Round indent **
     vim.opt.shortmess:append 'fxtOrmnlTwoi'
     -- vim.opt.shortmess = {

@@ -157,6 +157,14 @@ M.n_mappings = {
         C = { "<cmd>Telescope git_bcommits<CR>", "Checkout commit(for current file)" },
         d = { "<cmd>Gitsigns diffthis HEAD<CR>", "Git Diff" },
     },
+    m = {
+        name = "Marks",
+        a = { "<cmd>lua require 'harpoon.mark'.add_file()<CR>", "Add file" },
+        l = { "<cmd>Telescope harpoon marks<CR>", "List marks" },
+        n = { "<cmd>lua require 'harpoon.ui'.nav_next()<CR>", "Next mark" },
+        p = { "<cmd>lua require 'harpoon.ui'.nav_prev()<CR>", "Previous mark" },
+        -- ["2"] = { "<cmd>lua require 'harpoon.ui'.nav_file(2)<CR>", "Goto 2" },
+    },
     l = {
         name = "LSP",
         a = { "<cmd>lua vim.lsp.buf.code_action()<CR>", "Code Action" },

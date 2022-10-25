@@ -46,7 +46,12 @@ local plugins = {
             require("xxx.plugin-config.hop").setup()
         end
     },
-
+    {
+        'chentoast/marks.nvim',
+        config = function()
+            require("xxx.plugin-config.marks").setup()
+        end
+    },
     {
         -- Highlight hex and rgb colors within Neovim
         -- "norcalli/nvim-colorizer.lua",
@@ -134,6 +139,14 @@ local plugins = {
                 },
                 config = function()
                     require("telescope").load_extension("smart_history")
+                end,
+            },
+            {
+                "ThePrimeagen/harpoon", -- Mark buffers for faster navigation
+                after = "telescope.nvim",
+                config = function()
+                    require("xxx.plugin-config.harpoon").setup()
+                    require("telescope").load_extension("harpoon")
                 end,
             },
         },
