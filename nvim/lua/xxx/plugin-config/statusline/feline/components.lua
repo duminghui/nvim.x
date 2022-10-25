@@ -276,22 +276,26 @@ M.file_detail = {
         return provider_parts.provider(component, {
             parts = {
                 {
+                    -- space
                     content = function()
                         local shiftwidth = vim.api.nvim_buf_get_option(0, "shiftwidth")
                         return icons.ui.Tab .. shiftwidth
                     end,
                 },
                 {
+                    -- encoding
                     content = function()
                         return ((vim.bo.fenc ~= '' and vim.bo.fenc) or vim.o.enc):upper()
                     end
                 },
                 {
+                    -- format
                     content = function()
                         return ((vim.bo.fileformat ~= '' and vim.bo.fileformat) or vim.o.fileformat):upper()
                     end,
                 },
                 {
+                    -- filetype
                     content = function()
                         return require("feline.providers.file").file_type({},
                             { filetype_icon = true, colored_icon = true, case = "lowercase" })
@@ -305,17 +309,20 @@ M.file_detail = {
         return provider_parts.provider(component, {
             parts = {
                 {
+                    -- space
                     content = function()
                         local shiftwidth = vim.api.nvim_buf_get_option(0, "shiftwidth")
                         return shiftwidth
                     end
                 },
                 {
+                    -- encoding
                     content = function()
                         return ((vim.bo.fenc ~= '' and vim.bo.fenc) or vim.o.enc):upper()
                     end,
                 },
                 {
+                    -- filetype
                     content = function()
                         local _, icon = require("feline.providers.file").file_type({},
                             { filetype_icon = true, colored_icon = true, case = "lowercase" })
@@ -335,74 +342,6 @@ M.file_detail = {
     right_sep = right_section_right_sep,
     truncate_hide = true,
     priority = 5,
-}
-
-M.space = {
-    provider = function()
-        local shiftwidth = vim.api.nvim_buf_get_option(0, "shiftwidth")
-        return " " .. icons.ui.Tab .. " " .. shiftwidth .. " "
-    end,
-    hl = {
-        fg = colors.gray,
-        bg = com_bg,
-    },
-    left_sep = right_section_left_sep,
-    -- right_sep = right_section_right_sep_thin,
-    truncate_hide = true,
-    priority = 7,
-}
-
-M.file_encoding = {
-    provider = function()
-        return "" .. ((vim.bo.fenc ~= '' and vim.bo.fenc) or vim.o.enc):upper() .. " "
-    end,
-    hl = {
-        fg = colors.gray,
-        bg = com_bg,
-    },
-    -- right_sep = right_section_right_sep_thin,
-    truncate_hide = true,
-    priority = 5,
-}
-
-M.file_format = {
-    provider = function()
-        return "" .. ((vim.bo.fileformat ~= '' and vim.bo.fileformat) or vim.o.fileformat):upper() .. " "
-    end,
-    hl = {
-        fg = colors.gray,
-        bg = com_bg,
-    },
-    -- right_sep = right_section_right_sep_thin,
-    truncate_hide = true,
-    priority = 5,
-}
-
-M.file_type = {
-    provider = function()
-        local ft, icon = require("feline.providers.file").file_type({},
-            { filetype_icon = true, colored_icon = true, case = "lowercase" })
-        return ft .. " ", icon
-    end,
-    short_provider = function()
-        local _, icon = require("feline.providers.file").file_type({},
-            { filetype_icon = true, colored_icon = true, case = "lowercase" })
-        return " ", icon
-    end,
-    hl = {
-        fg = colors.gray,
-        bg = com_bg,
-    },
-    right_sep = {
-        str = "slant_right_2",
-        hl = {
-            fg = com_bg,
-            bg = "None",
-        },
-        always_visible = true,
-    },
-    truncate_hide = true,
-    priority = 6,
 }
 
 M.position = {
