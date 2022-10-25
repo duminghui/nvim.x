@@ -111,9 +111,9 @@ function M.setup()
         require("xxx.lsp.templates").generate_templates(lsp_opts.templates_dir)
     end
 
-    -- diagnostics
+    -- diagnostics signs
     for _, sign in ipairs(lsp_opts.diagnostics.signs.values) do
-        vim.fn.sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = sign.name })
+        vim.fn.sign_define(sign.name, { text = sign.text, texthl = sign.name, numhl = sign.name })
     end
 
     require("xxx.lsp.handlers").setup(lsp_opts)
