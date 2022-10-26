@@ -196,7 +196,8 @@ M.opts = {
             italic = true,
         },
         buffer_selected = {
-            fg = colors.bufferline_text_focus,
+            -- fg = colors.bufferline_text_focus,
+            fg = "#FFD700",
             bg = colors.statusline_bg,
             bold = true,
             italic = true,

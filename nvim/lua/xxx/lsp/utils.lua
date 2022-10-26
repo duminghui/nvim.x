@@ -179,6 +179,7 @@ function M.format(opts)
     opts.filter = opts.filter or M.format_filter
     -- opts.async = true
     vim.b.format_changedtick = vim.b.changedtick
+    -- bugs: diagnostic hidden, marks lose
     vim.lsp.buf.format(opts)
     local ok = pcall(vim.diagnostic.show, nil, nil)
     if not ok then

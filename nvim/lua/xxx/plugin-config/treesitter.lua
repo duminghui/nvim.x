@@ -17,7 +17,7 @@ M.opts = {
     highlight = {
         enable = true, -- false will disable the whole extension
         additional_vim_regex_highlighting = true,
-        disable = { "latex" },
+        disable = { "latex", "help" },
     },
     incremental_selection = {
         enable = false,

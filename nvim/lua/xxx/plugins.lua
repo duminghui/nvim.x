@@ -1,8 +1,6 @@
 local plugins = {
     { 'wbthomason/packer.nvim' },
-
     { "Tastyep/structlog.nvim" },
-
     -- Log --
     {
         "rcarriga/nvim-notify",
@@ -10,7 +8,6 @@ local plugins = {
             require("xxx.plugin-config.notify").setup()
         end,
     },
-
     {
         "tpope/vim-sleuth", -- Automatically detects which indents should be used in the current buffer
     },
@@ -54,6 +51,7 @@ local plugins = {
     },
     {
         'chentoast/marks.nvim',
+        -- disable = true,
         config = function()
             require("xxx.plugin-config.marks").setup()
         end
@@ -145,6 +143,7 @@ local plugins = {
             },
             {
                 "ThePrimeagen/harpoon", -- Mark buffers for faster navigation
+                disable = true,
                 after = "telescope.nvim",
                 config = function()
                     require("xxx.plugin-config.harpoon").setup()

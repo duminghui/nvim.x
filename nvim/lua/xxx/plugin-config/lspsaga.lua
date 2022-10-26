@@ -153,6 +153,8 @@ local filetype_exclude = {
     "dapui_console",
     "lab",
     "Markdown",
+    "mason",
+    "man",
 } -- Ignore float windows and exclude filetype
 
 local function config_winbar_or_statusline()

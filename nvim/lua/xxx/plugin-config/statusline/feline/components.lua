@@ -376,7 +376,7 @@ local function line_percentage()
     local percent = string.format("%s", 100)
 
     if curr_line ~= lines then
-        percent = string.format("%s", math.ceil(curr_line / lines * 99))
+        percent = string.format("%3d", math.ceil(curr_line / lines * 99))
     end
 
     return lines, percent
