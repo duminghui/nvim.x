@@ -139,9 +139,12 @@ M.opts = function()
             keyword_length = 1,
         },
         experimental = {
-            ghost_text = false,
-            native_menu = false,
+            ghost_text = true,
+            -- native_menu = true,
         },
+        -- view = {
+        --     entries = { name = "wildmenu" }
+        -- },
         formatting = {
             fields = { "kind", "abbr", "menu" },
             max_width = 0,

@@ -20,7 +20,6 @@ end
 function M.color_hex(val)
     if not val then return "none" end
     return string.format("#%X", val)
-
 end
 
 ---Write data to a file
