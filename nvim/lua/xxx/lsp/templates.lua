@@ -5,14 +5,25 @@ local utils = require "xxx.utils"
 local lsp_utils = require "xxx.lsp.utils"
 local lsp_opts = require "xxx.lsp.config"
 
+local ftplugin_dir = ""
+
 
 local join_paths = _G.join_paths
 
-function M.remove_template_files(ftplugin_dir)
+function M.set_ftplugin_dir(new_ftplugin_dir)
+    ftplugin_dir = new_ftplugin_dir
+end
+
+function M.remove_template_files()
+    if ftplugin_dir == "" then
+        return
+    end
     -- remove any outdated files
     for _, file in ipairs(vim.fn.glob(ftplugin_dir .. "/*.lua", 1, 1)) do
         vim.fn.delete(file)
     end
+    vim.fn.delete(ftplugin_dir, "d")
+    Log:info("delete ftplugin template files end")
 end
 
 local skipped_filetypes = lsp_opts.automatic_configuration.skipped_filetypes
@@ -55,20 +66,23 @@ end
 ---Generates ftplugin files based on a list of server_names
 ---The files are generated to a runtimepath: "$LUNARVIM_RUNTIME_DIR/site/after/ftplugin/template.lua"
 ---@param servers_names? table list of servers to be enabled. Will add all by default
-function M.generate_templates(templates_dir, servers_names)
+function M.generate_templates(servers_names)
+    if ftplugin_dir == "" then
+        return
+    end
     servers_names = servers_names or lsp_utils.get_supported_servers()
 
     Log:debug "Templates installation in progress"
 
-    M.remove_template_files(templates_dir)
+    M.remove_template_files()
 
     -- create the directory if it didn't exist
-    if not utils.is_directory(templates_dir) then
-        vim.fn.mkdir(templates_dir, "p")
+    if not utils.is_directory(ftplugin_dir) then
+        vim.fn.mkdir(ftplugin_dir, "p")
     end
 
     for _, server in ipairs(servers_names) do
-        M.generate_ftplugin(server, templates_dir)
+        M.generate_ftplugin(server, ftplugin_dir)
     end
     Log:debug "Templates installation is complete"
 end

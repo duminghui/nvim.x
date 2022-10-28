@@ -49,7 +49,7 @@ local defaults = {
         ["gk"] = { "k", { noremap = true, silent = false } },
         ["zl"] = { "zL", { noremap = true, silent = false } },
         ["zh"] = { "zH", { noremap = true, silent = false } },
-        ["Y"] = { "y$", { noremap = true, silent = false } },
+        -- ["Y"] = { "y$", { noremap = true, silent = false } }, -- neovim buildin
 
         -- Better window movement
         ["<C-h>"] = "<C-w>h",

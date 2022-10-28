@@ -439,5 +439,18 @@ local plugins = {
         end,
     },
 
+    {
+        -- https://github.com/golang/tools/blob/master/gopls/doc/settings.md
+        'ray-x/go.nvim',
+        disable = true,
+        ft = { 'go', 'gomod', 'gosum', 'gotmpl', 'gohtmltmpl', 'gotexttmpl' },
+        requires = {
+            'ray-x/guihua.lua', -- recommanded if need floating window support
+        },
+        config = function()
+            require("xxx.plugin-config.go").setup()
+        end
+    }
+
 }
 return plugins

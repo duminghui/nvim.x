@@ -175,7 +175,7 @@ M.n_mappings = {
         d = { "<cmd>Trouble document_diagnostics<CR>", "Buffer Diagnostics" },
         -- config in lsp/config.lua
         r = { "<cmd>Trouble lsp_references<CR>", "References" },
-        -- m = { require("xxx.lsp.utils").format, "Format" }, -- set in lsp/keymapping.lua
+        -- f = { require("xxx.lsp.utils").format, "Format" }, -- set in lsp/keymapping.lua
         i = { "<cmd>LspInfo<CR>", "Lsp Info" },
         I = { "<cmd>Mason<CR>", "Mason Info" },
         j = { vim.diagnostic.goto_next, "Next Diagnostic", },
@@ -263,6 +263,7 @@ M.n_mappings = {
                 "Open the Packer logfile" }
         },
         n = { "<cmd>Telescope notify<cr>", "View Notifications" },
+        r = { require("xxx.lsp.templates").remove_template_files, "Remove lsp ftplugin files" },
     },
 
 }

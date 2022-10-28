@@ -279,7 +279,12 @@ M.file_detail = {
                     -- space
                     content = function()
                         local shiftwidth = vim.api.nvim_buf_get_option(0, "shiftwidth")
-                        return icons.ui.Tab .. shiftwidth
+                        if shiftwidth > 0 then
+                            return icons.ui.Tab .. shiftwidth
+                        else
+                            local tabstop = vim.api.nvim_buf_get_option(0, "tabstop")
+                            return "•:" .. tabstop
+                        end
                     end,
                 },
                 {
@@ -312,7 +317,12 @@ M.file_detail = {
                     -- space
                     content = function()
                         local shiftwidth = vim.api.nvim_buf_get_option(0, "shiftwidth")
-                        return shiftwidth
+                        if shiftwidth > 0 then
+                            return shiftwidth
+                        else
+                            local tabstop = vim.api.nvim_buf_get_option(0, "tabstop")
+                            return tabstop
+                        end
                     end
                 },
                 {

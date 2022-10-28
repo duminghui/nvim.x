@@ -27,7 +27,7 @@ M.defaults = {
         name = "PrintRtp",
         fn = function()
             for k, v in pairs(vim.opt.rtp:get()) do
-                print(k, v)
+                print(string.format("%3d: %s", k, v))
             end
         end
     }
@@ -40,6 +40,10 @@ function M.load(collection)
         local opts = vim.tbl_deep_extend("force", common_opts, cmd.opts or {})
         vim.api.nvim_create_user_command(cmd.name, cmd.fn, opts)
     end
+end
+
+function M.load_defaults()
+    M.load(M.defaults)
 end
 
 return M

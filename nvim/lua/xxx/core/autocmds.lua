@@ -63,7 +63,7 @@ function M.load_defaults()
                 pattern = "*",
                 desc = "Highlight text on yank",
                 callback = function()
-                    require("vim.highlight").on_yank { higroup = "Search", timeout = 100 }
+                    require("vim.highlight").on_yank { higroup = "Search", timeout = 200 }
                 end,
             },
         },
@@ -82,6 +82,16 @@ function M.load_defaults()
                 pattern = { "gitcommit", "markdown" },
                 command = "setlocal wrap spell",
             },
+        },
+        {
+            "FileType",
+            {
+                group = "_filetype_settings",
+                pattern = "go",
+                callback = function()
+                    vim.opt_local.listchars = "tab:› ,trail:•,extends:#,nbsp:."
+                end,
+            }
         },
         {
             "FileType",

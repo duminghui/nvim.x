@@ -15,21 +15,30 @@ function M.add_lsp_buffer_keybindings(client, bufnr)
     else
         can_format = client.server_capabilities.documentFormattingProvider
     end
-    local maps = {
-        ["K"]               = { vim.lsp.buf.hover, "[LSP]Show hover", not_null_ls },
-        ["gd"]              = { vim.lsp.buf.definition, "[LSP]Goto Definition", not_null_ls },
-        -- ["gd"] = { "<cmd>Trouble lsp_definitions<CR>", "Goto Definition" },
-        ["gD"]              = { vim.lsp.buf.declaration, "[LSP]Goto declaration",
-            not_null_ls and client.server_capabilities.type_definition },
+    local keymaps = {
+        ["K"] = { vim.lsp.buf.hover, "[LSP]Show hover", not_null_ls },
+
+        ["gd"] = { vim.lsp.buf.definition, "[LSP]Goto definition", not_null_ls },
+        -- ["gd"] = { "<cmd>Trouble lsp_definitions<CR>", "Goto definition" },
+        ["gD"] = { "<cmd>Lspsaga peek_definition<CR>", "[LSP]Peek definition", not_null_ls },
+
+        ["gt"] = { vim.lsp.buf.type_definition, "[LSP]Goto type definition",
+            not_null_ls and client.server_capabilities.typeDefinitionProvider },
+
+        -- ["gf"] = { vim.lsp.buf.declaration, "[LSP]Goto declaration", not_null_ls },
+
         -- ["gr"] = { vim.lsp.buf.references, "Goto references" },
-        ["gr"]              = { "<cmd>Trouble lsp_references<CR>", "[LSP]Goto references", not_null_ls },
-        ["gI"]              = { vim.lsp.buf.implementation, "[LSP]Goto Implementation",
-            not_null_ls and client.server_capabilities.implementation },
-        ["gs"]              = { vim.lsp.buf.signature_help, "[LSP]Show signature help",
+        ["gr"] = { "<cmd>Trouble lsp_references<CR>", "[LSP]Goto references", not_null_ls },
+
+        ["gI"] = { vim.lsp.buf.implementation, "[LSP]Goto implementation",
+            not_null_ls and client.server_capabilities.implementationProvider },
+
+        ["gs"] = { vim.lsp.buf.signature_help, "[LSP]Show signature help",
             not_null_ls and client.supports_method("textDocument/signatureHelp") },
-        ["gnr"]             = { vim.lsp.buf.rename, "[LSP]Rename",
-            not_null_ls and client.supports_method("textDocument/rename") },
-        ["gl"]              = {
+
+        ["gnr"] = { vim.lsp.buf.rename, "[LSP]Rename", not_null_ls and client.supports_method("textDocument/rename") },
+
+        ["gl"] = {
             function()
                 local config = lsp_opts.diagnostics.float
                 config.scope = "line"
@@ -38,9 +47,13 @@ function M.add_lsp_buffer_keybindings(client, bufnr)
             "[LSP]Show line diagnostics",
             not_null_ls
         },
+
+        ["gL"] = { vim.lsp.codelens.run, "[LSP]Code lens", not_null_ls and client.server_capabilities.codeLensProvider },
+
         -- F code_action
-        ["[d"]              = { vim.diagnostic.goto_prev, "[LSP]Prev Diagnostic", not_null_ls },
-        ["]d"]              = { vim.diagnostic.goto_next, "[LSP]Next Diagnostic", not_null_ls },
+        ["[d"] = { vim.diagnostic.goto_prev, "[LSP]Prev Diagnostic", not_null_ls },
+        ["]d"] = { vim.diagnostic.goto_next, "[LSP]Next Diagnostic", not_null_ls },
+
         ["<LocalLeader>lf"] = {
             function()
                 require("xxx.lsp.utils").format({})
@@ -50,7 +63,7 @@ function M.add_lsp_buffer_keybindings(client, bufnr)
         }
     }
 
-    for key, remap in pairs(maps) do
+    for key, remap in pairs(keymaps) do
         if remap[3] then
             local opts = { buffer = bufnr, desc = remap[2], noremap = true, silent = false }
             vim.keymap.set("n", key, remap[1], opts)

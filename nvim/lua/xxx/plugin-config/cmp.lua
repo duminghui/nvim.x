@@ -146,19 +146,19 @@ M.opts = function()
         --     entries = { name = "wildmenu" }
         -- },
         formatting = {
-            fields = { "kind", "abbr", "menu" },
+            fields = { "abbr", "kind", "menu" },
             max_width = 0,
             kind_icons = icons.kind,
             source_names = {
-                nvim_lsp = "(LSP)",
-                emoji = "(Emoji)",
-                path = "(Path)",
-                calc = "(Calc)",
-                cmp_tabnine = "(Tabnine)",
-                vsnip = "(Snippet)",
-                luasnip = "(Snippet)",
-                buffer = "(Buffer)",
-                tmux = "(TMUX)",
+                nvim_lsp = "「LSP」",
+                emoji = "「Emoji」",
+                path = "「Path」",
+                calc = "「Calc)」",
+                cmp_tabnine = "「Tabnine」",
+                vsnip = "「Snippet」",
+                luasnip = "「Snippet」",
+                buffer = "「Buffer」",
+                tmux = "「TMUX」",
             },
             duplicates = {
                 buffer = 1,
@@ -172,7 +172,7 @@ M.opts = function()
                 if max_width ~= 0 and #vim_item.abbr > max_width then
                     vim_item.abbr = string.sub(vim_item.abbr, 1, max_width - 1) .. "…"
                 end
-                vim_item.kind = M.options.formatting.kind_icons[vim_item.kind]
+                vim_item.kind = M.options.formatting.kind_icons[vim_item.kind] .. " " .. vim_item.kind
 
                 -- TODO: not sure why I can't put this anywhere else
                 vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { fg = "#6CC644" })
@@ -216,8 +216,14 @@ M.opts = function()
             end,
         },
         window = {
-            completion = cmp.config.window.bordered(),
-            documentation = cmp.config.window.bordered(),
+            -- completion = cmp.config.window.bordered(),
+            -- documentation = cmp.config.window.bordered(),
+            completion = {
+                border = "single",
+            },
+            documentation = {
+                border = "single",
+            }
         },
         sources = {
             {
@@ -276,12 +282,14 @@ M.opts = function()
             { name = "tmux" },
         },
         mapping = cmp.mapping.preset.insert {
-            ["<C-k>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "c" }),
-            ["<C-j>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "c" }),
-            ["<Down>"] = cmp.mapping(cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Select }, { "i" }),
-            ["<Up>"] = cmp.mapping(cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Select }, { "i" }),
+            ["<Up>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "c" }),
+            ["<Down>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "c" }),
+            ["<C-k>"] = cmp.mapping(cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Select }, { "i", "c" }),
+            ["<C-j>"] = cmp.mapping(cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Select }, { "i", "c" }),
             ["<C-d>"] = cmp.mapping.scroll_docs(-4),
             ["<C-f>"] = cmp.mapping.scroll_docs(4),
+            ["<C-Space>"] = cmp.mapping.complete(),
+            ["<C-e>"] = cmp.mapping.abort(),
             ["<C-y>"] = cmp.mapping {
                 i = cmp.mapping.confirm { behavior = cmp.ConfirmBehavior.Replace, select = false },
                 c = function(fallback)
@@ -294,7 +302,8 @@ M.opts = function()
             },
             ["<Tab>"] = cmp.mapping(function(fallback)
                 if cmp.visible() then
-                    cmp.select_next_item()
+                    -- cmp.select_next_item()
+                    cmp.select_next_item { behavior = cmp.SelectBehavior.Select }
                 elseif luasnip.expand_or_locally_jumpable() then
                     luasnip.expand_or_jump()
                 elseif jumpable(1) then
@@ -308,15 +317,14 @@ M.opts = function()
             end, { "i", "s" }),
             ["<S-Tab>"] = cmp.mapping(function(fallback)
                 if cmp.visible() then
-                    cmp.select_prev_item()
+                    cmp.select_prev_item { behavior = cmp.SelectBehavior.Select }
+                    -- cmp.select_prev_item()
                 elseif luasnip.jumpable(-1) then
                     luasnip.jump(-1)
                 else
                     fallback()
                 end
             end, { "i", "s" }),
-            ["<C-Space>"] = cmp.mapping.complete(),
-            ["<C-e>"] = cmp.mapping.abort(),
             ["<CR>"] = cmp.mapping(function(fallback)
                 if cmp.visible() then
                     local confirm_opts = vim.deepcopy(M.options.confirm_opts) -- avoid mutating the original opts below
@@ -359,18 +367,20 @@ M.opts = function()
 end
 
 function M.setup()
-    -- vim.opt.completeopt = "menu,menuone,noselect"
     local status_ok, cmp = safe_require("cmp")
     if not status_ok then
         return
     end
+    -- vim.opt.completeopt = "menu,menuone,noselect"
     local opts = M.opts()
     cmp.setup(opts)
-    for _, option in ipairs(opts.cmdline) do
-        cmp.setup.cmdline(option.type, {
-            mapping = cmp.mapping.preset.cmdline(),
-            source = option.sources,
-        })
+    if opts.cmdline then
+        for _, option in ipairs(opts.cmdline) do
+            cmp.setup.cmdline(option.type, {
+                mapping = cmp.mapping.preset.cmdline(),
+                source = option.sources,
+            })
+        end
     end
 end
 

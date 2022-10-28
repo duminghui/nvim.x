@@ -50,6 +50,7 @@ local function resolve_config(server_name, ...)
     end
 
     defaults = vim.tbl_deep_extend("force", defaults, ...)
+    -- print("manager.lua", vim.inspect(defaults))
 
     return defaults
 end

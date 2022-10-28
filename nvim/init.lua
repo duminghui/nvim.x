@@ -42,7 +42,7 @@ Log:debug "Starting XVim"
 
 
 local commands = require "xxx.core.commands"
-commands.load(commands.defaults)
+commands.load_defaults()
 
 -- --Lsp配置
 require("xxx.lsp").setup()

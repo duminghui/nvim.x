@@ -9,6 +9,7 @@ local skipped_servers = {
     "emmet_ls",
     "eslint",
     "eslintls",
+    "gopls",
     "golangci_lint_ls",
     "gradle_ls",
     "graphql",
@@ -64,6 +65,7 @@ local options = {
     templates_dir = join_paths(get_runtime_dir(), "site", "after", "ftplugin"),
     diagnostics = {
         signs = {
+            priority = 30,
             values = {
                 { name = "DiagnosticSignError", text = icons.diagnostics.BoldError },
                 { name = "DiagnosticSignWarn", text = icons.diagnostics.BoldWarning },
@@ -72,10 +74,11 @@ local options = {
             },
         },
         virtual_text = {
-            -- prefix = "",
+            prefix = "",
             -- spacing = 12,
         },
-        update_in_insert = true,
+        -- true: cmp's ghost_text show bug
+        update_in_insert = false,
         underline = true,
         severity_sort = true,
         float = diagnostic_float,
@@ -126,7 +129,8 @@ local options = {
         setup = {
             ensure_installed = {},
             automatic_installation = {
-                exclude = {},
+                -- exclude = {},
+                exclude = skipped_servers,
             },
         },
     },
@@ -143,7 +147,7 @@ local options = {
     null_ls = {
         setup = {
             sources = {
-                require("null-ls").builtins.formatting.stylua,
+                -- require("null-ls").builtins.formatting.stylua,
             }
         },
         config = {},

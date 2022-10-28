@@ -172,7 +172,6 @@ function M.format_filter(client)
     end
 end
 
----Provide vim.lsp.buf.format for nvim <0.8
 ---@param opts table
 function M.format(opts)
     opts = opts or {}

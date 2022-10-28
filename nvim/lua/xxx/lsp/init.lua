@@ -106,9 +106,13 @@ function M.setup()
     --     { "╰", hl_name },
     --     { "│", hl_name },
     -- }
+    --
+
+    local templates = require("xxx.lsp.templates")
+    templates.set_ftplugin_dir(lsp_opts.templates_dir)
 
     if not utils.is_directory(lsp_opts.templates_dir) then
-        require("xxx.lsp.templates").generate_templates(lsp_opts.templates_dir)
+        templates.generate_templates()
     end
 
     -- diagnostics signs
