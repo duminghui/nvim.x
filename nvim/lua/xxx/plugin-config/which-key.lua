@@ -190,6 +190,7 @@ M.n_mappings = {
     },
     s = {
         name = "Search",
+        a = { "<cmd>Telescope autocommands<CR>", "Autocommands" },
         -- b = { "<cmd>Telescope git_branches<CR>", "Checkout branch" },
         c = { "<cmd>Telescope colorscheme<CR>", "Colorscheme" },
         f = { "<cmd>Telescope find_files<CR>", "Find File" },

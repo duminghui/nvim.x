@@ -282,10 +282,10 @@ M.opts = function()
             { name = "tmux" },
         },
         mapping = cmp.mapping.preset.insert {
-            ["<Up>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "c" }),
-            ["<Down>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "c" }),
-            ["<C-k>"] = cmp.mapping(cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Select }, { "i", "c" }),
-            ["<C-j>"] = cmp.mapping(cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Select }, { "i", "c" }),
+            ["<C-k>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "c" }),
+            ["<C-j>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "c" }),
+            ["<Up>"] = cmp.mapping(cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Select }, { "i", "c" }),
+            ["<Down>"] = cmp.mapping(cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Select }, { "i", "c" }),
             ["<C-d>"] = cmp.mapping.scroll_docs(-4),
             ["<C-f>"] = cmp.mapping.scroll_docs(4),
             ["<C-Space>"] = cmp.mapping.complete(),
@@ -302,8 +302,8 @@ M.opts = function()
             },
             ["<Tab>"] = cmp.mapping(function(fallback)
                 if cmp.visible() then
-                    -- cmp.select_next_item()
-                    cmp.select_next_item { behavior = cmp.SelectBehavior.Select }
+                    cmp.select_next_item()
+                    -- cmp.select_next_item { behavior = cmp.SelectBehavior.Select }
                 elseif luasnip.expand_or_locally_jumpable() then
                     luasnip.expand_or_jump()
                 elseif jumpable(1) then
@@ -317,8 +317,8 @@ M.opts = function()
             end, { "i", "s" }),
             ["<S-Tab>"] = cmp.mapping(function(fallback)
                 if cmp.visible() then
-                    cmp.select_prev_item { behavior = cmp.SelectBehavior.Select }
-                    -- cmp.select_prev_item()
+                    -- cmp.select_prev_item { behavior = cmp.SelectBehavior.Select }
+                    cmp.select_prev_item()
                 elseif luasnip.jumpable(-1) then
                     luasnip.jump(-1)
                 else

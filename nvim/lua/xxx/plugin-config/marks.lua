@@ -38,6 +38,7 @@ M.opts = {
         'NvimTree',
         "sagacodeaction",
         "lspsagaoutline",
+        "guihua",
         ''
     },
 }

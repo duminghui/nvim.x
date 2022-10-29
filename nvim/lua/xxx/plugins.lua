@@ -390,7 +390,7 @@ local plugins = {
             },
             {
                 "windwp/nvim-autopairs",
-                -- event = "InsertEnter",
+                event = "InsertEnter",
                 config = function()
                     require("xxx.plugin-config.autopairs").setup()
                 end,
@@ -442,7 +442,7 @@ local plugins = {
     {
         -- https://github.com/golang/tools/blob/master/gopls/doc/settings.md
         'ray-x/go.nvim',
-        disable = true,
+        -- disable = true,
         ft = { 'go', 'gomod', 'gosum', 'gotmpl', 'gohtmltmpl', 'gotexttmpl' },
         requires = {
             'ray-x/guihua.lua', -- recommanded if need floating window support

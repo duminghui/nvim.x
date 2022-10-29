@@ -6,25 +6,11 @@ local utils = require("xxx.utils")
 local lsp_opts = require "xxx.lsp.config"
 
 
-local function add_lsp_buffer_options(bufnr)
+function M.add_lsp_buffer_options(bufnr)
     for k, v in pairs(lsp_opts.buffer_options) do
         vim.api.nvim_buf_set_option(bufnr, k, v)
     end
 end
-
--- local function add_lsp_buffer_keybindings(bufnr)
---     local mappings = {
---         normal_mode = "n",
---         insert_mode = "i",
---         visual_mode = "v",
---     }
---     for mode_name, mode_char in pairs(mappings) do
---         for key, remap in pairs(lsp_opts.buffer_mappings[mode_name]) do
---             local opts = { buffer = bufnr, desc = remap[2], noremap = true, silent = true }
---             vim.keymap.set(mode_char, key, remap[1], opts)
---         end
---     end
--- end
 
 function M.common_capabilities()
     local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -32,21 +18,6 @@ function M.common_capabilities()
     if status_ok then
         return cmp_nvim_lsp.default_capabilities(capabilities)
     end
-
-    -- capabilities.textDocument.completion.completionItem.snippetSupport = true
-    -- capabilities.textDocument.completion.completionItem.resolveSupport = {
-    --     properties = {
-    --         "documentation",
-    --         "detail",
-    --         "additionalTextEdits",
-    --     },
-    -- }
-
-    -- local status_ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
-    -- if status_ok then
-    --     capabilities = cmp_nvim_lsp.update_capabilities(capabilities)
-    -- end
-
     return capabilities
 end
 
@@ -69,9 +40,12 @@ function M.common_on_attach(client, bufnr)
 
     lu.setup_codelens_refresh(client, bufnr)
 
+    lu.setup_format_on_save(client, bufnr)
+
     require "xxx.lsp.keymappings".add_lsp_buffer_keybindings(client, bufnr)
-    -- add_lsp_buffer_keybindings(bufnr)
-    add_lsp_buffer_options(bufnr)
+
+    M.add_lsp_buffer_options(bufnr)
+
     lu.setup_document_symbols(client, bufnr)
 
 end
@@ -131,7 +105,7 @@ function M.setup()
 
     require("xxx.lsp.null-ls").setup()
 
-    autocmds.configure_format_on_save(true)
+    -- autocmds.configure_format_on_save(true)
 end
 
 return M

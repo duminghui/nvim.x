@@ -79,16 +79,24 @@ function M.setup_document_highlight(client, bufnr)
     --     Log:debug "skipping setup for document_highlight, illuminate already active"
     --     return
     -- end
-    local status_ok, highlight_supported = pcall(function()
-        return client.supports_method "textDocument/documentHighlight"
-    end)
-    if not status_ok or not highlight_supported then
+    -- local status_ok, highlight_supported = pcall(function()
+    --     return client.supports_method "textDocument/documentHighlight"
+    -- end)
+    -- if not status_ok or not highlight_supported then
+    --     return
+    -- end
+    --
+
+    if not client.supports_method "textDocument/documentHighlight" then
+        Log:debug("skipping setup for documentHighlight, method not supported by " .. client.name)
         return
     end
+
     -- 触发条件为CursorHold, CursorHoldI
     -- 光标停留一段时间后
     local group = "lsp_document_highlight"
-    local hl_events = { "CursorHold", "CursorHoldI" }
+    -- local hl_events = { "CursorHold", "CursorHoldI" }
+    local hl_events = { "CursorHold" }
 
     local ok, hl_autocmds = pcall(vim.api.nvim_get_autocmds, {
         group = group,
@@ -106,18 +114,21 @@ function M.setup_document_highlight(client, bufnr)
         buffer = bufnr,
         callback = vim.lsp.buf.document_highlight,
     })
-    vim.api.nvim_create_autocmd("CursorMoved", {
-        group = group,
-        buffer = bufnr,
-        callback = vim.lsp.buf.clear_references,
-    })
+    vim.api.nvim_create_autocmd(
+        { "CursorMoved", "InsertEnter" },
+        -- { "CursorMoved" },
+        {
+            group = group,
+            buffer = bufnr,
+            callback = vim.lsp.buf.clear_references,
+        })
 end
 
 function M.setup_document_symbols(client, bufnr)
     vim.g.navic_silence = false -- can be set to true to supress error
-    local symbols_supported = client.supports_method "textDocument/documentSymbol"
-    if not symbols_supported then
-        Log:debug("skipping setup for document_symbols, method not supported by " .. client.name)
+    if not client.supports_method "textDocument/documentSymbol" then
+        Log:debug("skipping setup for documentSymbol, method 'textDocument/documentSymbol' not supported by " ..
+            client.name)
         return
     end
     local status_ok, navic = pcall(require, "nvim-navic")
@@ -127,11 +138,8 @@ function M.setup_document_symbols(client, bufnr)
 end
 
 function M.setup_codelens_refresh(client, bufnr)
-    local status_ok, codelens_supported = pcall(function()
-        return client.supports_method "textDocument/codeLens"
-    end)
-    if not status_ok or not codelens_supported then
-        Log:debug("skipping setup for document_codelens, method not supported by " .. client.name)
+    if not client.supports_method "textDocument/codeLens" then
+        Log:debug("skipping setup for document_codelens, method 'textDocument/codeLens' not supported by " .. client.name)
         return
     end
     local group = "lsp_code_lens_refresh"
@@ -150,6 +158,34 @@ function M.setup_codelens_refresh(client, bufnr)
         group = group,
         buffer = bufnr,
         callback = vim.lsp.codelens.refresh,
+    })
+end
+
+function M.setup_format_on_save(client, bufnr)
+    if not client.supports_method "textDocument/formatting" then
+        Log:debug("skipping setup for format on save, method 'textDocument/formatting' not supported by " .. client.name)
+        return
+    end
+    local group = "lsp_format_on_save"
+    local events = { "BufWritePre" }
+    local ok, fos_autocmds = pcall(vim.api.nvim_get_autocmds, {
+        group = group,
+        buffer = bufnr,
+        event = events,
+    })
+
+    if ok and #fos_autocmds > 0 then
+        return
+    end
+
+    vim.api.nvim_create_augroup(group, { clear = false })
+    vim.api.nvim_create_autocmd("BufWritePre", {
+        group = group,
+        buffer = bufnr,
+        callback = function()
+            M.format({})
+            -- require("xxx.lsp.utils").format()
+        end,
     })
 end
 

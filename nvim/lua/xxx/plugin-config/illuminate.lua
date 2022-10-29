@@ -43,7 +43,7 @@ M.opts = {
     under_cursor = true,
 }
 
-M.setup = function()
+function M.setup()
     local status_ok, illuminate = safe_require("illuminate")
     if not status_ok then
         return
