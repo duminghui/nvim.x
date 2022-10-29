@@ -119,7 +119,7 @@ M.methods.jumpable = jumpable
 
 M.options = {}
 
-M.opts = function()
+function M.opts()
     local status_cmp_ok, cmp = pcall(require, "cmp")
     if not status_cmp_ok then
         return {}
@@ -352,6 +352,7 @@ M.opts = function()
                     type = ":",
                     sources = {
                         { name = "path" },
+                        { name = "cmdline" },
                     },
                 },
                 {
@@ -374,11 +375,11 @@ function M.setup()
     -- vim.opt.completeopt = "menu,menuone,noselect"
     local opts = M.opts()
     cmp.setup(opts)
-    if opts.cmdline then
-        for _, option in ipairs(opts.cmdline) do
+    if opts.cmdline.enable then
+        for _, option in ipairs(opts.cmdline.options) do
             cmp.setup.cmdline(option.type, {
                 mapping = cmp.mapping.preset.cmdline(),
-                source = option.sources,
+                sources = option.sources,
             })
         end
     end
