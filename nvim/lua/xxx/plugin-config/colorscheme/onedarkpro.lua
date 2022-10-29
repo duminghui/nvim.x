@@ -30,6 +30,7 @@ M.opts = {
         -- Editor
         -- CursorLineNr = { fg = "#FFD700" },
         CursorColumn = { link = "CursorLine" },
+        FloatBorder = { fg = "${gray}", bg = "${float_bg}", blend = 9 },
 
         BufferlineOffset = { fg = "${purple}", style = "bold" },
         CursorLineNR = {

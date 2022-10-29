@@ -161,7 +161,6 @@ M.nvimtree_setup_called = false
 M.setup = function()
     local status_ok, nvim_tree = safe_require("nvim-tree")
     if not status_ok then
-        Log:error "Failed to load nvim-tree"
         return
     end
 

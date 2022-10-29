@@ -236,6 +236,12 @@ function M.load_default_options()
     -- vim.opt.writebackup = false,
     vim.opt.swapfile = false -- don't use a swap file
 
+    -- Enables pseudo-transparency for the |popup-menu|.
+    -- cmp's menu, doc view
+    vim.opt.pumblend = 9
+    -- Enables pseudo-transparency for a floating window.
+    vim.opt.winblend = 9
+
     --------------------------------------------------------
 
     -- vim.opt.shortmess:append 'fxtOrmnlTwoi'

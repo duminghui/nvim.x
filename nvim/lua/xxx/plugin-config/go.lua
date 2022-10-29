@@ -34,6 +34,9 @@ M.opts = {
         require "xxx.lsp.keymappings".add_lsp_buffer_keybindings(client, bufnr)
         local lu = require "xxx.lsp.utils"
         lu.setup_document_highlight(client, bufnr)
+        lu.setup_format_on_save(client, bufnr, function()
+            require("go.format").goimport()
+        end)
         lsp.add_lsp_buffer_options(bufnr)
     end, -- it is a function with same signature as on_attach, will be called at end of
     -- on_attach and allows you override some setup
@@ -95,7 +98,7 @@ M.opts = {
         highlight = "Comment",
     },
     lsp_diag_update_in_insert = false,
-    lsp_fmt_async = false, -- async lsp.buf.format
+    lsp_fmt_async = false, -- async lsp.buf.format, but will lose save ??
     go_boilplater_url = "https://github.com/thockin/go-build-template.git",
     gopls_cmd = nil, --- you can provide gopls path and cmd if it not in PATH, e.g. cmd = {  "/home/ray/.local/nvim/data/lspinstall/go/gopls" }
     gopls_remote_auto = true,

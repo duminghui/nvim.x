@@ -441,6 +441,15 @@ local plugins = {
     },
 
     {
+        "stevearc/overseer.nvim", -- Task runner and job management
+        -- INFO: Overseer lazy loads itself
+        config = function()
+            require("xxx.plugin-config.overseer").setup()
+        end,
+    },
+
+    --------------- languages --------------------
+    {
         -- https://github.com/golang/tools/blob/master/gopls/doc/settings.md
         'ray-x/go.nvim',
         -- disable = true,

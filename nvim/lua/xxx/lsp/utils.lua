@@ -161,7 +161,7 @@ function M.setup_codelens_refresh(client, bufnr)
     })
 end
 
-function M.setup_format_on_save(client, bufnr)
+function M.setup_format_on_save(client, bufnr, callback)
     if not client.supports_method "textDocument/formatting" then
         Log:debug("skipping setup for format on save, method 'textDocument/formatting' not supported by " .. client.name)
         return
@@ -178,14 +178,15 @@ function M.setup_format_on_save(client, bufnr)
         return
     end
 
+    callback = callback or function()
+        M.format({})
+    end
+
     vim.api.nvim_create_augroup(group, { clear = false })
     vim.api.nvim_create_autocmd("BufWritePre", {
         group = group,
         buffer = bufnr,
-        callback = function()
-            M.format({})
-            -- require("xxx.lsp.utils").format()
-        end,
+        callback = callback,
     })
 end
 

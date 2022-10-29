@@ -142,23 +142,34 @@ function M.opts()
             ghost_text = true,
             -- native_menu = true,
         },
-        -- view = {
-        --     entries = { name = "wildmenu" }
-        -- },
+        view = {
+            -- entries = { name = "wildmenu" }
+            -- entries = { name = "native" }
+        },
+        window = {
+            -- completion = cmp.config.window.bordered(),
+            -- documentation = cmp.config.window.bordered(),
+            completion = {
+                border = "single",
+            },
+            documentation = {
+                border = "single",
+            }
+        },
         formatting = {
             fields = { "abbr", "kind", "menu" },
             max_width = 0,
             kind_icons = icons.kind,
             source_names = {
-                nvim_lsp = "「LSP」",
-                emoji = "「Emoji」",
-                path = "「Path」",
-                calc = "「Calc)」",
-                cmp_tabnine = "「Tabnine」",
-                vsnip = "「Snippet」",
-                luasnip = "「Snippet」",
-                buffer = "「Buffer」",
-                tmux = "「TMUX」",
+                nvim_lsp = "[LSP]",
+                emoji = "[Emoji]",
+                path = "[Path]",
+                calc = "[Calc]",
+                cmp_tabnine = "[Tabnine]",
+                vsnip = "[Snippet]",
+                luasnip = "[Snippet]",
+                buffer = "[Buffer]",
+                tmux = "[TMUX]",
             },
             duplicates = {
                 buffer = 1,
@@ -214,16 +225,6 @@ function M.opts()
             expand = function(args)
                 require("luasnip").lsp_expand(args.body)
             end,
-        },
-        window = {
-            -- completion = cmp.config.window.bordered(),
-            -- documentation = cmp.config.window.bordered(),
-            completion = {
-                border = "single",
-            },
-            documentation = {
-                border = "single",
-            }
         },
         sources = {
             {
