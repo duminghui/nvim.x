@@ -37,6 +37,7 @@ M.opts = {
         "terminal",
         "Trouble",
         "undotree",
+        "OverseerForm",
     },
     buftype_exclude = {
         "terminal",

@@ -50,6 +50,7 @@ M.opts = {
         "qfs",
         "tsplayground",
         "guihua",
+        "OverseerForm",
         ''
     },
 }

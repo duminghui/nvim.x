@@ -453,6 +453,45 @@ M.sessions = {
     priority = 4,
 }
 
+local sl_overseer = require("xxx.plugin-config.statusline.feline.sl_overseer")
+
+M.overseer = {
+    provider = function()
+        local status, icon = sl_overseer.status()
+        return status, icon
+    end,
+    enabled = function()
+        local status, _ = sl_overseer.status()
+        return status ~= false
+    end,
+    hl = function()
+        local status, _ = sl_overseer.status()
+        if status == "FAILURE" then
+            return {
+                fg = colors.red,
+                bg = "NONE",
+            }
+        elseif status == "SUCCESS" then
+            return {
+                fg = colors.green,
+                bg = "NONE",
+            }
+        elseif status == "RUNNING" then
+            return {
+                fg = colors.yellow,
+                bg = "NONE",
+            }
+        else
+            return {
+                fg = colors.gray,
+                bg = "NONE",
+            }
+        end
+    end,
+    left_sep = right_section_left_sep,
+    right_sep = right_section_right_sep,
+}
+
 function M.init()
 end
 

@@ -146,7 +146,6 @@ M.setup = function()
 
     local status_ok, configs = safe_require("nvim-treesitter.configs")
     if not status_ok then
-        Log:error "Failed to load nvim-treesitter.configs"
         return
     end
 

@@ -171,7 +171,7 @@ function M.load_default_options()
     -- vim.opt.foldmethod = "marker" -- Fold based on markers as opposed to indentation
     vim.opt.foldmethod = "manual" -- folding, set to "expr" for treesitter based folding
     vim.opt.foldexpr = "" -- set to "nvim_treesitter#foldexpr()" for treesitter based folding
-    vim.opt.laststatus = 3 -- Use global statusline **
+    -- vim.opt.laststatus = 3 -- Use global statusline **
     vim.opt.modelines = 1 -- Only use folding settings for this file
     vim.opt.mouse = "a" -- Use the mouse in all modes
     vim.opt.mousemoveevent = true -- for bufferline hover

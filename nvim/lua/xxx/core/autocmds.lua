@@ -48,12 +48,12 @@ function M.load_defaults()
     })
 
     -- TODO: figure out what keeps overriding laststatus
-    vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
-        pattern = { "*" },
-        callback = function()
-            vim.opt.laststatus = 3 -- Use global statusline
-        end,
-    })
+    -- vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
+    --     pattern = { "*" },
+    --     callback = function()
+    --         vim.opt.laststatus = 3 -- Use global statusline
+    --     end,
+    -- })
 
     local definitions = {
         {
@@ -125,6 +125,30 @@ function M.load_defaults()
                 pattern = "*",
                 command = "tabdo wincmd =",
             },
+        },
+        {
+            { "BufNewFile", "BufRead" },
+            {
+                group = "_set_filetype",
+                pattern = "go.mod",
+                command = "set filetype=gomod",
+            }
+        },
+        {
+            { "BufNewFile", "BufRead" },
+            {
+                group = "_set_filetype",
+                pattern = "go.sum",
+                command = "set filetype=gosum",
+            }
+        },
+        {
+            { "BufNewFile", "BufRead" },
+            {
+                group = "_set_filetype",
+                pattern = "tasks.json",
+                command = "set filetype=jsonc",
+            }
         },
     }
 

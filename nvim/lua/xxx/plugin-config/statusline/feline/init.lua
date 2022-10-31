@@ -85,6 +85,7 @@ M.setup = function()
                 -- coms.filler,
             },
             {
+                coms.overseer,
                 coms.treesitter,
                 coms.lsp_info,
                 coms.sessions,

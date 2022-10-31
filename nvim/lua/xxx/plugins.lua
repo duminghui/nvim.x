@@ -165,7 +165,12 @@ local plugins = {
         end,
     },
 
-    { 'kyazdani42/nvim-web-devicons', },
+    {
+        'kyazdani42/nvim-web-devicons',
+        config = function()
+            require("xxx.plugin-config.web-devicons").setup()
+        end,
+    },
     {
         -- bufferline color and show work: load order colorscheme->bufferline->alpha-nvim
         'akinsho/bufferline.nvim',
@@ -188,9 +193,9 @@ local plugins = {
         'nvim-lualine/lualine.nvim',
         after = "colorscheme",
         requires = { 'kyazdani42/nvim-web-devicons' },
-        -- config = function()
-        --     require("xxx.plugin-config.statusline.lualine").setup()
-        -- end,
+        config = function()
+            require("xxx.plugin-config.statusline.stl_lualine").setup()
+        end,
     },
     {
         "feline-nvim/feline.nvim", -- Statusline
@@ -198,9 +203,9 @@ local plugins = {
         requires = {
             { "kyazdani42/nvim-web-devicons" }, -- Web icons for various plugins
         },
-        config = function()
-            require("xxx.plugin-config.statusline.feline").setup()
-        end,
+        -- config = function()
+        --     require("xxx.plugin-config.statusline.feline").setup()
+        -- end,
     },
 
     {
