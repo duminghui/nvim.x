@@ -1,15 +1,19 @@
 local M = {}
 
 M.opts = {
-
 }
 
-M.setup = function()
+function M.setup()
     local ok, hlslens = safe_require("hlslens")
     if not ok then
         return
     end
+
+    -- fix ont work on scrollbar, must run before hlslens.setup()
+    require("scrollbar.handlers.search").setup()
+
     hlslens.setup(M.opts)
+
     local kopts = { noremap = true, silent = true }
 
     vim.api.nvim_set_keymap('n', 'n',
@@ -24,4 +28,5 @@ M.setup = function()
     vim.api.nvim_set_keymap('n', 'g#', [[g#<Cmd>lua require('hlslens').start()<CR>]], kopts)
 
 end
+
 return M

@@ -9,19 +9,18 @@ M.opts = {
     },
     handlers = {
         diagnostic = true,
+        -- runtime must run before hlslens.setup()
         search = true,
     }
 }
 
-M.setup = function()
+function M.setup()
     local ok, scrollbar = safe_require("scrollbar")
     if not ok then
         return
     end
 
     scrollbar.setup(M.opts)
-
-    require("scrollbar.handlers.search").setup()
 
 end
 

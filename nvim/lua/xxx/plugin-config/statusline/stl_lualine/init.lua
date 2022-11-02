@@ -5,10 +5,14 @@ local coms = require("xxx.plugin-config.statusline.stl_lualine.components")
 local disabled_filetypes = {
     "alpha",
     "TelescopePrompt",
+    "packer",
 }
 
 M.opts = {
-    extensions = { "nvim-tree" },
+    extensions = {
+        "nvim-tree",
+        "overseer",
+    },
     options = {
         theme = "xxx",
         component_separators = '',

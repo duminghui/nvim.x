@@ -117,11 +117,17 @@ function M.load_default_options()
     -- vim.bo.tabstop = 4 -- Number of spaces in a tab
 
     vim.opt.autoindent = true
-    vim.opt.expandtab = true -- Use spaces instead of tabs
-    vim.opt.shiftwidth = 4 -- Size of an indent
     vim.opt.smartindent = true -- Insert indents automatically
-    vim.opt.softtabstop = 4 -- Number of spaces tabs count for **
+    vim.opt.expandtab = true -- Use spaces instead of tabs
+    vim.opt.shiftwidth = 0 -- Number of spaces of an indent, when zero use `tabstop`
     vim.opt.tabstop = 4 -- Number of spaces in a tab
+    -- vim.opt.softtabstop = 4 -- Number of spaces tabs count for **
+    -- Number of spaces that a <Tab> counts for while performing editing
+    -- operations, like inserting a <Tab> or using <BS>.
+    -- When 'sts' is zero, this feature is off.
+    -- When 'sts' is negative, the value of 'shiftwidth' is used.
+    -- 'softtabstop' is set to 0 when the 'paste' option is set and restored
+    -- when 'paste' is reset.
 
     -------------------- WINDOW OPTIONS --------------------
     -- vim.wo.colorcolumn = "80,120,160" -- Make a ruler at 80px and 120px
@@ -177,7 +183,7 @@ function M.load_default_options()
     vim.opt.mousemoveevent = true -- for bufferline hover
     vim.o.sessionoptions = "buffers,curdir,folds,globals,tabpages,winpos,winsize" -- Session options to store in the session
     vim.opt.scrolljump = 1
-    vim.opt.scrolloff = 6 -- Set the cursor 5 lines down instead of directly at the top of the file
+    vim.opt.scrolloff = 6 -- Set the cursor 6 lines down instead of directly at the top of the file
 
     --[[
         NOTE: don't store marks as they are currently broken in Neovim!

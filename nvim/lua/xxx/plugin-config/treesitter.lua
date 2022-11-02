@@ -137,7 +137,7 @@ M.opts = {
     },
 }
 
-M.setup = function()
+function M.setup()
     -- avoid running in headless mode since it's harder to detect failures
     if #vim.api.nvim_list_uis() == 0 then
         Log:debug "headless mode detected, skipping running setup for treesitter"
@@ -154,12 +154,12 @@ M.setup = function()
     -- 这个一定要放在setup前面
     vim.opt.runtimepath:append(M.opts.parser_install_dir)
 
+    -- 在其他方再运行configs.setup() 会影响到自定义安装路径
     configs.setup(opts)
     -- 其他的配置有 autopairs, rainbow, ts-context-commentstring,
-
 end
 
-M.set_rainbow_highlight = function()
+function M.set_rainbow_highlight()
     for i = 1, 7 do
         local c_key = string.format("c%s", i)
         vim.cmd(string.format("highlight rainbowcol%s guifg=%s", i, colors[c_key]))

@@ -128,7 +128,7 @@ M.opts = {
         show_buffer_icons = true, -- disable filetype icons for buffers
         show_buffer_close_icons = true,
         show_close_icon = false,
-        -- show_tab_indicators = true,
+        show_tab_indicators = true,
         -- persist_buffer_sort = true, -- whether or not custom sorted buffers should persist
         -- can also be a table containing 2 custom separators
         -- [focused and unfocused]. eg: { '|', '|' }
@@ -142,20 +142,6 @@ M.opts = {
         },
         -- sort_by = 'id',
     },
-    -- highlights = {
-    --     background = {
-    --         italic = true,
-    --     },
-    --     buffer_selected = {
-    --         bold = true,
-    --     },
-    --     fill = {
-    --         bg = '#202328'
-    --     },
-    --     indicator_selected = {
-    --         fg = '#51afef'
-    --     }
-    -- },
     highlights = {
         fill = {
             -- fg = '<colour-value-here>',
@@ -167,14 +153,25 @@ M.opts = {
         },
         tab = {
             fg = colors.gray,
+            -- bg = colors.statusline_bg,
             bg = colors.bg,
         },
         tab_selected = {
-            fg = colors.fg,
+            -- fg = colors.fg,
+            fg = "#FFD700",
             bg = colors.statusline_bg,
         },
         tab_close = {
             -- fg = '<colour-value-here>',
+            bg = colors.bg,
+        },
+        tab_separator = {
+            fg = colors.bg,
+            bg = colors.bg,
+        },
+        tab_separator_selected = {
+            -- fg = colors.statusline_bg,
+            fg = colors.bg,
             bg = colors.bg,
         },
         close_button = {
@@ -391,7 +388,6 @@ M.opts = {
             bg = colors.statusline_bg,
         },
         separator_visible = {
-            -- fg = '<colour-value-here>',
             fg = colors.bg,
             bg = colors.statusline_bg,
         },
@@ -429,65 +425,6 @@ M.opts = {
             bg = colors.statusline_bg,
         },
     },
-
-
-    -- options = {
-    --     -- show bufferline when buffer size > 1
-    --     always_show_bufferline = true,
-    --     mode = "buffers", -- set to "tabs" to only show tabpages instead
-    --     numbers = "none", -- can be "none" | "ordinal" | "buffer_id" | "both" | function
-    --     numbers = function(opts)
-    --         return string.format('%s', opts.raise(opts.id))
-    --     end,
-    --     indicator = {
-    --         icon = "▎", -- this should be omitted if indicator style is not 'icon'
-    --         style = "icon" -- can also be 'icon'|'underline'|'none',
-    --     },
-    --     show_buffer_icons = true,
-    --     show_close_icon = true,
-    --     show_buffer_close_icons = true,
-    --     diagnostics = "nvim_lsp",
-    --     diagnostics_indicator = function(count, level, diagnostics_dict,
-    --                                      context)
-    --         local s = " "
-    --         for e, n in pairs(diagnostics_dict) do
-    --             local sym = e == "error" and "" or
-    --                 (e == "warning" and "" or "")
-    --             s = s .. sym .. n
-    --         end
-    --         return s
-    --     end,
-    --     custom_areas = {
-    --         -- right = function()
-    --         --     local result = {}
-    --         --     if navic.is_available() then
-    --         --         table.insert(result, {
-    --         --             text = navic.get_location() .. ' ',
-    --         --             fg = "#a9a1e1",
-    --         --             bg = '#202328'
-    --         --         })
-    --         --     end
-    --         --     return result
-    --         -- end
-    --     },
-    --     hover = {
-    --         enabled = false, -- requires nvim 0.8+
-    --         delay = 200,
-    --         reveal = { "close" },
-    --     },
-    --     sort_by = "id",
-    -- },
-    -- highlights = {
-    --     fill = {
-    --         -- fg = '#282c34',
-    --         bg = '#202328'
-    --     },
-    --     indicator_selected = {
-    --         fg = '#51afef'
-    --         -- bg = '#282c34'
-    --     }
-    -- }
-
 }
 
 

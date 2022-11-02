@@ -9,9 +9,11 @@ local plugins = {
         end,
     },
     {
+        "nathom/filetype.nvim", -- Replace default filetype.vim which is slower
+    },
+    {
         "tpope/vim-sleuth", -- Automatically detects which indents should be used in the current buffer
     },
-
 
     {
         -- theme
@@ -70,6 +72,7 @@ local plugins = {
         requires = {
             {
                 "kevinhwang91/nvim-hlslens", -- Highlight searches
+                after = "nvim-scrollbar",
                 config = function()
                     require("xxx.plugin-config.scroll.hlslens").setup()
                 end,

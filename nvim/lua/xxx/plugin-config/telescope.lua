@@ -13,11 +13,11 @@ local function get_pickers(actions)
         live_grep = {
             --@usage don't include the filename in the search results
             only_sort_text = true,
-            theme = "dropdown",
+            -- theme = "dropdown",
         },
         grep_string = {
             only_sort_text = true,
-            theme = "dropdown",
+            -- theme = "dropdown",
         },
         buffers = {
             theme = "dropdown",
@@ -43,19 +43,19 @@ local function get_pickers(actions)
             show_untracked = true,
         },
         lsp_references = {
-            theme = "dropdown",
+            -- theme = "dropdown",
             initial_mode = "normal",
         },
         lsp_definitions = {
-            theme = "dropdown",
+            -- theme = "dropdown",
             initial_mode = "normal",
         },
         lsp_declarations = {
-            theme = "dropdown",
+            -- theme = "dropdown",
             initial_mode = "normal",
         },
         lsp_implementations = {
-            theme = "dropdown",
+            -- theme = "dropdown",
             initial_mode = "normal",
         },
     }
