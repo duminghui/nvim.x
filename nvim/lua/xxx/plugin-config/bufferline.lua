@@ -2,6 +2,23 @@
 local colors = require("xxx.plugin-config.colorscheme.colors").colors()
 local icons = require("xxx.core.icons")
 
+local bg_color = colors.bg
+local com_bg = colors.statusline_bg
+local group_bg = colors.cyan
+local group_label = "#FFFFFF"
+local normal_fg = colors.white
+local visible_fg = colors.white
+local selected_fg = "#FFD700"
+local pick_selected_fg = colors.purple
+local duplicate_fg = colors.blue
+local hint_selected_fg = colors.cyan
+local info_selected_fg = colors.blue
+local warning_selected_fg = colors.yellow
+local error_selected_fg = colors.red
+local modified_fg = colors.red
+local underline_sp = colors.purple
+local has_underline_indicator = false
+
 local M = {}
 
 local function is_ft(b, ft)
@@ -54,7 +71,7 @@ M.opts = {
     -- },
     options = {
         mode = 'buffers', -- set to "tabs" to only show tabpages instead
-        numbers = 'none', -- can be "none" | "ordinal" | "buffer_id" | "both" | function
+        -- numbers = 'none', -- can be "none" | "ordinal" | "buffer_id" | "both" | function
         -- numbers = function(opts)
         --     return string.format('%s', opts.raise(opts.id))
         -- end,
@@ -65,7 +82,7 @@ M.opts = {
         middle_mouse_command = nil, -- can be a string | function, see "Mouse actions"
         -- indicator = {
         --     icon = '▎', -- this should be omitted if indicator style is not 'icon'
-        --     style = 'icon', -- can also be 'underline'|'none',
+        --     style = 'underline', -- can also be 'underline'|'none',
         -- },
         indicator = "",
         buffer_close_icon = icons.ui.Close,
@@ -141,288 +158,351 @@ M.opts = {
             reveal = { 'close' },
         },
         -- sort_by = 'id',
+        -- groups = {
+        --     options = {
+        --         toggle_hidden_on_enter = true,
+        --     },
+        --     items = {
+        --         {
+        --             name = "Docs",
+        --             matcher = function(buf)
+        --                 return buf.filename:match("%.md") or buf.filename:match("%.txt")
+        --             end,
+        --             -- highlight = { fg = colors.purple }, -- Optional ** color bug **
+        --             separator = {
+        --                 style = require("bufferline.groups").separator.pill
+        --             },
+        --         },
+        --         {
+        --             name = "Go",
+        --             matcher = function(buf)
+        --                 return buf.filename:match("go.mod") or buf.filename:match("%.go")
+        --             end,
+        --             -- highlight = { fg = "#FFD700", bg = com_bg }, -- Optional
+        --             separator = {
+        --                 style = require("bufferline.groups").separator.pill
+        --             },
+        --         }
+        --     },
+        -- },
     },
     highlights = {
         fill = {
-            -- fg = '<colour-value-here>',
+            fg = bg_color,
+            bg = bg_color,
+        },
+        group_separator = {
+            fg = group_bg,
             bg = colors.bg,
         },
-        background = {
-            -- fg = '<colour-value-here>',
-            bg = colors.bg,
+        group_label = {
+            fg = group_label,
+            bg = group_bg,
         },
         tab = {
-            fg = colors.gray,
-            -- bg = colors.statusline_bg,
-            bg = colors.bg,
+            fg = normal_fg,
+            bg = bg_color,
         },
         tab_selected = {
-            -- fg = colors.fg,
-            fg = "#FFD700",
-            bg = colors.statusline_bg,
+            fg = selected_fg,
+            bg = com_bg,
+            sp = underline_sp,
+            underline = has_underline_indicator,
         },
         tab_close = {
-            -- fg = '<colour-value-here>',
-            bg = colors.bg,
-        },
-        tab_separator = {
-            fg = colors.bg,
-            bg = colors.bg,
-        },
-        tab_separator_selected = {
-            -- fg = colors.statusline_bg,
-            fg = colors.bg,
-            bg = colors.bg,
+            fg = normal_fg,
+            bg = bg_color,
         },
         close_button = {
-            -- fg = '<colour-value-here>',
-            bg = colors.bg,
+            fg = normal_fg,
+            bg = bg_color,
         },
         close_button_visible = {
-            -- fg = '<colour-value-here>',
-            bg = colors.statusline_bg,
+            fg = normal_fg,
+            bg = com_bg,
         },
         close_button_selected = {
-            -- fg = '<colour-value-here>',
-            bg = colors.statusline_bg,
+            fg = normal_fg,
+            bg = com_bg,
+            sp = underline_sp,
+            underline = has_underline_indicator,
+        },
+        background = {
+            fg = normal_fg,
+            bg = bg_color,
+        },
+        buffer = {
+            fg = normal_fg,
+            bg = bg_color,
         },
         buffer_visible = {
-            fg = colors.gray,
-            bg = colors.statusline_bg,
-            bold = true,
-            italic = true,
+            fg = normal_fg,
+            bg = com_bg,
         },
         buffer_selected = {
-            -- fg = colors.bufferline_text_focus,
-            fg = "#FFD700",
-            bg = colors.statusline_bg,
+            fg = selected_fg,
+            bg = com_bg,
             bold = true,
             italic = true,
+            sp = underline_sp,
+            underline = has_underline_indicator,
         },
         numbers = {
-            fg = colors.gray,
-            bg = colors.bg,
-        },
-        numbers_visible = {
-            fg = colors.gray,
-            bg = colors.statusline_bg,
+            fg = normal_fg,
+            bg = bg_color,
         },
         numbers_selected = {
-            fg = colors.purple,
-            bg = colors.statusline_bg,
-            bold = false,
+            fg = selected_fg,
+            bg = com_bg,
+            bold = true,
             italic = true,
+            sp = underline_sp,
+            underline = has_underline_indicator,
+        },
+        numbers_visible = {
+            fg = visible_fg,
+            bg = com_bg,
         },
         diagnostic = {
-            -- fg = '<colour-value-here>',
-            bg = colors.bg,
+            fg = normal_fg,
+            bg = bg_color,
         },
         diagnostic_visible = {
-            -- fg = '<colour-value-here>',
-            bg = colors.statusline_bg,
+            fg = normal_fg,
+            bg = com_bg,
         },
         diagnostic_selected = {
-            -- fg = '<colour-value-here>',
-            bg = colors.statusline_bg,
-            -- bold = true,
-            -- italic = true,
+            fg = selected_fg,
+            bg = com_bg,
+            bold = true,
+            italic = true,
+            sp = underline_sp,
+            underline = has_underline_indicator,
         },
         hint = {
-            -- fg = '<colour-value-here>',
-            -- sp = '<colour-value-here>',
-            bg = colors.bg,
+            fg = normal_fg,
+            sp = normal_fg,
+            bg = bg_color,
         },
         hint_visible = {
-            -- fg = '<colour-value-here>',
-            bg = colors.statusline_bg,
+            fg = normal_fg,
+            bg = com_bg,
         },
         hint_selected = {
-            -- fg = '<colour-value-here>',
-            bg = colors.statusline_bg,
-            -- sp = '<colour-value-here>',
-            -- bold = true,
-            -- italic = true,
+            fg = hint_selected_fg,
+            bg = com_bg,
+            bold = true,
+            italic = true,
+            underline = has_underline_indicator,
+            sp = underline_sp,
         },
         hint_diagnostic = {
-            -- fg = '<colour-value-here>',
-            -- sp = '<colour-value-here>',
-            bg = colors.bg,
+            fg = normal_fg,
+            sp = underline_sp,
+            bg = bg_color,
         },
         hint_diagnostic_visible = {
-            -- fg = '<colour-value-here>',
-            bg = colors.statusline_bg,
+            fg = normal_fg,
+            bg = com_bg,
         },
         hint_diagnostic_selected = {
-            -- fg = '<colour-value-here>',
-            bg = colors.statusline_bg,
-            -- sp = '<colour-value-here>',
-            -- bold = true,
-            -- italic = true,
+            fg = hint_selected_fg,
+            bg = com_bg,
+            bold = true,
+            italic = true,
+            underline = has_underline_indicator,
+            sp = underline_sp,
         },
         info = {
-            -- fg = '<colour-value-here>',
-            -- sp = '<colour-value-here>',
-            bg = colors.bg,
+            fg = normal_fg,
+            sp = underline_sp,
+            bg = bg_color,
         },
         info_visible = {
-            -- fg = '<colour-value-here>',
-            bg = colors.statusline_bg,
+            fg = normal_fg,
+            bg = com_bg,
         },
         info_selected = {
-            -- fg = '<colour-value-here>',
-            bg = colors.statusline_bg,
-            -- sp = '<colour-value-here>',
-            -- bold = true,
-            -- italic = true,
+            fg = info_selected_fg,
+            bg = com_bg,
+            bold = true,
+            italic = true,
+            underline = has_underline_indicator,
+            sp = underline_sp,
         },
         info_diagnostic = {
-            -- fg = '<colour-value-here>',
-            -- sp = '<colour-value-here>',
-            bg = colors.bg,
+            fg = normal_fg,
+            sp = underline_sp,
+            bg = bg_color,
         },
         info_diagnostic_visible = {
-            -- fg = '<colour-value-here>',
-            bg = colors.statusline_bg,
+            fg = normal_fg,
+            bg = com_bg,
         },
         info_diagnostic_selected = {
-            -- fg = '<colour-value-here>',
-            bg = colors.statusline_bg,
-            -- sp = '<colour-value-here>',
-            -- bold = true,
-            -- italic = true,
+            fg = info_selected_fg,
+            bg = com_bg,
+            bold = true,
+            italic = true,
+            underline = has_underline_indicator,
+            sp = underline_sp,
         },
         warning = {
-            -- fg = '<colour-value-here>',
-            -- sp = '<colour-value-here>',
-            bg = colors.bg,
+            fg = normal_fg,
+            sp = underline_sp,
+            bg = bg_color,
         },
         warning_visible = {
-            -- fg = '<colour-value-here>',
-            bg = colors.statusline_bg,
+            fg = normal_fg,
+            bg = com_bg,
         },
         warning_selected = {
-            -- fg = '<colour-value-here>',
-            bg = colors.statusline_bg,
-            -- sp = '<colour-value-here>',
-            -- bold = true,
-            --     italic = true,
+            fg = warning_selected_fg,
+            bg = com_bg,
+            bold = true,
+            italic = true,
+            underline = has_underline_indicator,
+            sp = underline_sp,
         },
         warning_diagnostic = {
-            -- fg = '<colour-value-here>',
-            -- sp = '<colour-value-here>',
-            bg = colors.bg,
+            fg = normal_fg,
+            sp = underline_sp,
+            bg = bg_color,
         },
         warning_diagnostic_visible = {
-            -- fg = '<colour-value-here>',
-            bg = colors.statusline_bg,
+            fg = normal_fg,
+            bg = com_bg,
         },
         warning_diagnostic_selected = {
-            -- fg = '<colour-value-here>',
-            bg = colors.statusline_bg,
-            -- sp = warning_diagnostic_fg,
-            -- bold = true,
-            -- italic = true,
+            fg = warning_selected_fg,
+            bg = com_bg,
+            bold = true,
+            italic = true,
+            underline = has_underline_indicator,
+            sp = underline_sp,
         },
         error = {
-            -- fg = '<colour-value-here>',
-            bg = colors.bg,
-            -- sp = '<colour-value-here>'
+            fg = normal_fg,
+            bg = bg_color,
+            sp = underline_sp,
         },
         error_visible = {
-            -- fg = '<colour-value-here>',
-            bg = colors.statusline_bg,
+            fg = normal_fg,
+            bg = com_bg,
         },
         error_selected = {
-            -- fg = '<colour-value-here>',
-            bg = colors.statusline_bg,
-            -- sp = '<colour-value-here>',
-            bold = false,
-            italic = false,
+            fg = error_selected_fg,
+            bg = com_bg,
+            bold = true,
+            italic = true,
+            underline = has_underline_indicator,
+            sp = underline_sp,
         },
         error_diagnostic = {
-            -- fg = '<colour-value-here>',
-            bg = colors.bg,
-            -- sp = '<colour-value-here>'
+            fg = normal_fg,
+            bg = bg_color,
+            sp = underline_sp,
         },
         error_diagnostic_visible = {
-            -- fg = '<colour-value-here>',
-            bg = colors.statusline_bg,
+            fg = normal_fg,
+            bg = com_bg,
         },
         error_diagnostic_selected = {
-            -- fg = '<colour-value-here>',
-            bg = colors.statusline_bg,
-            -- sp = '<colour-value-here>',
-            bold = false,
-            italic = false,
+            fg = error_selected_fg,
+            bg = com_bg,
+            bold = true,
+            italic = true,
+            underline = has_underline_indicator,
+            sp = underline_sp,
         },
         modified = {
-            fg = colors.gray,
-            bg = colors.bg,
+            fg = normal_fg,
+            bg = bg_color,
         },
         modified_visible = {
-            fg = colors.gray,
-            bg = colors.statusline_bg,
+            fg = normal_fg,
+            bg = com_bg,
         },
         modified_selected = {
-            fg = colors.red,
-            bg = colors.statusline_bg,
+            fg = modified_fg,
+            bg = com_bg,
+            sp = underline_sp,
+            underline = has_underline_indicator,
         },
         duplicate_selected = {
-            -- fg = colors.purple,
-            fg = colors.blue,
-            bg = colors.statusline_bg,
+            fg = duplicate_fg,
             italic = true,
+            bg = com_bg,
+            sp = underline_sp,
+            underline = has_underline_indicator,
         },
         duplicate_visible = {
-            -- fg = '<colour-value-here>',
-            bg = colors.statusline_bg,
+            fg = normal_fg,
             italic = true,
+            bg = bg_color,
         },
         duplicate = {
-            fg = colors.gray,
-            bg = colors.bg,
+            fg = normal_fg,
             italic = true,
+            bg = bg_color,
         },
         separator_selected = {
-            fg = colors.bg,
-            bg = colors.statusline_bg,
+            fg = bg_color,
+            bg = com_bg,
+            sp = underline_sp,
+            underline = has_underline_indicator,
         },
         separator_visible = {
-            fg = colors.bg,
-            bg = colors.statusline_bg,
+            fg = bg_color,
+            bg = com_bg,
         },
         separator = {
-            fg = colors.bg,
-            bg = colors.bg,
+            fg = bg_color,
+            bg = bg_color,
         },
-        indicator_visible = {
-            bg = colors.statusline_bg,
+        tab_separator = {
+            fg = bg_color,
+            bg = bg_color,
+        },
+        tab_separator_selected = {
+            fg = com_bg,
+            bg = bg_color,
+            sp = underline_sp,
+            underline = has_underline_indicator,
         },
         indicator_selected = {
-            -- fg = '<colour-value-here>',
-            bg = colors.statusline_bg,
+            fg = bg_color,
+            bg = com_bg,
+            sp = underline_sp,
+            underline = has_underline_indicator,
+        },
+        indicator_visible = {
+            fg = bg_color,
+            bg = com_bg,
         },
         pick_selected = {
-            fg = colors.gray,
-            bg = colors.statusline_bg,
+            fg = pick_selected_fg,
+            bg = com_bg,
             bold = true,
-            italic = false,
+            italic = true,
+            sp = underline_sp,
+            underline = has_underline_indicator,
         },
         pick_visible = {
-            -- fg = '<colour-value-here>',
-            bg = colors.statusline_bg,
+            fg = pick_selected_fg,
+            bg = com_bg,
             bold = true,
             italic = true,
         },
         pick = {
-            fg = colors.purple,
-            bg = colors.bg,
-            -- bold = true,
-            -- italic = true,
+            fg = pick_selected_fg,
+            bg = bg_color,
+            bold = true,
+            italic = true,
         },
         offset_separator = {
-            -- fg = win_separator_fg,
-            bg = colors.statusline_bg,
+            fg = colors.green,
+            bg = com_bg,
         },
     },
 }
