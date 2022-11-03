@@ -38,7 +38,7 @@ M.opts = {
     },
     indent = {
         enable = true,
-        disable = { "yaml", "python" }
+        -- disable = { "yaml", "python" }
     },
     autotag = { enable = false },
     autopairs = {

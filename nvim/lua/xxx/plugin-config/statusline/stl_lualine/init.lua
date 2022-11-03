@@ -2,11 +2,7 @@ local M = {}
 
 local coms = require("xxx.plugin-config.statusline.stl_lualine.components")
 
-local disabled_filetypes = {
-    "alpha",
-    "TelescopePrompt",
-    "packer",
-}
+local disabled_filetypes = require("xxx.config.exclude-filetypes").lualine
 
 M.opts = {
     extensions = {
@@ -46,14 +42,14 @@ M.opts = {
             coms.session_status,
             coms.empty,
             coms.file_info,
-            coms.empty
-        },
-        lualine_y = {
+            coms.empty,
             coms.location,
             coms.progress,
+            coms.scrollbar,
+        },
+        lualine_y = {
         },
         lualine_z = {
-            coms.scrollbar,
         },
     }
 }

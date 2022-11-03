@@ -56,34 +56,35 @@ M.setup = function()
 
 end
 
-M.winbar_filetype_exclude = {
-    "help",
-    "startify",
-    "dashboard",
-    "packer",
-    "neo-tree",
-    "neogitstatus",
-    "NvimTree",
-    "Trouble",
-    "alpha",
-    "lir",
-    "Outline",
-    "spectre_panel",
-    "toggleterm",
-    "DressingSelect",
-    "Jaq",
-    "harpoon",
-    "dapui_scopes",
-    "dapui_breakpoints",
-    "dapui_stacks",
-    "dapui_watches",
-    "dap-repl",
-    "dap-terminal",
-    "dapui_console",
-    "lab",
-    "Markdown",
-    "",
-}
+M.winbar_filetype_exclude = require("xxx.config.exclude-filetypes").breadcrumbs
+-- {
+--     "help",
+--     "startify",
+--     "dashboard",
+--     "packer",
+--     "neo-tree",
+--     "neogitstatus",
+--     "NvimTree",
+--     "Trouble",
+--     "alpha",
+--     "lir",
+--     "Outline",
+--     "spectre_panel",
+--     "toggleterm",
+--     "DressingSelect",
+--     "Jaq",
+--     "harpoon",
+--     "dapui_scopes",
+--     "dapui_breakpoints",
+--     "dapui_stacks",
+--     "dapui_watches",
+--     "dap-repl",
+--     "dap-terminal",
+--     "dapui_console",
+--     "lab",
+--     "Markdown",
+--     "",
+-- }
 
 M.get_filename = function()
     local filename = vim.fn.expand "%:t"

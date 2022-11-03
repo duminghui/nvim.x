@@ -1,11 +1,5 @@
 Xvim = {
     colorscheme = 'onedarkpro',
-    -- colorscheme = "onedark",
-    lualine = {
-        colorscheme = 'onedark',
-        -- style = "default",
-        style = 'xxx',
-    },
     log = {
         ---@usage can be { "trace", "debug", "info", "warn", "error", "fatal" },
         level = 'warn',

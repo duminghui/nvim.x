@@ -126,36 +126,38 @@ local function get_file_name(include_path)
     return file_path .. file_name
 end
 
-local filetype_exclude = {
-    "",
-    "dashboard",
-    'alpha',
-    'terminal',
-    'toggleterm',
-    'prompt',
-    'NvimTree',
-    'Trouble',
-    'lspsaga',
-    'lspsagaoutline',
-    'lspsagafinder',
-    'help',
-    "startify",
-    "packer",
-    "neo-tree",
-    "neogitstatus",
-    "lir",
-    "spectre_panel",
-    "DressingSelect",
-    "Jaq",
-    "harpoon",
-    "dap-repl",
-    "dap-terminal",
-    "dapui_console",
-    "lab",
-    "Markdown",
-    "mason",
-    "man",
-} -- Ignore float windows and exclude filetype
+-- local filetype_exclude = {
+--     "",
+--     "dashboard",
+--     'alpha',
+--     'terminal',
+--     'toggleterm',
+--     'prompt',
+--     'NvimTree',
+--     'Trouble',
+--     'lspsaga',
+--     'lspsagaoutline',
+--     'lspsagafinder',
+--     'help',
+--     "startify",
+--     "packer",
+--     "neo-tree",
+--     "neogitstatus",
+--     "lir",
+--     "spectre_panel",
+--     "DressingSelect",
+--     "Jaq",
+--     "harpoon",
+--     "dap-repl",
+--     "dap-terminal",
+--     "dapui_console",
+--     "lab",
+--     "Markdown",
+--     "mason",
+--     "man",
+-- } -- Ignore float windows and exclude filetype
+
+local filetype_exclude = require("xxx.config.exclude-filetypes").lspsaga
 
 local function config_winbar_or_statusline()
     if vim.api.nvim_win_get_config(0).zindex or vim.tbl_contains(filetype_exclude, vim.bo.filetype) then

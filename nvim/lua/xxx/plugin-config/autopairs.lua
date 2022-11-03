@@ -1,5 +1,8 @@
 local M = {}
 
+local disable_filetype = require("xxx.config.exclude-filetypes")
+
+
 M.opts = {
     active = true,
     on_config_done = nil,
@@ -17,10 +20,13 @@ M.opts = {
         javascript = { "string", "template_string" },
         java = false,
     },
-    disable_filetype = {
-        "TelescopePrompt",
-        "spectre_panel",
-    },
+    -- disable_filetype = {
+    --     "TelescopePrompt",
+    --     "spectre_panel",
+    -- },
+
+    disable_filetype = disable_filetype.autopairs,
+
     ignored_next_char = string.gsub([[ [%w%%%'%[%"%.] ]], "%s+", ""),
     enable_moveright = true,
     ---@usage disable when recording or executing a macro

@@ -10,21 +10,22 @@ M.opts = {
     -- delay: delay in milliseconds
     delay = 120,
     -- filetypes_denylist: filetypes to not illuminate, this overrides filetypes_allowlist
-    filetypes_denylist = {
-        "dirvish",
-        "fugitive",
-        "alpha",
-        "NvimTree",
-        "packer",
-        "neogitstatus",
-        "Trouble",
-        "lir",
-        "Outline",
-        "spectre_panel",
-        "toggleterm",
-        "DressingSelect",
-        "TelescopePrompt",
-    },
+    filetypes_denylist = require("xxx.config.exclude-filetypes").illuminate,
+    -- filetypes_denylist = {
+    --     "dirvish",
+    --     "fugitive",
+    --     "alpha",
+    --     "NvimTree",
+    --     "packer",
+    --     "neogitstatus",
+    --     "Trouble",
+    --     "lir",
+    --     "Outline",
+    --     "spectre_panel",
+    --     "toggleterm",
+    --     "DressingSelect",
+    --     "TelescopePrompt",
+    -- },
     -- filetypes_allowlist: filetypes to illuminate, this is overriden by filetypes_denylist
     filetypes_allowlist = {},
     -- modes_denylist: modes to not illuminate, this overrides modes_allowlist
