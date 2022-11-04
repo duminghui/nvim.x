@@ -213,6 +213,7 @@ end
 function M.format(opts)
     opts = opts or {}
     opts.filter = opts.filter or M.format_filter
+    opts.timeout_ms = opts.timeout_ms or 2000
     -- opts.async = true
     vim.b.format_changedtick = vim.b.changedtick
     -- bugs: diagnostic hidden, marks lose

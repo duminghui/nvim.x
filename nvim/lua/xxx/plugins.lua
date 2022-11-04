@@ -9,7 +9,11 @@ local plugins = {
         end,
     },
     {
+        -- nvim/ftdetect will not work
         "nathom/filetype.nvim", -- Replace default filetype.vim which is slower
+        config = function()
+            require("xxx.plugin-config.filetype").setup()
+        end
     },
     {
         "tpope/vim-sleuth", -- Automatically detects which indents should be used in the current buffer

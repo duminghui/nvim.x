@@ -126,30 +126,30 @@ function M.load_defaults()
                 command = "tabdo wincmd =",
             },
         },
-        {
-            { "BufNewFile", "BufRead" },
-            {
-                group = "_set_filetype",
-                pattern = "go.mod",
-                command = "set filetype=gomod",
-            }
-        },
-        {
-            { "BufNewFile", "BufRead" },
-            {
-                group = "_set_filetype",
-                pattern = "go.sum",
-                command = "set filetype=gosum",
-            }
-        },
-        {
-            { "BufNewFile", "BufRead" },
-            {
-                group = "_set_filetype",
-                pattern = "tasks.json",
-                command = "set filetype=jsonc",
-            }
-        },
+        -- {
+        --     { "BufNewFile", "BufRead" },
+        --     {
+        --         group = "_set_filetype",
+        --         pattern = "go.mod",
+        --         command = "set filetype=gomod",
+        --     }
+        -- },
+        -- {
+        --     { "BufNewFile", "BufRead" },
+        --     {
+        --         group = "_set_filetype",
+        --         pattern = "go.sum",
+        --         command = "set filetype=gosum",
+        --     }
+        -- },
+        -- {
+        --     { "BufNewFile", "BufRead" },
+        --     {
+        --         group = "_set_filetype",
+        --         pattern = "tasks.json",
+        --         command = "set filetype=jsonc",
+        --     }
+        -- },
     }
 
     M.define_autocmds(definitions)

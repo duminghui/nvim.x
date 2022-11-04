@@ -23,6 +23,7 @@ local skipped_servers = {
     "reason_ls",
     "rome",
     "ruby_ls",
+    "rust_analyzer",
     "scry",
     "solang",
     "solc",
