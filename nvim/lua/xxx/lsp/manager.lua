@@ -36,12 +36,6 @@ end
 ---@return table
 local function resolve_config(server_name, ...)
     local defaults = lsp.get_common_opts()
-    -- {
-    --     on_attach = lsp.common_on_attach,
-    --     on_init = lsp.common_on_init,
-    --     on_exit = lsp.common_on_exit,
-    --     capabilities = lsp.common_capabilities(),
-    -- }
 
     local has_custom_provider, custom_config = pcall(require, "xxx/lsp/providers/" .. server_name)
     if has_custom_provider then
@@ -77,10 +71,27 @@ local function client_is_configured(server_name, ft)
 end
 
 local function launch_server(server_name, config)
-    pcall(function()
+    local ok = pcall(function()
+        local command = config.cmd
+            or (function()
+                local default_config = require("lspconfig.server_configurations." .. server_name).default_config
+                return default_config.cmd
+            end)()
+        if vim.fn.executable(command[1]) ~= 1 then
+            local msg = string.format("[%q] is either not installed, missing from PATH, or not executable.", server_name)
+            vim.schedule(function()
+                vim.notify(msg, vim.log.levels.WARN)
+            end)
+            Log:debug(msg)
+        end
         require("lspconfig")[server_name].setup(config)
         buf_try_add(server_name)
     end)
+    if not ok then
+        vim.schedule(function()
+            vim.notify("launch_server failed", vim.log.levels.ERROR)
+        end)
+    end
 end
 
 ---Setup a language server by providing a name
@@ -162,7 +173,6 @@ function M.setup(server_name, user_config)
             --         print("Installation in failed")
             --     end
             -- end)
-            return
         else
             local msg = server_name .. " is not managed by the automatic installer"
             Log:debug(msg)

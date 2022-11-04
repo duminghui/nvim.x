@@ -8,7 +8,6 @@ local default_options = {
 function M:init(options)
     M.super.init(self, options)
     self.options = vim.tbl_deep_extend('keep', self.options or {}, default_options)
-    self.icon_hl_cache = {}
 end
 
 local scrollbar_blocks = { '▁', '▂', '▃', '▄', '▅', '▆', '▇', '█' }

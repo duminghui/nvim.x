@@ -41,7 +41,7 @@ local skipped_servers = {
     "vuels",
 }
 
-local skipped_filetypes = { "markdown", "rst", "plaintext" }
+local skipped_filetypes = { "markdown", "rst", "plaintext", "toml" }
 
 local diagnostic_float = {
     focusable = false,

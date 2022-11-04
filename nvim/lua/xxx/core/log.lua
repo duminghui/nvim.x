@@ -88,7 +88,7 @@ function Log:init()
                 vim_log_level = vim_log_level + 1
             end
 
-            self:info(vim_log_level, msg)
+            self:add_entry(vim_log_level, msg)
         end
     end
 

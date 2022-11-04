@@ -61,7 +61,7 @@ M.setup = function()
     indent_blankline.setup(M.opts)
 end
 
-M.set_highlight = function()
+function M.set_highlight()
     -- vim.cmd [[highlight IndentBlanklineIndent1 guifg=#E06C75 gui=nocombine]]
     -- vim.cmd [[highlight IndentBlanklineIndent2 guifg=#E5C07B gui=nocombine]]
     -- vim.cmd [[highlight IndentBlanklineIndent3 guifg=#98C379 gui=nocombine]]
