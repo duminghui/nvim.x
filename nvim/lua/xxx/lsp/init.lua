@@ -48,6 +48,9 @@ function M.common_on_attach(client, bufnr)
 
     lu.setup_document_symbols(client, bufnr)
 
+    lu.setup_fold()
+
+
 end
 
 function M.get_common_opts()
@@ -103,7 +106,7 @@ function M.setup()
     -- automatic_installation is handled by lsp-manager
     util.on_setup = nil
 
-    require("xxx.lsp.null-ls").setup()
+    require("xxx.lsp.null_ls").setup()
 
     -- autocmds.configure_format_on_save(true)
 end

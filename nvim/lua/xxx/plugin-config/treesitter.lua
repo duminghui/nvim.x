@@ -187,6 +187,8 @@ function M.setup()
     -- 在其他方再运行configs.setup() 会影响到自定义安装路径
     configs.setup(opts)
     -- 其他的配置有 autopairs, rainbow, ts-context-commentstring,
+    -- set foldmethod=expr
+    -- set foldexpr=nvim_treesitter#foldexpr()
 end
 
 function M.set_rainbow_highlight()

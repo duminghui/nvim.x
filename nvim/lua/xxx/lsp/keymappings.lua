@@ -3,40 +3,63 @@ local M = {}
 local lsp_opts = require "xxx.lsp.config"
 
 function M.add_lsp_buffer_keybindings(client, bufnr)
-    local not_null_ls = client.name ~= "null-ls"
-    local can_format = false
-    if not not_null_ls then
+    -- all provider name
+    -- https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#serverCapabilities
+    local not_null_ls             = client.name ~= "null-ls"
+    local code_action_provide     = false
+    local format_provide          = false
+    local hover_provide           = false
+    local definition_provide      = false
+    local type_definition_provide = false
+    local declaration_provide     = false
+    local references_provide      = false
+    local implementation_provide  = false
+    local signature_help_provide  = false
+    local rename_provide          = false
+    local code_lens_provide       = false
+    if not_null_ls then
+        local capabilities = client.server_capabilities
+        code_action_provide = capabilities.codeActionProvider
+        format_provide = capabilities.documentFormattingProvider
+        hover_provide = capabilities.hoverProvider
+        definition_provide = capabilities.definitionProvider
+        type_definition_provide = capabilities.typeDefinitionProvider
+        declaration_provide = capabilities.declarationProvider
+        references_provide = capabilities.referencesProvider
+        implementation_provide = capabilities.implementationProvider
+        signature_help_provide = capabilities.signatureHelpProvider
+        rename_provide = capabilities.renameProvider
+        code_lens_provide = capabilities.codeLensProvider
+    else
         local filetype = vim.bo.filetype
         local n = require "null-ls"
         local s = require "null-ls.sources"
         local method = n.methods.FORMATTING
         local avalable_formatters = s.get_available(filetype, method)
-        can_format = #avalable_formatters > 0
-    else
-        can_format = client.server_capabilities.documentFormattingProvider
+        format_provide = #avalable_formatters > 0
     end
     local keymaps = {
-        ["K"] = { vim.lsp.buf.hover, "[LSP]Show hover", not_null_ls },
+        ["K"] = { vim.lsp.buf.hover, "[LSP]Show hover", hover_provide },
 
-        ["gd"] = { vim.lsp.buf.definition, "[LSP]Goto definition", not_null_ls },
-        -- ["gd"] = { "<cmd>Trouble lsp_definitions<CR>", "Goto definition" },
-        ["gD"] = { "<cmd>Lspsaga peek_definition<CR>", "[LSP]Peek definition", not_null_ls },
+        ["ga"] = { vim.lsp.buf.code_action, "[LSP]Code Action", code_action_provide },
 
-        ["gt"] = { vim.lsp.buf.type_definition, "[LSP]Goto type definition",
-            not_null_ls and client.server_capabilities.typeDefinitionProvider },
+        ["gd"] = { vim.lsp.buf.definition, "[LSP]Goto definition", definition_provide },
 
-        -- ["gf"] = { vim.lsp.buf.declaration, "[LSP]Goto declaration", not_null_ls },
+        -- ["gd"] = { "<cmd>Trouble lsp_definitions<CR>", "Goto definition" }, -- can't use <CTRL-O> or <CTRL-T> jump
+
+        ["gD"] = { "<cmd>Lspsaga peek_definition<CR>", "[LSP]Peek definition", definition_provide },
+        ["gt"] = { vim.lsp.buf.type_definition, "[LSP]Goto type definition", type_definition_provide },
+
+        ["gf"] = { vim.lsp.buf.declaration, "[LSP]Goto declaration", declaration_provide },
 
         -- ["gr"] = { vim.lsp.buf.references, "Goto references" },
-        ["gr"] = { "<cmd>Trouble lsp_references<CR>", "[LSP]Goto references", not_null_ls },
+        ["gr"] = { "<cmd>Trouble lsp_references<CR>", "[LSP]Goto references", references_provide },
 
-        ["gI"] = { vim.lsp.buf.implementation, "[LSP]Goto implementation",
-            not_null_ls and client.server_capabilities.implementationProvider },
+        ["gI"] = { vim.lsp.buf.implementation, "[LSP]Goto implementation", implementation_provide },
 
-        ["gs"] = { vim.lsp.buf.signature_help, "[LSP]Show signature help",
-            not_null_ls and client.supports_method("textDocument/signatureHelp") },
+        ["gs"] = { vim.lsp.buf.signature_help, "[LSP]Show signature help", signature_help_provide },
 
-        ["gnr"] = { vim.lsp.buf.rename, "[LSP]Rename", not_null_ls and client.supports_method("textDocument/rename") },
+        ["gnr"] = { vim.lsp.buf.rename, "[LSP]Rename", rename_provide },
 
         ["gl"] = {
             function()
@@ -48,18 +71,18 @@ function M.add_lsp_buffer_keybindings(client, bufnr)
             not_null_ls
         },
 
-        ["gL"] = { vim.lsp.codelens.run, "[LSP]Code lens", not_null_ls and client.server_capabilities.codeLensProvider },
-
-        -- F code_action
         ["[d"] = { vim.diagnostic.goto_prev, "[LSP]Prev Diagnostic", not_null_ls },
         ["]d"] = { vim.diagnostic.goto_next, "[LSP]Next Diagnostic", not_null_ls },
+
+        ["gL"] = { vim.lsp.codelens.run, "[LSP]Code lens", code_lens_provide },
+
 
         ["<LocalLeader>lf"] = {
             function()
                 require("xxx.lsp.utils").format({})
             end,
             "[LSP]Format",
-            can_format,
+            format_provide,
         }
     }
 

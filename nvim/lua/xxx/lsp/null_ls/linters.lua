@@ -3,7 +3,7 @@ local M = {}
 local Log = require "xxx.core.log"
 
 local null_ls = require "null-ls"
-local services = require "xxx.lsp.null-ls.services"
+local services = require "xxx.lsp.null_ls.services"
 local method = null_ls.methods.DIAGNOSTICS
 
 local alternative_methods = {

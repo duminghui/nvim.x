@@ -95,29 +95,6 @@ local options = {
         ---@usage list of filetypes that the automatic installer will skip
         skipped_filetypes = skipped_filetypes,
     },
-    buffer_mappings = {
-        normal_mode = {
-            ["K"] = { vim.lsp.buf.hover, "Show hover" },
-            ["gd"] = { vim.lsp.buf.definition, "Goto Definition" },
-            -- ["gd"] = { "<cmd>Trouble lsp_definitions<CR>", "Goto Definition" },
-            ["gD"] = { vim.lsp.buf.declaration, "Goto declaration" },
-            -- ["gr"] = { vim.lsp.buf.references, "Goto references" },
-            ["gr"] = { "<cmd>Trouble lsp_references<CR>", "Goto references" },
-            ["gI"] = { vim.lsp.buf.implementation, "Goto Implementation" },
-            ["gs"] = { vim.lsp.buf.signature_help, "Show signature help" },
-            ["gnr"] = { vim.lsp.buf.rename, "Rename" },
-            ["gl"] = {
-                function()
-                    local config = diagnostic_float
-                    config.scope = "line"
-                    vim.diagnostic.open_float(0, config)
-                end,
-                "Show line diagnostics",
-            },
-        },
-        insert_mode = {},
-        visual_mode = {},
-    },
     buffer_options = {
         --- enable completion triggered by <c-x><c-o>
         omnifunc = "v:lua.vim.lsp.omnifunc",

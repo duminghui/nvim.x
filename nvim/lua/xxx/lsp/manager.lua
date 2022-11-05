@@ -180,6 +180,7 @@ function M.setup(server_name, user_config)
                 vim.notify_once(msg, vim.log.levels.WARN, { title = notify_title })
             end)
         end
+        return
     end
 
     local config = resolve_config(server_name, resolve_mason_config(server_name), user_config)

@@ -37,6 +37,7 @@ M.opts = {
         lu.setup_format_on_save(client, bufnr, function()
             require("go.format").goimport()
         end)
+        lu.setup_fold()
         lsp.add_lsp_buffer_options(bufnr)
     end, -- it is a function with same signature as on_attach, will be called at end of
     -- on_attach and allows you override some setup

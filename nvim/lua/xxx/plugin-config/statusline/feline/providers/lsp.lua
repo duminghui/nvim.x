@@ -83,14 +83,20 @@ function M.lsp_info_provider(component)
     end
 
     -- add formatter
-    local formatters = require "xxx.lsp.null-ls.formatters"
+    local formatters = require "xxx.lsp.null_ls.formatters"
     local supported_formatters = formatters.list_registered(buf_ft)
     vim.list_extend(buf_client_names, supported_formatters)
 
     -- add linter
-    local linters = require "xxx.lsp.null-ls.linters"
+    local linters = require "xxx.lsp.null_ls.linters"
     local supported_linters = linters.list_registered(buf_ft)
     vim.list_extend(buf_client_names, supported_linters)
+
+    -- add code action
+    local code_actions = require "xxx.lsp.null_ls.code_actions"
+    local supported_code_actions = code_actions.list_registered(buf_ft)
+    vim.list_extend(buf_client_names, supported_code_actions)
+
 
     local unique_client_names = vim.fn.uniq(buf_client_names)
 

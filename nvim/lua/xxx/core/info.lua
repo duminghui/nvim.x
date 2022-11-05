@@ -11,7 +11,7 @@ local function str_list(list)
 end
 
 local function make_formatters_info(ft)
-    local null_formatters = require "xxx.lsp.null-ls.formatters"
+    local null_formatters = require "xxx.lsp.null_ls.formatters"
     local registered_formatters = null_formatters.list_registered(ft)
     local supported_formatters = null_formatters.list_supported(ft)
     local section = {
@@ -28,7 +28,8 @@ local function make_formatters_info(ft)
 end
 
 local function make_code_actions_info(ft)
-    local null_actions = require "xxx.lsp.null-ls.code_actions"
+    local null_actions = require "xxx.lsp.null_ls.code_actions"
+    local supported_actions = null_actions.list_supported(ft)
     local registered_actions = null_actions.list_registered(ft)
     local section = {
         "Code actions info",
@@ -37,13 +38,14 @@ local function make_code_actions_info(ft)
             table.concat(registered_actions, " " .. icons.ui.CircleCheck .. " , "),
             vim.tbl_count(registered_actions) > 0 and " " .. icons.ui.CircleCheck .. " " or ""
         ),
+        fmt("* Supported: %s", str_list(supported_actions)),
     }
 
     return section
 end
 
 local function make_linters_info(ft)
-    local null_linters = require "xxx.lsp.null-ls.linters"
+    local null_linters = require "xxx.lsp.null_ls.linters"
     local supported_linters = null_linters.list_supported(ft)
     local registered_linters = null_linters.list_registered(ft)
     local section = {
@@ -194,7 +196,8 @@ function M.toggle_popup(ft)
         return text.align_left(popup, content, 0.5)
     end
     local function set_syntax_hl()
-        vim.cmd [[highlight XvimInfoIdentifier gui=bold]]
+        -- vim.cmd [[highlight XvimInfoIdentifier gui=bold]]
+        vim.cmd [[highlight link XvimInfoIdentifier LspInfoList]]
         vim.cmd [[highlight link XvimInfoHeader Type]]
         vim.fn.matchadd("XvimInfoHeader", "Buffer info")
         vim.fn.matchadd("XvimInfoHeader", "Active client(s)")
@@ -210,9 +213,9 @@ function M.toggle_popup(ft)
         vim.fn.matchadd("string", icons.ui.CircleCheck)
         vim.fn.matchadd("boolean", "inactive")
         vim.fn.matchadd("error", "false")
-        tbl_set_highlight(require("xxx.lsp.null-ls.formatters").list_registered(ft), "XvimInfoIdentifier")
-        tbl_set_highlight(require("xxx.lsp.null-ls.linters").list_registered(ft), "XvimInfoIdentifier")
-        tbl_set_highlight(require("xxx.lsp.null-ls.code_actions").list_registered(ft), "XvimInfoIdentifier")
+        tbl_set_highlight(require("xxx.lsp.null_ls.formatters").list_registered(ft), "XvimInfoIdentifier")
+        tbl_set_highlight(require("xxx.lsp.null_ls.linters").list_registered(ft), "XvimInfoIdentifier")
+        tbl_set_highlight(require("xxx.lsp.null_ls.code_actions").list_registered(ft), "XvimInfoIdentifier")
     end
 
     local Popup = require("xxx.interface.popup"):new {

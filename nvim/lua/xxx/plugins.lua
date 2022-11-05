@@ -371,11 +371,6 @@ local plugins = {
                 require("xxx.plugin-config.cmp").setup()
             end,
         },
-        -- {
-        --     -- vim functions for dev
-        --     "folke/lua-dev.nvim",
-        --     module = "lua-dev",
-        -- },
         {
             -- vim functions for dev
             "folke/neodev.nvim",
@@ -472,7 +467,27 @@ local plugins = {
         config = function()
             require("xxx.plugin-config.go").setup()
         end
-    }
+    },
+
+    {
+        'simrat39/rust-tools.nvim',
+        ft = { "rust" },
+        config = function()
+            require("xxx.plugin-config.rs-rust-tools").setup()
+        end
+    },
+
+    {
+        -- rust crates manager
+        'saecki/crates.nvim',
+        tag = 'v0.3.0',
+        event = { "BufRead Cargo.toml" },
+        requires = { 'nvim-lua/plenary.nvim' },
+        config = function()
+            require('xxx.plugin-config.rs-crates').setup()
+        end,
+    },
+
 
 }
 return plugins

@@ -173,7 +173,7 @@ function M.load_default_options()
         -- stl = " ",
     }
     vim.opt.foldenable = true -- Enable folding
-    vim.opt.foldlevel = 0 -- Fold by default
+    vim.opt.foldlevel = 6 -- Fold by default
     -- vim.opt.foldmethod = "marker" -- Fold based on markers as opposed to indentation
     vim.opt.foldmethod = "manual" -- folding, set to "expr" for treesitter based folding
     vim.opt.foldexpr = "" -- set to "nvim_treesitter#foldexpr()" for treesitter based folding

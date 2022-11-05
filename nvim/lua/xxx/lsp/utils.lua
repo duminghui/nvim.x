@@ -124,6 +124,12 @@ function M.setup_document_highlight(client, bufnr)
         })
 end
 
+function M.setup_fold()
+    vim.wo.foldlevel = 6
+    vim.wo.foldmethod = "expr"
+    vim.wo.foldexpr = "nvim_treesitter#foldexpr()"
+end
+
 function M.setup_document_symbols(client, bufnr)
     vim.g.navic_silence = false -- can be set to true to supress error
     if not client.supports_method "textDocument/documentSymbol" then
