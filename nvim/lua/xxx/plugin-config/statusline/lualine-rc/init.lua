@@ -1,6 +1,6 @@
 local M = {}
 
-local coms = require("xxx.plugin-config.statusline.stl_lualine.components")
+local coms = require("xxx.plugin-config.statusline.lualine-rc.components")
 
 local disabled_filetypes = require("xxx.config.exclude-filetypes").lualine
 

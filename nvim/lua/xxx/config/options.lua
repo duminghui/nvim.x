@@ -1,107 +1,4 @@
 local M = {}
-local default_options = {
-    -- backup = false,
-    --[[if a file is being edited by another program
-    (or was written to file while editing with another program), it is not allowed to be edited ]]
-    -- writebackup = false,
-    -- swapfile = false,
-    -- undofile = true,
-
-    -- 去除蜂鸣
-    -- belloff = { 'esc', 'spell' },
-    -- compatible = false,
-    -- clipboard = "unnamedplus",
-    -- virtualedit = 'onemore',
-    -- required to keep multiple buffers and open multiple buffers
-    -- Allow buffer switching without saving
-    -- hidden = true,
-    -- linebreak = true,
-    -- breakat = "",
-    -- tabpagemax = 15,
-    -- showmode = true,
-    -- showcmd = true,
-    -- cmdheight = 2,
-
-    -- textwidth = 80,
-    -- cursorline = true,
-    -- cursorcolumn = true,
-    -- colorcolumn = "80,120,160",
-    -- number = true,
-    -- relativenumber = true,
-    -- number column width
-    -- numberwidth = 4,
-    --- always show the sign column, otherwise it would shift the text each time
-    -- signcolumn = "yes:1",
-    -- guifont = "monospace:h13",
-
-    -- wrap = true,
-    -- wrapmargin = 1,
-    -- breakindent = true,
-    -- breakindentopt = "shift:2,sbr", -- lin wrap opts
-
-    -- mouse = "a",
-    -- for bufferline hover
-    -- mousemoveevent = true,
-
-    -- 窗口分隔线和fold线
-    -- -- fillchars = 'vert:|,fold:-',
-    -- fillchars = {
-    --     horiz = "━",
-    --     horizup = "┻",
-    --     horizdown = "┳",
-    --     vert = "┃",
-    --     vertleft = "┫",
-    --     vertright = "┣",
-    --     verthoriz = "╋",
-    --     fold = "-",
-    -- },
-    -- linespace = 0,
-
-    -- search
-    -- showmatch = true,
-    -- incsearch = true,
-    -- hlsearch = true,
-    -- ignorecase = true,
-    -- smartcase = true,
-
-    -- pop list
-    -- show list instead of just completing
-    -- wildmenu = true,
-    -- wildmode = "list:longest,full",
-
-    -- foldenable = true,
-    -- scrolljump = 1,
-    -- scrolloff = 6,
-
-    -- list = true,
-    -- listchars = 'tab:›■,trail:•,extends:#,nbsp:.',
-
-    -- autoindent = true,
-    -- the number of spaces inserted for each identation
-    -- shiftwidth = 4,
-    -- convert tabs to spaces
-    -- expandtab = true,
-    -- insert x spaces for a tab
-    -- tabstop = 4,
-    -- softtabstop = 4,
-
-    -- puts new vsplit windows to the right of the current
-    -- splitright = true,
-    -- put new split windows to the bottom of the current
-    -- splitbelow = true,
-
-    -- completeopt = { "menuone", "noselect" },
-
-    -- bufferline need
-    -- termguicolors = true,
-
-    -- background = 'dark',
-
-    -- treesitter
-    -- foldmethod = "manual", -- folding, set to "expr" for treesitter based folding
-    -- foldexpr = "", -- set to "nvim_treesitter#foldexpr()" for treesitter based folding
-    -- sessionoptions = "buffers,curdir,folds,globals,tabpages,winpos,winsize", -- Session options to store in the session
-}
 
 function M.load_default_options()
     -------------------- GLOBAL OPTIONS --------------------
@@ -119,8 +16,8 @@ function M.load_default_options()
     vim.opt.autoindent = true
     vim.opt.smartindent = true -- Insert indents automatically
     vim.opt.expandtab = true -- Use spaces instead of tabs
-    vim.opt.shiftwidth = 0 -- Number of spaces of an indent, when zero use `tabstop`
-    vim.opt.tabstop = 4 -- Number of spaces in a tab
+    vim.opt.shiftwidth = 2 -- Number of spaces of an indent, when zero use `tabstop`
+    vim.opt.tabstop = 2 -- Number of spaces in a tab
     -- vim.opt.softtabstop = 4 -- Number of spaces tabs count for **
     -- Number of spaces that a <Tab> counts for while performing editing
     -- operations, like inserting a <Tab> or using <BS>.
@@ -137,10 +34,10 @@ function M.load_default_options()
     -- vim.wo.numberwidth = 2 -- Make the line number column thinner
     ---Note: Setting number and relative number gives you hybrid mode
     ---https://jeffkreeftmeijer.com/vim-number/
-    vim.opt.number = true -- Set the absolute number
-    vim.opt.relativenumber = true -- Set the relative number
+    vim.wo.number = true -- Set the absolute number
+    vim.wo.relativenumber = true -- Set the relative number
     -- vim.opt.signcolumn = "yes:1" -- Show information next to the line numbers
-    vim.opt.signcolumn = "yes:2" -- Show information next to the line numbers
+    vim.wo.signcolumn = "yes:2" -- Show information next to the line numbers
 
     -- wrap
     vim.opt.wrap = true -- Do not display text over multiple lines
@@ -152,14 +49,11 @@ function M.load_default_options()
     vim.opt.whichwrap:append 'b,s,h,l,<,>,[,]'
 
     -------------------- VIM OPTIONS --------------------
-    vim.o.background = "dark"
+    vim.opt.title = true
     vim.opt.belloff = { 'esc', 'spell' }
     vim.opt.cmdheight = 2 -- Hide the command bar
     vim.opt.clipboard = { "unnamedplus" } -- Use the system clipboard
     vim.opt.completeopt = { "menuone", "noselect" } -- Completion opions for code completion
-    vim.opt.cursorline = true
-    vim.opt.cursorcolumn = true
-    vim.opt.cursorlineopt = "screenline,number" -- Highlight the screen line of the cursor with CursorLine and the line number with CursorLineNr **
     vim.opt.emoji = false -- Turn off emojis **
     vim.opt.fillchars = {
         horiz = "━",
@@ -178,6 +72,7 @@ function M.load_default_options()
     vim.opt.foldmethod = "manual" -- folding, set to "expr" for treesitter based folding
     vim.opt.foldexpr = "" -- set to "nvim_treesitter#foldexpr()" for treesitter based folding
     -- vim.opt.laststatus = 3 -- Use global statusline **
+    vim.opt.inccommand = "split"
     vim.opt.modelines = 1 -- Only use folding settings for this file
     vim.opt.mouse = "a" -- Use the mouse in all modes
     vim.opt.mousemoveevent = true -- for bufferline hover
@@ -229,18 +124,29 @@ function M.load_default_options()
     vim.cmd("silent call mkdir(stdpath('data').'/undos', 'p', '0700')")
     vim.cmd("silent call mkdir(stdpath('data').'/swaps', 'p', '0700')")
     vim.cmd("silent call mkdir(stdpath('data').'/sessions', 'p', '0700')")
+    vim.cmd("silent call mkdir(stdpath('data').'/views', 'p', '0700')")
+    vim.cmd("silent call mkdir(stdpath('data').'/shadas', 'p', '0700')")
 
-    vim.opt.backupdir = vim.fn.stdpath("data") .. "/backups" -- Use backup files
-    vim.opt.directory = vim.fn.stdpath("data") .. "/swaps" -- Use Swap files
+    vim.opt.backupdir = join_paths(vim.fn.stdpath("data"), "backups") -- Use backup files
+    vim.opt.directory = join_paths(vim.fn.stdpath("data"), "swaps") -- Use Swap files
     vim.opt.undofile = true -- Maintain undo history between sessions
     vim.opt.undolevels = 1000 -- Ensure we can undo a lot! **
-    vim.opt.undodir = vim.fn.stdpath("data") .. "/undos" -- Set the undo directory
+    vim.opt.undodir = join_paths(vim.fn.stdpath("data"), "undos") -- Set the undo directory
+    vim.opt.viewdir = join_paths(vim.fn.stdpath("data"), "views")
+    vim.opt.shadafile = join_paths(vim.fn.stdpath("data"), "shadas", "nvimi.shada")
 
-    -- vim.opt.backup = false,
+    vim.opt.backup = false
     --[[if a file is being edited by another program
     (or was written to file while editing with another program), it is not allowed to be edited ]]
     -- vim.opt.writebackup = false,
     vim.opt.swapfile = false -- don't use a swap file
+
+
+    -------------------- Highlight OPTIONS --------------------
+    vim.o.background = "dark"
+    vim.opt.cursorline = true
+    vim.opt.cursorcolumn = true
+    vim.opt.cursorlineopt = "screenline,number" -- Highlight the screen line of the cursor with CursorLine and the line number with CursorLineNr **
 
     -- Enables pseudo-transparency for the |popup-menu|.
     -- cmp's menu, doc view
@@ -256,13 +162,6 @@ function M.load_default_options()
     -- vim.cmd('syntax on')
     -- vim.cmd('syntax enable')
     -- vim.cmd("colorscheme xxx")
-
-
-    for k, v in pairs(default_options) do
-        -- print(k, v)
-        vim.opt[k] = v
-    end
-
 
     if vim.loop.os_uname().version:match "Windows" then
         vim.g.sqlite_clib_path = join_paths(get_config_dir(), "sqlite3", "sqlite3.dll")

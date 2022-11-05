@@ -90,18 +90,6 @@ function M:init_rtp(root_dir, base_dir)
     -- print("####: ", vim.call("stdpath", "data"))
     -- print("####: ", vim.fn.stdpath("data"))
 
-    local backupdir = join_paths(vim.fn.stdpath("data"), "backup")
-    vim.opt.backupdir = { ".", backupdir }
-
-    vim.opt.directory = join_paths(vim.fn.stdpath("data"), "swap")
-
-    vim.opt.undodir = join_paths(vim.fn.stdpath("data"), "undo")
-
-    local viewdir = join_paths(vim.fn.stdpath("data"), "view")
-    vim.opt.viewdir = viewdir
-
-    vim.opt.shadafile = join_paths(vim.fn.stdpath("data"), "shada", "nvimi.shada")
-
     vim.opt.rtp:prepend(self.packer_compile_dir)
     vim.opt.rtp:remove(join_paths(vim.call("stdpath", "data"), "site"))
     vim.opt.rtp:remove(join_paths(vim.call("stdpath", "data"), "site", "after"))

@@ -1,7 +1,7 @@
 local M = {}
 
-local xxx_dashboard = require("xxx.plugin-config.alpha.dashboard")
-local xxx_startify = require("xxx.plugin-config.alpha.startify")
+local xxx_dashboard = require("xxx.plugin-config.alpha-rc.dashboard")
+local xxx_startify = require("xxx.plugin-config.alpha-rc.startify")
 
 M.opts = {
     dashboard = {

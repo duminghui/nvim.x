@@ -4,6 +4,7 @@ local default_workspace = {
         get_base_dir(),
         -- require("lua-dev.sumneko").types(),
         require("neodev.config").types(),
+        vim.api.nvim_get_runtime_file("", true),
     },
 
     maxPreload = 1000,

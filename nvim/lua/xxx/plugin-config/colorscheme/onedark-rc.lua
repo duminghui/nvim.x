@@ -32,9 +32,9 @@ M.setup = function()
     -- vim.api.nvim_set_hl(0, "CursorLineNr", { fg = "#FFE700" })
 
     -- for lualine
-    require("xxx.plugin-config.statusline.lualine.components").set_highlight()
-    require("xxx.plugin-config.treesitter").set_rainbow_highlight()
-    require("xxx.plugin-config.indent-blankline").set_highlight()
+    require("xxx.plugin-config.statusline.lualine-rc.components").set_highlight()
+    require("xxx.plugin-config.treesitter-rc").set_rainbow_highlight()
+    require("xxx.plugin-config.indent-blankline-rc").set_highlight()
 end
 
 return M

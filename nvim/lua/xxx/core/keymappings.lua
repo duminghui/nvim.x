@@ -2,6 +2,7 @@ local M = {}
 local Log = require "xxx.core.log"
 
 local generic_opts_any = { noremap = true, silent = true }
+local silent_opts = { noremap = true, silent = false }
 
 local generic_opts = {
     insert_mode = generic_opts_any,
@@ -43,13 +44,18 @@ local defaults = {
     },
 
     normal_mode = {
-        ["j"] = { "gj", { noremap = true, silent = false } },
-        ["gj"] = { "j", { noremap = true, silent = false } },
-        ["k"] = { "gk", { noremap = true, silent = false } },
-        ["gk"] = { "k", { noremap = true, silent = false } },
-        ["zl"] = { "zL", { noremap = true, silent = false } },
-        ["zh"] = { "zH", { noremap = true, silent = false } },
-        -- ["Y"] = { "y$", { noremap = true, silent = false } }, -- neovim buildin
+        -- don't yank with x
+        ["x"]  = { '"_x', silent_opts },
+        -- Increment/decrement
+        ["+"]  = { "<C-a>" },
+        ["-"]  = { "<C-x>" },
+        ["j"]  = { "gj", silent_opts },
+        ["gj"] = { "j", silent_opts },
+        ["k"]  = { "gk", silent_opts },
+        ["gk"] = { "k", silent_opts },
+        ["zl"] = { "zL", silent_opts },
+        ["zh"] = { "zH", silent_opts },
+        -- ["Y"] = { "y$", silent_opts }, -- neovim buildin
 
         -- Better window movement
         ["<C-h>"] = "<C-w>h",
@@ -71,6 +77,7 @@ local defaults = {
         -- ["]q"] = ":cnext<CR>",
         -- ["[q"] = ":cprev<CR>",
         ["<C-q>"] = ":call QuickFixToggle()<CR>",
+
     },
 
     term_mode = {

@@ -5,14 +5,14 @@ local plugins = {
     {
         "rcarriga/nvim-notify",
         config = function()
-            require("xxx.plugin-config.notify").setup()
+            require("xxx.plugin-config.notify-rc").setup()
         end,
     },
     {
         -- nvim/ftdetect will not work
         "nathom/filetype.nvim", -- Replace default filetype.vim which is slower
         config = function()
-            require("xxx.plugin-config.filetype").setup()
+            require("xxx.plugin-config.filetype-rc").setup()
         end
     },
     {
@@ -21,20 +21,28 @@ local plugins = {
 
     {
         -- theme
+        -- {
+        --     'svrana/neosolarized.nvim',
+        --     as = "colorscheme",
+        --     requires = {
+        --         'tjdevries/colorbuddy.nvim',
+        --     }
+        -- },
         {
             "olimorris/onedarkpro.nvim",
             as = "colorscheme",
             config = function()
-                require('xxx.plugin-config.colorscheme.onedarkpro').setup()
+                require('xxx.plugin-config.colorscheme.onedarkpro-rc').setup()
             end,
         },
-        {
-            'navarasu/onedark.nvim',
-            -- as = "colorscheme",
-            -- config = function()
-            --     require('xxx.plugin-config.colorscheme.onedark').setup()
-            -- end,
-        },
+        -- {
+        --     'navarasu/onedark.nvim',
+        --     disable = true,
+        --     -- as = "colorscheme",
+        --     -- config = function()
+        --     --     require('xxx.plugin-config.colorscheme.onedark-rc').setup()
+        --     -- end,
+        -- },
         {
             -- SchemaStore
             "b0o/schemastore.nvim",
@@ -44,7 +52,7 @@ local plugins = {
     {
         "folke/which-key.nvim",
         config = function()
-            require("xxx.plugin-config.which-key").setup()
+            require("xxx.plugin-config.which-key-rc").setup()
         end,
         event = "BufWinEnter",
     },
@@ -52,21 +60,21 @@ local plugins = {
         'phaazon/hop.nvim',
         branch = 'v2', -- optional but strongly recommended
         config = function()
-            require("xxx.plugin-config.hop").setup()
+            require("xxx.plugin-config.hop-rc").setup()
         end
     },
     {
         'chentoast/marks.nvim',
         -- disable = true,
         config = function()
-            require("xxx.plugin-config.marks").setup()
+            require("xxx.plugin-config.marks-rc").setup()
         end
     },
     {
         -- Highlight hex and rgb colors within Neovim
         'NvChad/nvim-colorizer.lua',
         config = function()
-            require('xxx.plugin-config.colorizer').setup()
+            require('xxx.plugin-config.colorizer-rc').setup()
         end,
     },
 
@@ -78,18 +86,18 @@ local plugins = {
                 "kevinhwang91/nvim-hlslens", -- Highlight searches
                 after = "nvim-scrollbar",
                 config = function()
-                    require("xxx.plugin-config.scroll.hlslens").setup()
+                    require("xxx.plugin-config.scroll.hlslens-rc").setup()
                 end,
             },
             {
                 "declancm/cinnamon.nvim", -- Smooth scrolling
                 config = function()
-                    require("xxx.plugin-config.scroll.cinnamon").setup()
+                    require("xxx.plugin-config.scroll.cinnamon-rc").setup()
                 end,
             },
         },
         config = function()
-            require("xxx.plugin-config.scroll.scrollbar").setup()
+            require("xxx.plugin-config.scroll.scrollbar-rc").setup()
         end,
     },
 
@@ -97,7 +105,7 @@ local plugins = {
     {
         "kylechui/nvim-surround",
         config = function()
-            require("xxx.plugin-config.surround").setup()
+            require("xxx.plugin-config.surround-rc").setup()
         end,
     },
 
@@ -153,13 +161,13 @@ local plugins = {
                 disable = true,
                 after = "telescope.nvim",
                 config = function()
-                    require("xxx.plugin-config.harpoon").setup()
+                    require("xxx.plugin-config.harpoon-rc").setup()
                     require("telescope").load_extension("harpoon")
                 end,
             },
         },
         config = function()
-            require("xxx.plugin-config.telescope").setup()
+            require("xxx.plugin-config.telescope-rc").setup()
         end,
     },
     -- { 'nvim-telescope/telescope-ui-select.nvim' },
@@ -168,14 +176,14 @@ local plugins = {
         'stevearc/dressing.nvim',
         after = "telescope.nvim",
         config = function()
-            require("xxx.plugin-config.dressing").setup()
+            require("xxx.plugin-config.dressing-rc").setup()
         end,
     },
 
     {
         'kyazdani42/nvim-web-devicons',
         config = function()
-            require("xxx.plugin-config.web-devicons").setup()
+            require("xxx.plugin-config.web-devicons-rc").setup()
         end,
     },
     {
@@ -187,7 +195,7 @@ local plugins = {
         -- event = "BufWinEnter",
         requires = { 'kyazdani42/nvim-web-devicons' },
         config = function()
-            require('xxx.plugin-config.bufferline').setup()
+            require('xxx.plugin-config.bufferline-rc').setup()
         end,
     },
 
@@ -201,7 +209,7 @@ local plugins = {
         after = "colorscheme",
         requires = { 'kyazdani42/nvim-web-devicons' },
         config = function()
-            require("xxx.plugin-config.statusline.stl_lualine").setup()
+            require("xxx.plugin-config.statusline.lualine-rc").setup()
         end,
     },
     {
@@ -211,7 +219,7 @@ local plugins = {
             { "kyazdani42/nvim-web-devicons" }, -- Web icons for various plugins
         },
         -- config = function()
-        --     require("xxx.plugin-config.statusline.feline").setup()
+        --     require("xxx.plugin-config.statusline.feline-rc").setup()
         -- end,
     },
 
@@ -226,7 +234,7 @@ local plugins = {
             { 'kyazdani42/nvim-web-devicons', opt = true, }
         },
         config = function()
-            require("xxx.plugin-config.nvimtree").setup()
+            require("xxx.plugin-config.nvimtree-rc").setup()
         end,
     },
     {
@@ -234,7 +242,7 @@ local plugins = {
         "christianchiarulli/lir.nvim",
         requires = 'kyazdani42/nvim-web-devicons',
         config = function()
-            require("xxx.plugin-config.lir").setup()
+            require("xxx.plugin-config.lir-rc").setup()
         end,
         disable = true, -- use NvimTree
     },
@@ -245,27 +253,27 @@ local plugins = {
         "goolord/alpha-nvim",
         after = "bufferline.nvim",
         config = function()
-            require("xxx.plugin-config.alpha").setup()
+            require("xxx.plugin-config.alpha-rc").setup()
         end,
     },
     {
         "Shatur/neovim-session-manager",
         config = function()
-            require("xxx.plugin-config.session.session-manager").setup()
+            require("xxx.plugin-config.session.session-manager-rc").setup()
         end,
     },
     -- {
     -- session-manager has bugs in windows
     -- "olimorris/persisted.nvim",
     -- config = function()
-    --     require("xxx.plugin-config.session.persisted").setup()
+    --     require("xxx.plugin-config.session.persisted-rc").setup()
     -- end,
     -- },
     {
         "ahmedkhalf/project.nvim", -- Automatically set the cwd to the project root
         after = "telescope.nvim",
         config = function()
-            require("xxx.plugin-config.project").setup()
+            require("xxx.plugin-config.project-rc").setup()
         end,
     },
 
@@ -273,7 +281,7 @@ local plugins = {
     {
         "lewis6991/gitsigns.nvim",
         config = function()
-            require("xxx.plugin-config.gitsigns").setup()
+            require("xxx.plugin-config.gitsigns-rc").setup()
         end,
         event = "BufRead",
     },
@@ -283,7 +291,7 @@ local plugins = {
         {
             "williamboman/mason.nvim",
             config = function()
-                require("xxx.plugin-config.mason").setup()
+                require("xxx.plugin-config.mason-rc").setup()
             end,
         },
         {
@@ -306,13 +314,13 @@ local plugins = {
             -- Standalone UI for nvim-lsp progress.
             "j-hui/fidget.nvim",
             config = function()
-                require("xxx.plugin-config.fidget").setup()
+                require("xxx.plugin-config.fidget-rc").setup()
             end,
         },
         {
             'folke/lsp-colors.nvim',
             config = function()
-                require("xxx.plugin-config.lsp-colors").setup()
+                require("xxx.plugin-config.lsp-colors-rc").setup()
             end,
         },
         {
@@ -321,14 +329,14 @@ local plugins = {
             'SmiteshP/nvim-navic',
             requires = { "neovim/nvim-lspconfig" },
             config = function()
-                require("xxx.plugin-config.breadcrumbs").setup()
+                require("xxx.plugin-config.breadcrumbs-rc").setup()
             end,
         },
         {
             "folke/trouble.nvim",
             requires = { "kyazdani42/nvim-web-devicons", opt = true },
             config = function()
-                require("xxx.plugin-config.trouble").setup()
+                require("xxx.plugin-config.trouble-rc").setup()
             end,
         },
         {
@@ -337,7 +345,7 @@ local plugins = {
             after = "colorscheme",
             branch = "main",
             config = function()
-                require("xxx.plugin-config.lspsaga").setup()
+                require("xxx.plugin-config.lspsaga-rc").setup()
             end,
         },
     },
@@ -354,7 +362,7 @@ local plugins = {
                         "rafamadriz/friendly-snippets",
                     },
                     config = function()
-                        require("xxx.plugin-config.luasnip").setup()
+                        require("xxx.plugin-config.luasnip-rc").setup()
                     end,
                 },
                 -- cmp sources --
@@ -368,7 +376,7 @@ local plugins = {
 
             },
             config = function()
-                require("xxx.plugin-config.cmp").setup()
+                require("xxx.plugin-config.cmp-rc").setup()
             end,
         },
         {
@@ -383,7 +391,7 @@ local plugins = {
         "numToStr/Comment.nvim",
         event = "BufRead",
         config = function()
-            require("xxx.plugin-config.comment").setup()
+            require("xxx.plugin-config.comment-rc").setup()
         end,
     },
 
@@ -400,7 +408,7 @@ local plugins = {
                 "windwp/nvim-autopairs",
                 event = "InsertEnter",
                 config = function()
-                    require("xxx.plugin-config.autopairs").setup()
+                    require("xxx.plugin-config.autopairs-rc").setup()
                 end,
             },
             {
@@ -409,14 +417,14 @@ local plugins = {
             {
                 "lukas-reineke/indent-blankline.nvim",
                 config = function()
-                    require("xxx.plugin-config.indent-blankline").setup()
+                    require("xxx.plugin-config.indent-blankline-rc").setup()
                 end,
             },
             {
                 -- 高亮显示相同的单词
                 "RRethy/vim-illuminate",
                 config = function()
-                    require("xxx.plugin-config.illuminate").setup()
+                    require("xxx.plugin-config.illuminate-rc").setup()
                 end,
             },
             {
@@ -426,7 +434,7 @@ local plugins = {
             },
         },
         config = function()
-            require("xxx.plugin-config.treesitter").setup()
+            require("xxx.plugin-config.treesitter-rc").setup()
         end,
     },
     {
@@ -434,7 +442,7 @@ local plugins = {
         "nvim-treesitter/nvim-treesitter-context",
         after = "nvim-treesitter",
         config = function()
-            require('xxx.plugin-config.treesitter-context').setup()
+            require('xxx.plugin-config.treesitter-context-rc').setup()
         end,
     },
 
@@ -443,7 +451,7 @@ local plugins = {
         event = "BufWinEnter",
         branch = "main",
         config = function()
-            require("xxx.plugin-config.terminal").setup()
+            require("xxx.plugin-config.terminal-rc").setup()
         end,
     },
 
@@ -451,7 +459,7 @@ local plugins = {
         "stevearc/overseer.nvim", -- Task runner and job management
         -- INFO: Overseer lazy loads itself
         config = function()
-            require("xxx.plugin-config.overseer").setup()
+            require("xxx.plugin-config.overseer-rc").setup()
         end,
     },
 
@@ -465,7 +473,7 @@ local plugins = {
             'ray-x/guihua.lua', -- recommanded if need floating window support
         },
         config = function()
-            require("xxx.plugin-config.go").setup()
+            require("xxx.plugin-config.go-rc").setup()
         end
     },
 
@@ -473,7 +481,7 @@ local plugins = {
         'simrat39/rust-tools.nvim',
         ft = { "rust" },
         config = function()
-            require("xxx.plugin-config.rs-rust-tools").setup()
+            require("xxx.plugin-config.rs-rust-tools-rc").setup()
         end
     },
 
@@ -484,10 +492,8 @@ local plugins = {
         event = { "BufRead Cargo.toml" },
         requires = { 'nvim-lua/plenary.nvim' },
         config = function()
-            require('xxx.plugin-config.rs-crates').setup()
+            require('xxx.plugin-config.rs-crates-rc').setup()
         end,
     },
-
-
 }
 return plugins

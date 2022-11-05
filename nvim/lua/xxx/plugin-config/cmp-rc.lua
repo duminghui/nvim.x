@@ -351,7 +351,7 @@ function M.opts()
       end),
     },
     cmdline = {
-      enable = true,
+      enable = false,
       options = {
         {
           type = ":",

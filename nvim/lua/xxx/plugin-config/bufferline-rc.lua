@@ -937,7 +937,7 @@ M.opts = {
 }
 
 
-M.setup = function()
+function M.setup()
     local status_ok, bufferline = safe_require('bufferline')
     if not status_ok then
         return
