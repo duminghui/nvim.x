@@ -156,12 +156,12 @@ function M.opts()
     window = {
       -- completion = cmp.config.window.bordered(),
       -- documentation = cmp.config.window.bordered(),
-      completion = {
-        border = "single",
-      },
-      documentation = {
-        border = "single",
-      }
+      -- completion = {
+      --   border = "single",
+      -- },
+      -- documentation = {
+      --   border = "single",
+      -- }
     },
     formatting = {
       fields = { "abbr", "kind", "menu" },
@@ -351,7 +351,7 @@ function M.opts()
       end),
     },
     cmdline = {
-      enable = false,
+      enable = true,
       options = {
         {
           type = ":",

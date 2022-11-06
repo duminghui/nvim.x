@@ -150,6 +150,7 @@ function M.setup(server_name, user_config)
 
             pkg:once("install:failed", function()
                 vim.schedule(function()
+                    -- vim.log.levels.ERROR move to new lines is modify by vim.lsp.buf.format()
                     pn:finish(string.format("'%s:%s' was failingly installed", server_name, pkg_name),
                         vim.log.levels.ERROR, icons.ui.RunError)
                 end)

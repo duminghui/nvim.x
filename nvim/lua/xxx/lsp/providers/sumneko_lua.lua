@@ -1,17 +1,21 @@
+-- https://github.com/sumneko/lua-language-server/wiki/Settings
 local default_workspace = {
     library = {
         vim.fn.expand "$VIMRUNTIME",
         get_base_dir(),
-        -- require("lua-dev.sumneko").types(),
         require("neodev.config").types(),
-        vim.api.nvim_get_runtime_file("", true),
     },
+
+    -- too big
+    -- Make the server aware of Neovim runtime files
+    -- library = vim.api.nvim_get_runtime_file("", true),
 
     maxPreload = 1000,
     preloadFileSize = 10000,
+    checkThirdParty = false,
 }
 
-local add_packages_to_workspace = function(packages, config)
+local function add_packages_to_workspace(packages, config)
     -- config.settings.Lua = config.settings.Lua or { workspace = default_workspace }
     local runtimedirs = vim.api.nvim__get_runtime({ "lua" }, true, { is_lua = true })
     local workspace = config.settings.Lua.workspace
@@ -29,7 +33,6 @@ local lspconfig = require "lspconfig"
 local make_on_new_config = function(on_new_config, _)
     return lspconfig.util.add_hook_before(on_new_config, function(new_config, _)
         local server_name = new_config.name
-
         if server_name ~= "sumneko_lua" then
             return
         end
