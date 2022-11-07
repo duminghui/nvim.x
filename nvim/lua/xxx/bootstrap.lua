@@ -110,7 +110,26 @@ function M:init_rtp(root_dir, base_dir)
     if not in_headless then
         Log:debug("Use impatient")
         _G.PLENARY_DEBUG = false
-        require "xxx.impatient"
+        _G.__luacache_config = {
+            chunks = {
+                enable = true,
+            },
+            modpaths = {
+                enable = true,
+            },
+        }
+
+        impatient = require "xxx.impatient"
+        impatient.enable_profile()
+
+        -- local present, impatient = pcall(require, "impatient")
+
+        -- print("#########", present)
+
+        -- if present then
+        --     impatient.enable_profile()
+        -- end
+
     end
 
     return self
