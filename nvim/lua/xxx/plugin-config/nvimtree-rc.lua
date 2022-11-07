@@ -164,7 +164,7 @@ M.setup = function()
         return
     end
 
-    local utils = require("nvim-tree.utils")
+    local nt_notify = require("nvim-tree.notify")
 
 
     local function notify_level(log_level)
@@ -185,10 +185,10 @@ M.setup = function()
         end
     end
 
-    utils.notify.warn = notify_level(vim.log.levels.WARN)
-    utils.notify.error = notify_level(vim.log.levels.ERROR)
-    utils.notify.info = notify_level(vim.log.levels.INFO)
-    utils.notify.debug = notify_level(vim.log.levels.DEBUG)
+    nt_notify.warn = notify_level(vim.log.levels.WARN)
+    nt_notify.error = notify_level(vim.log.levels.ERROR)
+    nt_notify.info = notify_level(vim.log.levels.INFO)
+    nt_notify.debug = notify_level(vim.log.levels.DEBUG)
 
     if M.nvimtree_setup_called then
         Log:debug "ignoring repeated setup call for nvim-tree, see kyazdani42/nvim-tree.lua#1308"

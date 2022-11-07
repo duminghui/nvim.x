@@ -6,7 +6,8 @@ local M = {}
 M.opts = {
     parser_install_dir = join_paths(get_runtime_dir(), "parsers"),
     -- one of "all", "maintained" (parsers with maintainers), or a list of languages
-    ensure_installed = { 'lua' },
+    -- ensure_installed = { 'lua' },
+    ensure_installed = {},
     sync_install = false,
     auto_install = false,
     ignore_install = {},

@@ -35,14 +35,13 @@ local plugins = {
                 require('xxx.plugin-config.colorscheme.onedarkpro-rc').setup()
             end,
         },
-        -- {
-        --     'navarasu/onedark.nvim',
-        --     disable = true,
-        --     -- as = "colorscheme",
-        --     -- config = function()
-        --     --     require('xxx.plugin-config.colorscheme.onedark-rc').setup()
-        --     -- end,
-        -- },
+        {
+            'navarasu/onedark.nvim',
+            -- as = "colorscheme",
+            -- config = function()
+            --     require('xxx.plugin-config.colorscheme.onedark-rc').setup()
+            -- end,
+        },
         {
             -- SchemaStore
             "b0o/schemastore.nvim",
@@ -129,6 +128,7 @@ local plugins = {
             -- },
             {
                 "nvim-telescope/telescope-fzf-native.nvim",
+                disable = true,
                 after = "telescope.nvim",
                 requires = { "nvim-telescope/telescope.nvim" },
                 config = function()
@@ -399,6 +399,8 @@ local plugins = {
     {
         -- highlight, linter, formater, indent framework
         "nvim-treesitter/nvim-treesitter",
+        -- commit = "e7bdcee167ae41295a3e99ad460ae80d2bb961d7", -- lua highlighter error start
+        commit = "5f85a0a2b5c8e385c1232333e50c55ebdd0e0791",
         -- run = ":TSUpdate",
         requires = {
             {

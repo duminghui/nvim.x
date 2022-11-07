@@ -173,6 +173,7 @@ M.opts = {
     styles = { -- Choose from "bold,italic,underline"
         strings = "NONE", -- Style that is applied to strings.
         comments = "italic", -- Style that is applied to comments
+        -- comments = "NONE", -- Style that is applied to comments
         keywords = "NONE", -- Style that is applied to keywords
         functions = "NONE", -- Style that is applied to functions
         variables = "NONE", -- Style that is applied to variables

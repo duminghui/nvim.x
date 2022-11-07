@@ -42,9 +42,9 @@ function M.load_default_options()
   -- wrap
   vim.opt.wrap = true
   vim.opt.wrapmargin = 1
-  vim.opt.breakindent = false
+  vim.opt.breakindent = true
   vim.opt.breakindentopt = "shift:2,sbr" -- lin wrap opts
-  vim.opt.linebreak = false
+  vim.opt.linebreak = true
   -- vim.wo.breakat = ""
   vim.opt.whichwrap:append 'b,s,h,l,<,>,[,]'
 
@@ -133,7 +133,7 @@ function M.load_default_options()
   vim.opt.undolevels = 1000 -- Ensure we can undo a lot! **
   vim.opt.undodir = join_paths(vim.fn.stdpath("data"), "undos") -- Set the undo directory
   vim.opt.viewdir = join_paths(vim.fn.stdpath("data"), "views")
-  vim.opt.shadafile = join_paths(vim.fn.stdpath("data"), "shadas", "nvimi.shada")
+  vim.opt.shadafile = join_paths(vim.fn.stdpath("data"), "shadas", "nvim_xxx.shada")
 
   vim.opt.backup = false
   --[[if a file is being edited by another program

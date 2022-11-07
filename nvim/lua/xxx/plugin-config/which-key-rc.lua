@@ -139,6 +139,7 @@ M.n_mappings = {
         S = { "<cmd>PackerSync<CR>", "Sync" },
         s = { "<cmd>PackerStatus<CR>", "Status" },
         u = { "<cmd>PackerUpdate<CR>", "Update" },
+        p = { "<cmd>PackerSnapshot default.json<CR>", "Snapshot default.json" }
     },
     g = {
         name = "Git",

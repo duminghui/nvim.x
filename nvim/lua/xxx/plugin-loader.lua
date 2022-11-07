@@ -6,8 +6,9 @@ local in_headless = #vim.api.nvim_list_uis() == 0
 
 -- we need to reuse this outside of init()
 local compile_path = join_paths(get_config_dir(), "plugin", "packer_compiled.lua")
-local snapshot_path = join_paths(get_cache_dir(), "snapshots")
-local default_snapshot = join_paths(get_base_dir(), "snapshots", "default.json")
+-- local snapshot_path = join_paths(get_cache_dir(), "snapshots")
+local snapshot_path = join_paths(get_config_dir(), "snapshots")
+local default_snapshot = join_paths(get_config_dir(), "snapshots", "default.json")
 
 function plugin_loader.init(opts)
     opts = opts or {}
