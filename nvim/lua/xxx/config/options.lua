@@ -5,6 +5,10 @@ function M.load_default_options()
   vim.g.mapleader = ","
   vim.g.maplocalleader = ","
 
+  vim.scriptencoding = "utf-8"
+  vim.opt.encoding = "utf-8"
+  vim.opt.fileencoding = "utf-8"
+
   -------------------- BUFFER OPTIONS --------------------
   -- vim.bo.autoindent = true
   -- vim.bo.expandtab = true -- Use spaces instead of tabs
@@ -16,9 +20,9 @@ function M.load_default_options()
   vim.opt.autoindent = true
   vim.opt.smartindent = true -- Insert indents automatically
   vim.opt.expandtab = true -- Use spaces instead of tabs
-  vim.opt.shiftwidth = 2 -- Number of spaces of an indent, when zero use `tabstop`
-  vim.opt.tabstop = 2 -- Number of spaces in a tab
-  -- vim.opt.softtabstop = 4 -- Number of spaces tabs count for **
+  vim.opt.shiftwidth = 4 -- Number of spaces of an indent, when zero use `tabstop`
+  vim.opt.tabstop = 4 -- Number of spaces in a tab
+  vim.opt.softtabstop = 4 -- Number of spaces tabs count for **
   -- Number of spaces that a <Tab> counts for while performing editing
   -- operations, like inserting a <Tab> or using <BS>.
   -- When 'sts' is zero, this feature is off.

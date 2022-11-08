@@ -8,7 +8,11 @@ M.opts = {
   go = "go", -- set to go1.18beta1 if necessary
   goimport = "gopls", -- if set to 'gopls' will use gopls format, also goimport
   fillstruct = "gopls",
-  gofmt = "gofumpt", -- if set to gopls will use gopls format
+
+  -- gofumpt: import部分不会分组, 最终使用的是golines
+  -- gofmt = "gofumpt", -- if set to gopls will use gopls format
+  -- 使用gopls最终使用的是vim.lsp.buf.format({name=gopls}), import部分分组是下面配置项lsp_gofumpt=true
+  gofmt = "gopls", -- if set to gopls will use gopls format
   max_line_len = 128,
   tag_transform = false,
 
@@ -33,7 +37,7 @@ M.opts = {
   }, -- false: do nothing
   -- true: apply non-default gopls setup defined in go/lsp.lua
   -- if lsp_cfg is a table, merge table with with non-default gopls setup in go/lsp.lua, e.g.
-  lsp_gofumpt = false, -- true: set default gofmt in gopls format to gofumpt
+  lsp_gofumpt = true, -- true: set default gofmt in gopls format to gofumpt, true: import部分分组, false: 不分组
   lsp_on_attach = nil, -- nil: use on_attach function defined in go/lsp.lua for gopls,
   --      when lsp_cfg is true
   -- if lsp_on_attach is a function: use this function as on_attach function for gopls,
@@ -42,9 +46,10 @@ M.opts = {
     require "xxx.lsp.keymappings".add_lsp_buffer_keybindings(client, bufnr)
     local lu = require "xxx.lsp.utils"
     lu.setup_document_highlight(client, bufnr)
-    lu.setup_format_on_save(client, bufnr, function()
-      require("go.format").goimport()
-    end)
+    -- lu.setup_format_on_save(client, bufnr, function()
+    --   require("go.format").goimport()
+    -- end)
+    lu.setup_format_on_save(client, bufnr)
     lu.setup_fold()
     lsp.add_lsp_buffer_options(bufnr)
   end, -- it is a function with same signature as on_attach, will be called at end of
@@ -57,7 +62,7 @@ M.opts = {
   -- if enable gopls to format the code and you also instlled and enabled null-ls, you may
   -- want to disable null-ls by setting this to true
   -- it can be a nulls source name e.g. `golines` or a nulls query table
-  lsp_keymaps = false, -- true: use default keymaps defined in go/lsp.lua
+  lsp_keymaps = true, -- true: use default keymaps defined in go/lsp.lua
   lsp_codelens = true,
 
   lsp_diag_hdlr = false, -- hook lsp diag handler **

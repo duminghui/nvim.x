@@ -27,7 +27,7 @@ function M.common_on_exit(_, _)
     autocmds.clear_augroup "lsp_code_lens_refresh"
 end
 
--- function M.common_on_init(client, bufnr)
+-- function M.common_on_init(client, initialize_result)
 function M.common_on_init(_, _)
     -- print("common_on_init")
 end

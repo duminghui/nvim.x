@@ -21,7 +21,7 @@ local function setup_async_formatting_handler()
             vim.api.nvim_buf_get_var(ctx.bufnr, 'changedtick')
         then
             local view = vim.fn.winsaveview()
-            vim.lsp.util.apply_text_edits(result, ctx.bufnr, 'utf-8')
+            vim.lsp.util.apply_text_edits(result, ctx.bufnr, 'utf-16')
             vim.fn.winrestview(view)
             if ctx.bufnr == vim.api.nvim_get_current_buf() then
                 vim.b.format_saving = true
