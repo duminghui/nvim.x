@@ -3,10 +3,10 @@
     "commit": "b27cbb7"
   },
   "guihua.lua": {
-    "commit": "17f6d72"
+    "commit": "77553eb"
   },
-  "project.nvim": {
-    "commit": "685bc8e"
+  "structlog.nvim": {
+    "commit": "232a8e2"
   },
   "packer.nvim": {
     "commit": "6afb674"
@@ -20,8 +20,8 @@
   "vim-illuminate": {
     "commit": "fb83d83"
   },
-  "go.nvim": {
-    "commit": "79c79c4"
+  "lsp-colors.nvim": {
+    "commit": "4e6da19"
   },
   "sqlite.lua": {
     "commit": "47685f0"
@@ -38,14 +38,11 @@
   "lualine.nvim": {
     "commit": "3325d5d"
   },
-  "structlog.nvim": {
-    "commit": "232a8e2"
-  },
   "which-key.nvim": {
     "commit": "61553ae"
   },
-  "bufferline.nvim": {
-    "commit": "d631817"
+  "nvim-treesitter-textobjects": {
+    "commit": "13739a5"
   },
   "nvim-autopairs": {
     "commit": "6b6e35f"
@@ -67,6 +64,9 @@
   },
   "rust-tools.nvim": {
     "commit": "99fd123"
+  },
+  "alpha-nvim": {
+    "commit": "0bb6fc0"
   },
   "gitsigns.nvim": {
     "commit": "2b4fc5e"
@@ -107,14 +107,11 @@
   "mason.nvim": {
     "commit": "f5b1a20"
   },
-  "nvim-treesitter-textobjects": {
-    "commit": "13739a5"
+  "bufferline.nvim": {
+    "commit": "d631817"
   },
   "nvim-hlslens": {
     "commit": "691d5d9"
-  },
-  "alpha-nvim": {
-    "commit": "0bb6fc0"
   },
   "cmp-nvim-lsp": {
     "commit": "78924d1"
@@ -127,6 +124,9 @@
   },
   "vim-sleuth": {
     "commit": "8332f12"
+  },
+  "project.nvim": {
+    "commit": "685bc8e"
   },
   "schemastore.nvim": {
     "commit": "142e0b9"
@@ -146,8 +146,8 @@
   "colorscheme": {
     "commit": "87571f5"
   },
-  "lsp-colors.nvim": {
-    "commit": "4e6da19"
+  "go.nvim": {
+    "commit": "79c79c4"
   },
   "feline.nvim": {
     "commit": "0d79083"

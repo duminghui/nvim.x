@@ -405,8 +405,8 @@ local plugins = {
   {
     -- highlight, linter, formater, indent framework
     "nvim-treesitter/nvim-treesitter",
+    commit = "58f61e563fadd1788052586f4d6869a99022df3c",
     -- commit = "e7bdcee167ae41295a3e99ad460ae80d2bb961d7", -- lua highlighter error start
-    commit = "5f85a0a2b5c8e385c1232333e50c55ebdd0e0791",
     -- run = ":TSUpdate",
     requires = {
       {
