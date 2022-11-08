@@ -11,11 +11,14 @@
   "packer.nvim": {
     "commit": "6afb674"
   },
+  "Comment.nvim": {
+    "commit": "ad7ffa8"
+  },
   "nvim-notify": {
     "commit": "354e0eb"
   },
-  "nvim-lspconfig": {
-    "commit": "1806fb2"
+  "nvim-hlslens": {
+    "commit": "691d5d9"
   },
   "vim-illuminate": {
     "commit": "fb83d83"
@@ -47,6 +50,9 @@
   "nvim-autopairs": {
     "commit": "6b6e35f"
   },
+  "nvim-lspconfig": {
+    "commit": "1806fb2"
+  },
   "neovim-session-manager": {
     "commit": "4005dac"
   },
@@ -59,26 +65,23 @@
   "nvim-colorizer.lua": {
     "commit": "760e27d"
   },
-  "telescope-frecency.nvim": {
-    "commit": "10771fd"
+  "gitsigns.nvim": {
+    "commit": "2b4fc5e"
   },
   "rust-tools.nvim": {
     "commit": "99fd123"
   },
-  "alpha-nvim": {
-    "commit": "0bb6fc0"
+  "telescope-frecency.nvim": {
+    "commit": "10771fd"
   },
-  "gitsigns.nvim": {
-    "commit": "2b4fc5e"
-  },
-  "indent-blankline.nvim": {
-    "commit": "db7cbcb"
+  "dressing.nvim": {
+    "commit": "12b808a"
   },
   "onedark.nvim": {
     "commit": "cad3d98"
   },
-  "dressing.nvim": {
-    "commit": "12b808a"
+  "indent-blankline.nvim": {
+    "commit": "db7cbcb"
   },
   "nvim-scrollbar": {
     "commit": "49b5a0f"
@@ -98,8 +101,8 @@
   "cmp-cmdline": {
     "commit": "c66c379"
   },
-  "Comment.nvim": {
-    "commit": "ad7ffa8"
+  "nvim-cmp": {
+    "commit": "9bb8ee6"
   },
   "filetype.nvim": {
     "commit": "b522628"
@@ -110,8 +113,8 @@
   "bufferline.nvim": {
     "commit": "d631817"
   },
-  "nvim-hlslens": {
-    "commit": "691d5d9"
+  "alpha-nvim": {
+    "commit": "0bb6fc0"
   },
   "cmp-nvim-lsp": {
     "commit": "78924d1"
@@ -124,9 +127,6 @@
   },
   "vim-sleuth": {
     "commit": "8332f12"
-  },
-  "project.nvim": {
-    "commit": "685bc8e"
   },
   "schemastore.nvim": {
     "commit": "142e0b9"
@@ -148,6 +148,9 @@
   },
   "go.nvim": {
     "commit": "79c79c4"
+  },
+  "impatient.nvim": {
+    "commit": "b842e16"
   },
   "feline.nvim": {
     "commit": "0d79083"
@@ -179,8 +182,8 @@
   "bufdelete.nvim": {
     "commit": "027d356"
   },
-  "nvim-cmp": {
-    "commit": "9bb8ee6"
+  "project.nvim": {
+    "commit": "685bc8e"
   },
   "nvim-treesitter-context": {
     "commit": "0dd5eae"

@@ -1,9 +1,9 @@
 local plugins = {
 
-  -- {
-  --     -- Speeds up load times
-  --     "lewis6991/impatient.nvim",
-  -- },
+  {
+    -- Speeds up load times
+    "lewis6991/impatient.nvim",
+  },
 
   { 'wbthomason/packer.nvim' },
   { "Tastyep/structlog.nvim" },
