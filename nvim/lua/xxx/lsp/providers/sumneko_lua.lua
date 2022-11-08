@@ -2,7 +2,7 @@
 local default_workspace = {
     library = {
         vim.fn.expand "$VIMRUNTIME",
-        get_base_dir(),
+        vim.fn.stdpath("config"),
         require("neodev.config").types(),
     },
 

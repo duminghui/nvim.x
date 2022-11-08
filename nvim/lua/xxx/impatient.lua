@@ -22,7 +22,6 @@ local std_dirs = {
     ["<VIMRUNTIME>"] = os.getenv "VIMRUNTIME",
     ["<STD_DATA>"] = vim.fn.stdpath "data",
     ["<STD_CONFIG>"] = vim.fn.stdpath "config",
-    ["<XVIM_BASE>"] = get_base_dir(),
     ["<XVIM_CONFIG>"] = vim.fn.stdpath "config",
 }
 

@@ -3,6 +3,7 @@ local M = {}
 local lsp_opts = require("xxx.lsp.config")
 local _, builtin = pcall(require, "telescope.builtin")
 local _, themes = pcall(require, "telescope.themes")
+local config_dir = vim.fn.stdpath("config")
 
 function M.find_xvim_files(opts)
     opts = opts or {}
@@ -11,8 +12,8 @@ function M.find_xvim_files(opts)
         layout_strategy = "bottom_pane",
         prompt_prefix = ">> ",
         prompt_title = "~ XVim files ~",
-        cwd = get_base_dir(),
-        search_dirs = { get_base_dir(), lsp_opts.templates_dir },
+        cwd = config_dir,
+        search_dirs = { config_dir, lsp_opts.templates_dir },
     }
     opts = vim.tbl_deep_extend("force", theme_opts, opts)
     builtin.find_files(opts)
@@ -25,8 +26,8 @@ function M.grep_xvim_files(opts)
         layout_strategy = "bottom_pane",
         prompt_prefix = ">> ",
         prompt_title = "~ Search XVim ~",
-        cwd = get_base_dir(),
-        search_dirs = { get_base_dir(), lsp_opts.templates_dir },
+        cwd = config_dir,
+        search_dirs = { config_dir, lsp_opts.templates_dir },
     }
     opts = vim.tbl_deep_extend("force", theme_opts, opts)
     builtin.live_grep(opts)
