@@ -23,8 +23,7 @@ local std_dirs = {
     ["<STD_DATA>"] = vim.fn.stdpath "data",
     ["<STD_CONFIG>"] = vim.fn.stdpath "config",
     ["<XVIM_BASE>"] = get_base_dir(),
-    ["<XVIM_RUNTIME>"] = get_runtime_dir(),
-    ["<XVIM_CONFIG>"] = get_config_dir(),
+    ["<XVIM_CONFIG>"] = vim.fn.stdpath "config",
 }
 
 local function modpath_mangle(modpath)

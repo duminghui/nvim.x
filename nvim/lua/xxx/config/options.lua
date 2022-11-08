@@ -123,26 +123,30 @@ function M.load_default_options()
   vim.opt.wildignore = { "*/.git/*", "*/node_modules/*" } -- Ignore these files/folders **
   vim.opt.virtualedit = 'onemore'
 
+  local data_dir = vim.fn.stdpath("data")
+  for _, dir_name in ipairs({ "backups", "undos", "swaps", "sessions", "views", "shadas" }) do
+    vim.fn.mkdir(join_paths(data_dir, dir_name), 'p', '0700')
+  end
   -- Create folders for our backups, undos, swaps and sessions if they don't exist
-  vim.cmd("silent call mkdir(stdpath('data').'/backups', 'p', '0700')")
-  vim.cmd("silent call mkdir(stdpath('data').'/undos', 'p', '0700')")
-  vim.cmd("silent call mkdir(stdpath('data').'/swaps', 'p', '0700')")
-  vim.cmd("silent call mkdir(stdpath('data').'/sessions', 'p', '0700')")
-  vim.cmd("silent call mkdir(stdpath('data').'/views', 'p', '0700')")
-  vim.cmd("silent call mkdir(stdpath('data').'/shadas', 'p', '0700')")
+  -- vim.cmd("silent call mkdir(stdpath('data').'/backups', 'p', '0700')")
+  -- vim.cmd("silent call mkdir(stdpath('data').'/undos', 'p', '0700')")
+  -- vim.cmd("silent call mkdir(stdpath('data').'/swaps', 'p', '0700')")
+  -- vim.cmd("silent call mkdir(stdpath('data').'/sessions', 'p', '0700')")
+  -- vim.cmd("silent call mkdir(stdpath('data').'/views', 'p', '0700')")
+  -- vim.cmd("silent call mkdir(stdpath('data').'/shadas', 'p', '0700')")
 
-  vim.opt.backupdir = join_paths(vim.fn.stdpath("data"), "backups") -- Use backup files
-  vim.opt.directory = join_paths(vim.fn.stdpath("data"), "swaps") -- Use Swap files
+  vim.opt.backupdir = join_paths(data_dir, "backups") -- Use backup files
+  vim.opt.directory = join_paths(data_dir, "swaps") -- Use Swap files
   vim.opt.undofile = true -- Maintain undo history between sessions
   vim.opt.undolevels = 1000 -- Ensure we can undo a lot! **
-  vim.opt.undodir = join_paths(vim.fn.stdpath("data"), "undos") -- Set the undo directory
-  vim.opt.viewdir = join_paths(vim.fn.stdpath("data"), "views")
-  vim.opt.shadafile = join_paths(vim.fn.stdpath("data"), "shadas", "nvim_xxx.shada")
+  vim.opt.undodir = join_paths(data_dir, "undos") -- Set the undo directory
+  vim.opt.viewdir = join_paths(data_dir, "views")
+  vim.opt.shadafile = join_paths(data_dir, "shadas", "nvim_xxx.shada")
 
   vim.opt.backup = false
   --[[if a file is being edited by another program
     (or was written to file while editing with another program), it is not allowed to be edited ]]
-  -- vim.opt.writebackup = false,
+  vim.opt.writebackup = false
   vim.opt.swapfile = false -- don't use a swap file
 
 
@@ -172,7 +176,7 @@ function M.load_default_options()
   -- vim.cmd("colorscheme xxx")
 
   if vim.loop.os_uname().version:match "Windows" then
-    vim.g.sqlite_clib_path = join_paths(get_config_dir(), "sqlite3", "sqlite3.dll")
+    vim.g.sqlite_clib_path = join_paths(vim.fn.stdpath("config"), "sqlite3", "sqlite3.dll")
   end
 
 end

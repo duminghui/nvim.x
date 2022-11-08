@@ -4,7 +4,7 @@ local colors = require("xxx.core.colors")
 local M = {}
 
 M.opts = {
-    parser_install_dir = join_paths(get_runtime_dir(), "parsers"),
+    parser_install_dir = join_paths(vim.fn.stdpath("data"), "parsers"),
     -- one of "all", "maintained" (parsers with maintainers), or a list of languages
     -- ensure_installed = { 'lua' },
     ensure_installed = {},

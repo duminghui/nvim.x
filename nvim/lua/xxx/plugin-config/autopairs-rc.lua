@@ -53,6 +53,10 @@ M.opts = {
     },
 }
 
+local function on_confirm_done(...)
+    require("nvim-autopairs.completion.cmp").on_confirm_done()(...)
+end
+
 M.setup = function()
     local status_ok, autopairs = safe_require("nvim-autopairs")
     if not status_ok then
@@ -72,8 +76,11 @@ M.setup = function()
     --     Rule("$", "$", "lua"):with_pair(ts_conds.is_not_ts_node { "function" }),
     -- }
 
-    local cmp_autopairs = require "nvim-autopairs.completion.cmp"
-    require("cmp").event:on("confirm_done", cmp_autopairs.on_confirm_done())
+    pcall(function()
+        require "nvim-autopairs.completion.cmp"
+        require("cmp").event:off("confirm_done", on_confirm_done)
+        require("cmp").event:on("confirm_done", on_confirm_done)
+    end)
 end
 
 return M

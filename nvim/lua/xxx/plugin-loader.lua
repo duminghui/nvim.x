@@ -4,23 +4,23 @@ local utils = require "xxx.utils"
 local Log = require "xxx.core.log"
 local in_headless = #vim.api.nvim_list_uis() == 0
 
+local config_dir = vim.fn.stdpath("config")
+
 -- we need to reuse this outside of init()
-local compile_path = join_paths(get_config_dir(), "plugin", "packer_compiled.lua")
--- local snapshot_path = join_paths(get_cache_dir(), "snapshots")
-local snapshot_path = join_paths(get_config_dir(), "snapshots")
-local default_snapshot = join_paths(get_config_dir(), "snapshots", "default.json")
+local compile_path = ""
 
-function plugin_loader.init(opts)
-    opts = opts or {}
 
-    local install_path = opts.install_path or
-        join_paths(vim.fn.stdpath "data", "site", "pack",
-            "packer", "start", "packer.nvim")
-    compile_path = opts.compile_path or join_paths(get_config_dir(), "plugin", "packer_compiled.lua")
+function plugin_loader.init()
+
+    local snapshot_path = join_paths(config_dir, "snapshots")
+    local default_snapshot = join_paths(config_dir, "snapshots", "default.json")
+
+    local package_root = join_paths(vim.fn.stdpath("data"), "site", "pack")
+    local install_path = join_paths(package_root, "packer", "start", "packer.nvim")
+    compile_path = join_paths(config_dir, "plugin", "packer_compiled.lua")
 
     local init_opts = {
-        package_root = opts.package_root or
-            join_paths(vim.fn.stdpath "data", "site", "pack"),
+        package_root = package_root,
         compile_path = compile_path,
         snapshot_path = snapshot_path,
         max_jobs = 33,
@@ -54,9 +54,9 @@ function plugin_loader.init(opts)
     local status_ok, packer = pcall(require, "packer")
     if status_ok then
         packer.on_complete = vim.schedule_wrap(function()
-            -- 这块在什么时候执行?
-            -- print("##: packer.on_complete")
-            require("xxx.utils.hooks").run_on_packer_complete()
+            print("Packer operation complete")
+            Log:debug "Packer operation complete"
+            vim.api.nvim_exec_autocmds("User", { pattern = "PackerComplete" })
         end)
         packer.init(init_opts)
     end
@@ -79,15 +79,24 @@ function plugin_loader.cache_clear()
     end
 end
 
+function plugin_loader.compile()
+    Log:debug "calling packer.compile()"
+    vim.api.nvim_create_autocmd("User", {
+        pattern = "PackerCompileDone",
+        once = true,
+        callback = function()
+            if utils.is_file(compile_path) then
+                Log:debug "finished compiling packer_compiled.lua"
+                print("finished compiling packer_compiled.lua")
+            end
+        end,
+    })
+    pcall_packer_command "compile"
+end
+
 function plugin_loader.recompile()
     plugin_loader.cache_clear()
-    pcall_packer_command "compile"
-    if utils.is_file(compile_path) then
-        Log:debug "generated packer_compiled.lua"
-        -- vim.notify("Pakcer recompile end", vim.log.levels.INFO)
-    else
-        -- vim.notify("Pakcer recompile failed", vim.log.levels.ERROR)
-    end
+    plugin_loader.compile()
 end
 
 function plugin_loader.load(configurations)

@@ -21,16 +21,14 @@ require "xxx.core.globals"
 -- 全局
 require "xxx.config.config"
 
-local bootstrap = require("xxx.bootstrap")
 -- 配置rpt
-
-bootstrap:init_rtp(root_dir, nvim_base_dir)
+require("xxx.bootstrap"):init_rtp(root_dir, nvim_base_dir)
 
 local config = require("xxx.config")
 
 config.init()
 
-bootstrap:init_plugin_loader()
+require("xxx.plugin-loader").init()
 
 config.load()
 

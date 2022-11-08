@@ -150,7 +150,7 @@ function M.opts()
 
             -- nvim-telescope/telescope-smart-history.nvim (No UI), use in dialog input history
             history = {
-                path = join_paths(get_runtime_dir(), "telescope_history.sqlite3"),
+                path = join_paths(vim.fn.stdpath("data"), "telescope_history.sqlite3"),
                 limit = 133,
             },
 
@@ -185,7 +185,7 @@ function M.opts()
             },
             frecency = {
                 -- default: nvim-data/file_frecency.sqlite3
-                db_root = get_runtime_dir(),
+                db_root = vim.fn.stdpath("data"),
 
                 show_scores = true,
                 show_unindexed = true,

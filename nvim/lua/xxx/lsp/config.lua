@@ -63,7 +63,7 @@ local diagnostic_float = {
 local icons = require("xxx.core.icons")
 
 local options = {
-    templates_dir = join_paths(get_runtime_dir(), "site", "after", "ftplugin"),
+    templates_dir = join_paths(vim.fn.stdpath("data"), "site", "after", "ftplugin"),
     diagnostics = {
         signs = {
             priority = 30,
@@ -115,7 +115,7 @@ local options = {
 
     nlsp_settings = {
         setup = {
-            config_home = join_paths(get_config_dir(), "lsp-settings"),
+            config_home = join_paths(vim.fn.stdpath("config"), "lsp-settings"),
             -- set to false to overwrite schemastore.nvim
             ignored_servers = {},
             append_default_schemas = true,

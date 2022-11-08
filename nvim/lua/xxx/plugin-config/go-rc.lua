@@ -1,6 +1,6 @@
 local M = {}
 
-local log_path = join_paths(get_runtime_dir(), "gonvim.log")
+local log_path = join_paths(vim.fn.stdpath("log"), "gonvim.log")
 local lsp = require("xxx.lsp")
 
 M.opts = {

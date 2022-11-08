@@ -41,7 +41,7 @@ M.opts = {
     ---@type string
     ---@usage path to store the project history for use in telescope
     -- datapath = get_cache_dir(),
-    datapath = get_runtime_dir(),
+    datapath = vim.fn.stdpath("data"),
 }
 
 M.setup = function()

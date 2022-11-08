@@ -35,35 +35,18 @@ function M:init_rtp(root_dir, base_dir)
     -- base_dir: root_dir/nvim
     self.base_dir = base_dir
     -- runtime_dir root_dir/nvim-data
-    self.runtime_dir = join_paths(root_dir, "nvim-data")
+    self.data_dir = join_paths(root_dir, "nvim-data")
     -- config_dir: root_dir/nvim
     self.config_dir = base_dir
     -- cache_dir: temp_dir
     self.cache_dir = get_cache_dir()
 
-
-    self.pack_dir = join_paths(self.runtime_dir, "site", "pack")
-    self.packer_install_dir = join_paths(self.runtime_dir, "site", "pack", "packer", "start", "packer.nvim")
-    self.packer_compile_dir = join_paths(self.config_dir, "packer")
-    self.packer_compile_path = join_paths(self.packer_compile_dir, "plugin", "packer_compiled.lua")
-    -- self.packer_compile_path = join_paths(self.config_dir, "plugin",
-    --     "packer_compiled.lua")
-
     -- print("-----------")
     -- print("root_dir:            ", self.root_dir)
     -- print("base_dir:            ", self.base_dir)
     -- print("config_dir:          ", self.config_dir)
-    -- print("runtime_dir:         ", self.runtime_dir)
-    -- print("pack_dir:            ", self.pack_dir)
-    -- print("packer_install_dir:  ", self.packer_install_dir)
-    -- print("packer_compile_path: ", self.packer_compile_path)
+    -- print("data_dir:            ", self.data_dir)
     -- print("cache_dir:           ", self.cache_dir)
-    --
-    _G.get_root_dir = function() return self.root_dir end
-    _G.get_runtime_dir = function() return self.runtime_dir end
-    _G.get_config_dir = function() return self.config_dir end
-    ---Get the full path to base directory
-    _G.get_base_dir = function() return self.base_dir end
 
     ---@meta overridden to use CACHE_DIR instead, since a lot of plugins call this function interally
     ---NOTE: changes to "data" are currently unstable, see #2507
@@ -71,15 +54,15 @@ function M:init_rtp(root_dir, base_dir)
         local path = ""
         -- local what_msg = what
         if what == "config" then
-            path = _G.get_config_dir()
+            path = self.config_dir
         elseif what == "data" then
-            path = _G.get_runtime_dir()
+            path = self.data_dir
             -- what_msg = what .. "  "
         elseif what == "cache" then
             path = _G.get_cache_dir()
             -- what_msg = what .. " "
         elseif what == "log" then
-            path = _G.get_runtime_dir()
+            path = self.data_dir
         else
             path = vim.call("stdpath", what) or ""
         end
@@ -90,11 +73,10 @@ function M:init_rtp(root_dir, base_dir)
     -- print("####: ", vim.call("stdpath", "data"))
     -- print("####: ", vim.fn.stdpath("data"))
 
-    vim.opt.rtp:prepend(self.packer_compile_dir)
     vim.opt.rtp:remove(join_paths(vim.call("stdpath", "data"), "site"))
     vim.opt.rtp:remove(join_paths(vim.call("stdpath", "data"), "site", "after"))
-    vim.opt.rtp:prepend(join_paths(self.runtime_dir, "site"))
-    vim.opt.rtp:append(join_paths(self.runtime_dir, "site", "after"))
+    vim.opt.rtp:prepend(join_paths(self.data_dir, "site"))
+    vim.opt.rtp:append(join_paths(self.data_dir, "site", "after"))
 
     vim.opt.rtp:remove(vim.call("stdpath", "config"))
     vim.opt.rtp:remove(join_paths(vim.call("stdpath", "config"), "after"))
@@ -133,14 +115,6 @@ function M:init_rtp(root_dir, base_dir)
     end
 
     return self
-end
-
-function M:init_plugin_loader()
-    require("xxx.plugin-loader").init {
-        package_root = self.pack_dir,
-        install_path = self.packer_install_dir,
-        compile_path = self.packer_compile_path,
-    }
 end
 
 return M
