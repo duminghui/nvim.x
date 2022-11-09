@@ -188,8 +188,9 @@ M.n_mappings = {
     S = { "<cmd>Telescope lsp_dynamic_workspace_symbols<CR>", "Workspace Symbols" },
     e = { "<cmd>Telescope quickfix<CR>", "Telescope Quickfix" },
     p = { "<cmd>Lspsaga peek_definition<CR>", "Peek Definition" },
-    -- P = { "<cmd>lua =vim.lsp.get_active_clients()[1].config.settings<CR>", "Clients[1] settings" },
-    P = { "<cmd>lua =vim.lsp.get_active_clients()[1].config<CR>", "Clients[1] config" }
+    -- P = { "<cmd>lua =vim.lsp.get_active_clients()[1].config.settings<CR>", "Clients[1] Settings" },
+    P = { "<cmd>lua =vim.lsp.get_active_clients()[1].config<CR>", "Clients[1] Config" },
+    C = { "<cmd>lua =vim.lsp.get_active_clients()[1].server_capabilities<CR>", "Clients[1] Server Capabilities" },
   },
   s = {
     name = "Search",

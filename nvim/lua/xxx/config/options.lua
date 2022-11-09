@@ -2,6 +2,9 @@ local M = {}
 
 function M.load_default_options()
   -------------------- GLOBAL OPTIONS --------------------
+  if vim.loop.os_uname().version:match "Windows" then
+    vim.g.sqlite_clib_path = join_paths(vim.fn.stdpath("config"), "sqlite3", "sqlite3.dll")
+  end
   vim.g.mapleader = ","
   vim.g.maplocalleader = ","
 
@@ -70,13 +73,14 @@ function M.load_default_options()
     fold = "-",
     -- stl = " ",
   }
-  vim.opt.foldenable = true -- Enable folding
+  vim.opt.foldenable = false -- Disable folding at startup.
   vim.opt.foldlevel = 6 -- Fold by default
   -- vim.opt.foldmethod = "marker" -- Fold based on markers as opposed to indentation
   vim.opt.foldmethod = "manual" -- folding, set to "expr" for treesitter based folding
   vim.opt.foldexpr = "" -- set to "nvim_treesitter#foldexpr()" for treesitter based folding
-  -- vim.opt.laststatus = 3 -- Use global statusline **
   vim.opt.modelines = 1 -- Only use folding settings for this file
+
+  -- vim.opt.laststatus = 3 -- Use global statusline **
 
   vim.opt.mouse = "a" -- Use the mouse in all modes
   vim.opt.mousemoveevent = true -- for bufferline hover
@@ -170,9 +174,6 @@ function M.load_default_options()
   -- vim.cmd('syntax enable')
   -- vim.cmd("colorscheme xxx")
 
-  if vim.loop.os_uname().version:match "Windows" then
-    vim.g.sqlite_clib_path = join_paths(vim.fn.stdpath("config"), "sqlite3", "sqlite3.dll")
-  end
 
 end
 

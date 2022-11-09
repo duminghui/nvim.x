@@ -1,6 +1,9 @@
 local M = {}
 
 M.opts = {
+    server = {
+        standalong = false,
+    }
 }
 
 function M.setup()

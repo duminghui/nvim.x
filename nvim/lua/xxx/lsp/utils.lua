@@ -125,6 +125,7 @@ function M.setup_document_highlight(client, bufnr)
 end
 
 function M.setup_fold()
+    vim.wo.foldenable = false -- Disable folding at startup.
     vim.wo.foldlevel = 6
     vim.wo.foldmethod = "expr"
     vim.wo.foldexpr = "nvim_treesitter#foldexpr()"

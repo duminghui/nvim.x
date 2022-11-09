@@ -45,6 +45,16 @@ lspconfig.util.default_config = vim.tbl_extend("force", lspconfig.util.default_c
 })
 
 local opts = {
+  -- commands add after client attach
+  -- Warning: Commands is deprecated and will be removed in future releases.
+  -- It is recommended to use `vim.api.nvim_create_user_command()` instead in an `on_attach` function.
+  commands = {
+    XXXCmd = {
+      function()
+        print("this is XXX Cmd in sumneko_lua.lua, client.config.commands")
+      end
+    }
+  },
   settings = {
     Lua = {
       telemetry = { enable = false },
