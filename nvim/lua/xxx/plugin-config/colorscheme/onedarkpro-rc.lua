@@ -210,8 +210,6 @@ function M.setup()
   -- 会把整个替换掉
   -- vim.api.nvim_set_hl(0, "CursorLineNr", { fg = "#FFE700" })
 
-  require("xxx.plugin-config.treesitter-rc").set_rainbow_highlight()
-  require("xxx.plugin-config.indent-blankline-rc").set_highlight()
 end
 
 return M

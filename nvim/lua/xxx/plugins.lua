@@ -11,7 +11,7 @@ local plugins = {
   {
     "rcarriga/nvim-notify",
     config = function()
-      require("xxx.plugin-config.notify-rc").setup()
+      require("xxx.plugin-config.nvim-notify-rc").setup()
     end,
   },
   {
@@ -43,6 +43,7 @@ local plugins = {
     },
     {
       'navarasu/onedark.nvim',
+      disable = true,
       -- as = "colorscheme",
       -- config = function()
       --     require('xxx.plugin-config.colorscheme.onedark-rc').setup()
@@ -79,18 +80,21 @@ local plugins = {
     -- Highlight hex and rgb colors within Neovim
     'NvChad/nvim-colorizer.lua',
     config = function()
-      require('xxx.plugin-config.colorizer-rc').setup()
+      require('xxx.plugin-config.nvim-colorizer-rc').setup()
     end,
   },
 
   {
     "petertriho/nvim-scrollbar", -- A scrollbar for the current window
     -- after = "colorscheme",
+    config = function()
+      require("xxx.plugin-config.scroll.nvim-scrollbar-rc").setup()
+    end,
     requires = {
       {
         "kevinhwang91/nvim-hlslens", -- Highlight searches
         config = function()
-          require("xxx.plugin-config.scroll.hlslens-rc").setup()
+          require("xxx.plugin-config.scroll.nvim-hlslens-rc").setup()
         end,
       },
       {
@@ -100,16 +104,13 @@ local plugins = {
         end,
       },
     },
-    config = function()
-      require("xxx.plugin-config.scroll.scrollbar-rc").setup()
-    end,
   },
 
 
   {
     "kylechui/nvim-surround",
     config = function()
-      require("xxx.plugin-config.surround-rc").setup()
+      require("xxx.plugin-config.nvim-surround-rc").setup()
     end,
   },
 
@@ -122,6 +123,9 @@ local plugins = {
     "nvim-telescope/telescope.nvim",
     after = "colorscheme",
     branch = "0.1.x",
+    config = function()
+      require("xxx.plugin-config.telescope-rc").setup()
+    end,
     requires = {
       'nvim-lua/plenary.nvim',
       -- {
@@ -171,9 +175,6 @@ local plugins = {
         end,
       },
     },
-    config = function()
-      require("xxx.plugin-config.telescope-rc").setup()
-    end,
   },
   -- { 'nvim-telescope/telescope-ui-select.nvim' },
   {
@@ -219,6 +220,7 @@ local plugins = {
   },
   {
     "feline-nvim/feline.nvim", -- Statusline
+    disable = true,
     after = "colorscheme",
     requires = {
       { "kyazdani42/nvim-web-devicons" }, -- Web icons for various plugins
@@ -239,17 +241,8 @@ local plugins = {
       { 'kyazdani42/nvim-web-devicons', opt = true, }
     },
     config = function()
-      require("xxx.plugin-config.nvimtree-rc").setup()
+      require("xxx.plugin-config.nvim-tree-rc").setup()
     end,
-  },
-  {
-    -- Lir
-    "christianchiarulli/lir.nvim",
-    requires = 'kyazdani42/nvim-web-devicons',
-    config = function()
-      require("xxx.plugin-config.lir-rc").setup()
-    end,
-    disable = true, -- use NvimTree
   },
 
   -- alpha
@@ -337,8 +330,9 @@ local plugins = {
       'SmiteshP/nvim-navic',
       requires = { "neovim/nvim-lspconfig" },
       config = function()
-        require("xxx.plugin-config.breadcrumbs-rc").setup()
+        require("xxx.plugin-config.nvim-navic-rc").setup()
       end,
+      disable = true,
     },
     {
       "folke/trouble.nvim",
@@ -362,6 +356,9 @@ local plugins = {
     -- Install nvim-cmp, and buffer source as a dependency
     {
       "hrsh7th/nvim-cmp",
+      config = function()
+        require("xxx.plugin-config.nvim-cmp-rc").setup()
+      end,
       requires = {
         {
           -- Code snippets
@@ -370,7 +367,7 @@ local plugins = {
             "rafamadriz/friendly-snippets",
           },
           config = function()
-            require("xxx.plugin-config.luasnip-rc").setup()
+            require("xxx.plugin-config.friendly-snippets-rc").setup()
           end,
         },
         -- cmp sources --
@@ -383,9 +380,6 @@ local plugins = {
         { "saadparwaiz1/cmp_luasnip" },
 
       },
-      config = function()
-        require("xxx.plugin-config.cmp-rc").setup()
-      end,
     },
     {
       -- vim functions for dev
@@ -407,9 +401,13 @@ local plugins = {
   {
     -- highlight, linter, formater, indent framework
     "nvim-treesitter/nvim-treesitter",
+    after = "colorscheme",
     commit = "58f61e563fadd1788052586f4d6869a99022df3c",
     -- commit = "e7bdcee167ae41295a3e99ad460ae80d2bb961d7", -- lua highlighter error start
     -- run = ":TSUpdate",
+    config = function()
+      require("xxx.plugin-config.nvim-treesitter-rc").setup()
+    end,
     requires = {
       {
         "nvim-treesitter/nvim-treesitter-textobjects", -- Syntax aware text-objects, select, move, swap, and peek support.
@@ -418,7 +416,7 @@ local plugins = {
         "windwp/nvim-autopairs",
         event = "InsertEnter",
         config = function()
-          require("xxx.plugin-config.autopairs-rc").setup()
+          require("xxx.plugin-config.nvim-autopairs-rc").setup()
         end,
       },
       {
@@ -426,6 +424,7 @@ local plugins = {
       },
       {
         "lukas-reineke/indent-blankline.nvim",
+        after = "colorscheme",
         config = function()
           require("xxx.plugin-config.indent-blankline-rc").setup()
         end,
@@ -434,7 +433,7 @@ local plugins = {
         -- 高亮显示相同的单词
         "RRethy/vim-illuminate",
         config = function()
-          require("xxx.plugin-config.illuminate-rc").setup()
+          require("xxx.plugin-config.vim-illuminate-rc").setup()
         end,
       },
       {
@@ -443,16 +442,13 @@ local plugins = {
         event = "BufReadPost",
       },
     },
-    config = function()
-      require("xxx.plugin-config.treesitter-rc").setup()
-    end,
   },
   {
     -- 代码吸顶
     "nvim-treesitter/nvim-treesitter-context",
     after = "nvim-treesitter",
     config = function()
-      require('xxx.plugin-config.treesitter-context-rc').setup()
+      require('xxx.plugin-config.nvim-treesitter-context-rc').setup()
     end,
   },
 
@@ -461,7 +457,7 @@ local plugins = {
     event = "BufWinEnter",
     branch = "main",
     config = function()
-      require("xxx.plugin-config.terminal-rc").setup()
+      require("xxx.plugin-config.toggleterm-rc").setup()
     end,
   },
 

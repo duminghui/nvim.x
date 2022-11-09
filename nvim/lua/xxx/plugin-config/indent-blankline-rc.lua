@@ -48,20 +48,7 @@ M.opts = {
   },
 }
 
-function M.setup()
-  -- vim.opt.list = true
-  -- vim.opt.listchars:append "space:⋅"
-  -- vim.opt.listchars:append "eol:↴"
-  --   vim.pretty_print(M.opts)
-  local status_ok, indent_blankline = safe_require("indent_blankline")
-  if not status_ok then
-    return
-  end
-
-  indent_blankline.setup(M.opts)
-end
-
-function M.set_highlight()
+local function set_highlight()
   -- vim.cmd [[highlight IndentBlanklineIndent1 guifg=#E06C75 gui=nocombine]]
   -- vim.cmd [[highlight IndentBlanklineIndent2 guifg=#E5C07B gui=nocombine]]
   -- vim.cmd [[highlight IndentBlanklineIndent3 guifg=#98C379 gui=nocombine]]
@@ -82,6 +69,21 @@ function M.set_highlight()
   -- 要在listchars中添加 space:⋅, space相关的才会显示出来
   -- vim.cmd [[highlight IndentBlanklineSpaceChar guifg=#FFA500 gui=nocombine]]
   -- vim.cmd [[highlight IndentBlanklineContextSpaceChar guifg=#E3170D gui=nocombine ]]
+end
+
+function M.setup()
+  -- vim.opt.list = true
+  -- vim.opt.listchars:append "space:⋅"
+  -- vim.opt.listchars:append "eol:↴"
+  --   vim.pretty_print(M.opts)
+  local status_ok, indent_blankline = safe_require("indent_blankline")
+  if not status_ok then
+    return
+  end
+
+  indent_blankline.setup(M.opts)
+
+  set_highlight()
 end
 
 return M

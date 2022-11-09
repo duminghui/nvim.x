@@ -20,8 +20,10 @@ function M.setup()
     return
   end
 
+
   scrollbar.setup(M.opts)
-  require("xxx.plugin-config.scroll.hlslens-rc").integrate_with_scrollbar()
+
+  require("xxx.plugin-config.scroll.nvim-hlslens-rc").integrate_with_scrollbar()
 
 end
 
