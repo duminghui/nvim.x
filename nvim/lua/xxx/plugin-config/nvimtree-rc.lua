@@ -158,7 +158,7 @@ M.opts = {
 
 M.nvimtree_setup_called = false
 
-M.setup = function()
+function M.setup()
   local status_ok, nvim_tree = safe_require("nvim-tree")
   if not status_ok then
     return

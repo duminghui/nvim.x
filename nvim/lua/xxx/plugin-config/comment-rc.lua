@@ -1,7 +1,7 @@
 local M = {}
 
 
-M.opts = function()
+function M.opts()
     local pre_hook = nil
     local loaded, ts_comment = pcall(require, "ts_context_commentstring.integrations.comment_nvim")
     if loaded and ts_comment then

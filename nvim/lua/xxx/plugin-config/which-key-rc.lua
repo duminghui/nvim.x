@@ -275,7 +275,7 @@ M.n_mappings = {
 }
 
 
-M.setup = function()
+function M.setup()
   local status_ok, which_key = safe_require("which-key")
   if not status_ok then
     return

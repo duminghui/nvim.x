@@ -4,13 +4,13 @@ M.opts = {
 
 }
 
-M.setup = function()
-    --   vim.pretty_print(M.opts)
-    require "xxxxx".setup(M.opts)
+function M.setup()
+  --   vim.pretty_print(M.opts)
+  require "xxxxx".setup(M.opts)
 end
 
-M.set_highlight = function()
-    vim.cmd [[highlight xxxxx guifg=#FFD700]]
+function M.set_highlight()
+  vim.cmd [[highlight xxxxx guifg=#FFD700]]
 end
 
 return M
