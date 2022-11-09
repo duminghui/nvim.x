@@ -85,11 +85,10 @@ local plugins = {
 
   {
     "petertriho/nvim-scrollbar", -- A scrollbar for the current window
-    after = "colorscheme",
+    -- after = "colorscheme",
     requires = {
       {
         "kevinhwang91/nvim-hlslens", -- Highlight searches
-        after = "nvim-scrollbar",
         config = function()
           require("xxx.plugin-config.scroll.hlslens-rc").setup()
         end,
