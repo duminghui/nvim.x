@@ -80,7 +80,6 @@ function M.load_default_options()
 
   vim.opt.mouse = "a" -- Use the mouse in all modes
   vim.opt.mousemoveevent = true -- for bufferline hover
-  vim.o.sessionoptions = "buffers,curdir,folds,globals,tabpages,winpos,winsize" -- Session options to store in the session
   vim.opt.scrolljump = 1
   vim.opt.scrolloff = 6 -- Set the cursor 6 lines down instead of directly at the top of the file
 
@@ -88,7 +87,6 @@ function M.load_default_options()
         NOTE: don't store marks as they are currently broken in Neovim!
         @credit: wincent
     ]]
-  -- vim.opt.shada = "!,'0,f0,<50,s10,h" -- **
   vim.opt.shiftround = true -- Round indent **
   vim.opt.shortmess:append 'fxtOrmnlTwoi'
   -- vim.opt.shortmess = {
@@ -123,17 +121,13 @@ function M.load_default_options()
   vim.opt.wildignore = { "*/.git/*", "*/node_modules/*" } -- Ignore these files/folders **
   vim.opt.virtualedit = 'onemore'
 
+  -- Create folders for our backups, undos, swaps if they don't exist
   local data_dir = vim.fn.stdpath("data")
-  for _, dir_name in ipairs({ "backups", "undos", "swaps", "sessions", "views", "shadas" }) do
+  for _, dir_name in ipairs({ "backups", "undos", "swaps", "views", "shadas" }) do
     vim.fn.mkdir(join_paths(data_dir, dir_name), 'p', '0700')
   end
-  -- Create folders for our backups, undos, swaps and sessions if they don't exist
-  -- vim.cmd("silent call mkdir(stdpath('data').'/backups', 'p', '0700')")
-  -- vim.cmd("silent call mkdir(stdpath('data').'/undos', 'p', '0700')")
-  -- vim.cmd("silent call mkdir(stdpath('data').'/swaps', 'p', '0700')")
-  -- vim.cmd("silent call mkdir(stdpath('data').'/sessions', 'p', '0700')")
-  -- vim.cmd("silent call mkdir(stdpath('data').'/views', 'p', '0700')")
-  -- vim.cmd("silent call mkdir(stdpath('data').'/shadas', 'p', '0700')")
+
+  vim.o.sessionoptions = "buffers,curdir,folds,globals,tabpages,winpos,winsize" -- Session options to store in the session
 
   vim.opt.backupdir = join_paths(data_dir, "backups") -- Use backup files
   vim.opt.directory = join_paths(data_dir, "swaps") -- Use Swap files
@@ -141,6 +135,7 @@ function M.load_default_options()
   vim.opt.undolevels = 1000 -- Ensure we can undo a lot! **
   vim.opt.undodir = join_paths(data_dir, "undos") -- Set the undo directory
   vim.opt.viewdir = join_paths(data_dir, "views")
+  -- vim.opt.shada = "!,'0,f0,<50,s10,h" -- **
   vim.opt.shadafile = join_paths(data_dir, "shadas", "nvim_xxx.shada")
 
   vim.opt.backup = false
