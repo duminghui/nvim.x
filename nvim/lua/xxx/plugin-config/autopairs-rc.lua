@@ -57,7 +57,7 @@ local function on_confirm_done(...)
     require("nvim-autopairs.completion.cmp").on_confirm_done()(...)
 end
 
-M.setup = function()
+function M.setup()
     local status_ok, autopairs = safe_require("nvim-autopairs")
     if not status_ok then
         return

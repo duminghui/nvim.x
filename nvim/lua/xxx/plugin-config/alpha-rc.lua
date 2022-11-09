@@ -70,7 +70,7 @@ local function configure_additional_autocmds()
     -- end
 end
 
-M.setup = function()
+function M.setup()
     local status_ok, alpha = safe_require("alpha")
     if not status_ok then
         return

@@ -4,12 +4,9 @@ if vim.fn.has "nvim-0.7" ~= 1 then
     vim.notify(
         "Please upgrade your Neovim base installation. Lunarvim requires v0.7+",
         vim.log.levels.WARN)
-    vim.wait(5000, function() return false end)
+    vim.wait(5000, function() end)
     vim.cmd "cquit"
 end
-
-local in_headless = #vim.api.nvim_list_uis() == 0
-local Log = require("xxx.core.log")
 
 ---Require a module in protected mode without relying on its cached value
 ---@param module string
@@ -86,20 +83,6 @@ function M:init_rtp(root_dir, base_dir)
     -- -- TODO: we need something like this: vim.opt.packpath = vim.opt.rtp
     vim.cmd [[let &packpath = &runtimepath]]
     -- end
-
-    Log:debug(string.format("in_headless: %s", in_headless))
-    -- FIXME: currently unreliable in unit-tests
-    if not in_headless then
-        Log:debug("Use impatient")
-        _G.PLENARY_DEBUG = false
-
-        local present, impatient = pcall(require, "impatient")
-
-        if present then
-            impatient.enable_profile()
-        end
-
-    end
 
     return self
 end

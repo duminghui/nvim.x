@@ -1,3 +1,39 @@
+local in_headless = #vim.api.nvim_list_uis() == 0
+
+if in_headless then
+  print("in headless")
+end
+
+local function use_impatient()
+  local Log = require("xxx.core.log")
+  Log:debug(string.format("in_headless: %s", in_headless))
+  if not in_headless then
+    Log:debug("Use impatient")
+
+    _G.PLENARY_DEBUG = false
+
+    _G.__luacache_config = {
+      chunks = {
+        enable = true,
+        -- path = vim.fn.stdpath('cache') .. '/luacache_chunks',
+      },
+      modpaths = {
+        enable = true,
+        -- path = vim.fn.stdpath('cache') .. '/luacache_modpaths',
+      }
+    }
+
+    local present, impatient = pcall(require, "impatient")
+
+    if present then
+      impatient.enable_profile()
+    else
+      Log:warn("install impatient")
+    end
+  end
+
+end
+
 -- $XDG_DATA_HOME会影响rtp, 主要影响nvim-data的路径
 -- \nvim-data\site
 
@@ -24,21 +60,31 @@ require "xxx.config.config"
 -- 配置rpt
 require("xxx.bootstrap"):init_rtp(root_dir, nvim_base_dir)
 
-local config = require("xxx.config")
+use_impatient()
 
-config.init()
+local Log = require("xxx.core.log")
+
+-- must call trace for init Log
+local logger = Log:get_logger()
+if not logger then
+  print("get_logger nil")
+end
+
+-- local config = require("xxx.config")
+
+require("xxx.config.options").load_defaults()
+require("xxx.core.keymappings").load_defaults()
+require("xxx.core.autocmds").load_defaults()
 
 require("xxx.plugin-loader").init()
 
-config.load()
+-- config.load()
 
 --插件配置
 local plugins = require "xxx.plugins"
 require("xxx.plugin-loader").load { plugins = plugins }
 
-local Log = require "xxx.core.log"
 Log:debug "Starting XVim"
-
 
 local commands = require "xxx.core.commands"
 commands.load_defaults()
@@ -54,3 +100,4 @@ require("xxx.lsp").setup()
 --         notif:finish("This is end", "warn", "XX")
 --     end, 2000)
 -- end, 1000)
+--

@@ -264,6 +264,9 @@ local plugins = {
   },
   {
     "Shatur/neovim-session-manager",
+    requires = {
+      "nvim-lua/plenary.nvim",
+    },
     config = function()
       require("xxx.plugin-config.session.session-manager-rc").setup()
     end,
