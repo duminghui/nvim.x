@@ -23,7 +23,7 @@ function M:init(options)
 end
 
 function M:file_type()
-    local filetype = vim.bo.filetype or "NOFT"
+    local filetype = vim.bo.filetype or ""
     if filetype == '' then
         filetype = "NOFT"
     end

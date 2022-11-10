@@ -165,7 +165,7 @@ function M.opts()
     },
     formatting = {
       fields = { "abbr", "kind", "menu" },
-      max_width = 0,
+      max_width = 50,
       kind_icons = icons.kind,
       source_names = {
         nvim_lsp = "[LSP]",

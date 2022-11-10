@@ -43,8 +43,8 @@ M.opts = {
   buftype_exclude = {
     "terminal",
     "nofile",
-    -- "quickfix",
-    -- "prompt",
+    "quickfix",
+    "prompt",
   },
 }
 
