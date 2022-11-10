@@ -16,7 +16,7 @@ local default_workspace = {
 
 local function add_packages_to_workspace(packages, config)
   -- config.settings.Lua = config.settings.Lua or { workspace = default_workspace }
-  local runtimedirs = vim.api.nvim__get_runtime({ "lua" }, true, { is_lua = true })
+  local runtimedirs = vim.api.nvim__get_runtime({ "lua" }, true, { is_lua = true }) or {}
   local workspace = config.settings.Lua.workspace
   for _, v in pairs(runtimedirs) do
     for _, pack in ipairs(packages) do
