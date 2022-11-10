@@ -71,7 +71,6 @@ local plugins = {
   },
   {
     'chentoast/marks.nvim',
-    -- disable = true,
     config = function()
       require("xxx.plugin-config.marks-rc").setup()
     end

@@ -110,11 +110,10 @@ M.n_mappings = {
     c = { "<cmd>Lspsaga show_cursor_diagnostics<CR>", "Cursor Diagnostics", },
     a = { "<cmd>Lspsaga code_action<CR>", "Code Action" },
     -- b = { "<cmd>Lspsaga range_code_action<CR>", "Range Code Action(Deprecated)" },
-    d = { "<cmd>Lspsaga peek_definition<CR>", "Peek Definition" },
+    p = { "<cmd>Lspsaga peek_definition<CR>", "Peek Definition" },
     -- f = { "<cmd>Lspsaga preview_definition<CR>", "Preview Definition(Deprecated)" },
     -- g = { "<cmd>Lspsaga open_floaterm<CR>", "Open Floaterm" },
     -- h = { "<cmd>Lspsaga close_floaterm<CR>", "Close Floaterm" },
-    -- i = { "<cmd>Lspsaga lsp_finder<CR>", "Lsp Finder" }
     f = { "<cmd>Lspsaga lsp_finder<CR>", "Lsp Finder" }
   },
   b = {

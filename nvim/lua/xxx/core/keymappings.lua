@@ -45,7 +45,7 @@ local defaults = {
 
     normal_mode = {
         -- don't yank with x
-        ["x"]  = { '"_x', silent_opts },
+        -- ["x"]  = { '"_x', silent_opts },
         -- Increment/decrement
         ["+"]  = { "<C-a>" },
         ["-"]  = { "<C-x>" },

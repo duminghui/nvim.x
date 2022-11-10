@@ -1,6 +1,12 @@
 local M = {}
 
 local lsp_opts = require "xxx.lsp.config"
+local default_opts = { buffer = 0, desc = "", noremap = true, silent = false }
+
+function M.set_keymap(bufnr, mode, key, map, desc)
+    local opts = vim.tbl_deep_extend("keep", { buffer = bufnr, desc = desc }, default_opts)
+    vim.keymap.set(mode, key, map, opts)
+end
 
 function M.add_lsp_buffer_keybindings(client, bufnr)
     -- all provider name
@@ -65,7 +71,8 @@ function M.add_lsp_buffer_keybindings(client, bufnr)
             function()
                 local config = lsp_opts.diagnostics.float
                 config.scope = "line"
-                vim.diagnostic.open_float(0, config)
+                config.bufnr = 0
+                vim.diagnostic.open_float(config)
             end,
             "[LSP]Show line diagnostics",
             not_null_ls
@@ -88,8 +95,7 @@ function M.add_lsp_buffer_keybindings(client, bufnr)
 
     for key, remap in pairs(keymaps) do
         if remap[3] then
-            local opts = { buffer = bufnr, desc = remap[2], noremap = true, silent = false }
-            vim.keymap.set("n", key, remap[1], opts)
+            M.set_keymap(bufnr, "n", key, remap[1], remap[2])
         end
     end
 end
