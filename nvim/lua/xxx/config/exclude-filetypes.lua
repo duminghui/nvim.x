@@ -90,6 +90,7 @@ M.lualine = {
     "alpha",
     "TelescopePrompt",
     "packer",
+    "sagacodeaction",
 }
 
 return M

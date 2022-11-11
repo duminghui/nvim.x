@@ -344,9 +344,9 @@ function M.opts()
           end
         end
 
-        if jumpable(1) and luasnip.jump(1) then
-          return -- success, exit early
-        end
+        -- if jumpable(1) and luasnip.jump(1) then
+        --   return -- success, exit early
+        -- end
         fallback() -- if not exited early, always fallback
       end),
     },

@@ -19,19 +19,17 @@ M.opts = {
             keymappings.add_lsp_buffer_keybindings(client, bufnr)
             keymappings.set_keymap(bufnr, "n", "gA", ":RustHoverActions<CR>", "RustHoverActions")
             keymappings.set_keymap(bufnr, "n", "gC", ":RustOpenCargo<CR>", "RustOpenCargo")
+            keymappings.set_keymap(bufnr, "n", "gD", ":RustDebuggables<CR>", "RustDebuggables")
             keymappings.set_keymap(bufnr, "n", "gR", ":RustRunnables<CR>", "RustRunnables")
             keymappings.set_keymap(bufnr, "n", "gM", ":RustExandMacro<CR>", "RustExandMacro")
             keymappings.set_keymap(bufnr, "n", "gK", ":RustOpenExternalDocs<CR>", "Open doc in docs.rs")
             local lu = require "xxx.lsp.utils"
             lu.setup_document_highlight(client, bufnr)
-            -- lu.setup_format_on_save(client, bufnr, function()
-            --   require("go.format").goimport()
-            -- end)
             lu.setup_format_on_save(client, bufnr)
             lu.setup_fold()
             lsp.add_lsp_buffer_options(bufnr)
         end,
-        standalong = false,
+        standalone = false,
     }
 }
 
