@@ -99,7 +99,7 @@ M.file_info = {
     priority = 100,
 }
 
-local provider_git = require("xxx.plugin-config.statusline.feline.providers.git")
+local provider_git = require("xxx.plugin-config.statusline.feline-rc.providers.git")
 
 -- Common function used by the git providers
 M.git = {
@@ -143,7 +143,7 @@ M.git = {
     priority = 10,
 }
 
-local provider_lsp = require("xxx.plugin-config.statusline.feline.providers.lsp")
+local provider_lsp = require("xxx.plugin-config.statusline.feline-rc.providers.lsp")
 
 M.lsp_diagnostics = {
     provider = function(component)
@@ -228,7 +228,7 @@ M.lsp_info = {
     end,
     icon = {
         -- str = '  ',
-        str = ' ' .. icons.ui.Lsp .. ' ',
+        str = ' ' .. icons.ui.LspActive .. ' ',
         always_visible = true,
     },
     left_sep = {
@@ -269,7 +269,7 @@ M.treesitter = {
     priority = 8,
 }
 
-local provider_parts = require("xxx.plugin-config.statusline.feline.providers.parts")
+local provider_parts = require("xxx.plugin-config.statusline.feline-rc.providers.parts")
 
 M.file_detail = {
     provider = function(component)
@@ -453,7 +453,7 @@ M.sessions = {
     priority = 4,
 }
 
-local sl_overseer = require("xxx.plugin-config.statusline.feline.sl_overseer")
+local sl_overseer = require("xxx.plugin-config.statusline.feline-rc.sl_overseer")
 
 M.overseer = {
     provider = function()

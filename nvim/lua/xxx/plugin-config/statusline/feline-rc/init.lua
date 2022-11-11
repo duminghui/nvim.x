@@ -72,7 +72,7 @@ function M.setup()
   -- local opts, winbar_opts = M.opts()
   local opts = opts_with_empty_components()
   -- opts.components = statusline_components()
-  local coms = require("xxx.plugin-config.statusline.feline.components")
+  local coms = require("xxx.plugin-config.statusline.feline-rc.components")
   coms.init()
 
   local components = {

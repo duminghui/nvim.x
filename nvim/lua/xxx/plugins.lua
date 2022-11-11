@@ -219,13 +219,13 @@ local plugins = {
   },
   {
     "feline-nvim/feline.nvim", -- Statusline
-    disable = true,
+    -- disable = true,
     after = "colorscheme",
     requires = {
       { "kyazdani42/nvim-web-devicons" }, -- Web icons for various plugins
     },
     -- config = function()
-    --     require("xxx.plugin-config.statusline.feline-rc").setup()
+    --   require("xxx.plugin-config.statusline.feline-rc").setup()
     -- end,
   },
 
