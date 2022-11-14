@@ -8,6 +8,7 @@ M.opts = {
     },
     literal = {
       -- Set the filetype of files named "MyBackupFile" to lua
+      -- MyBackupFile = "lua",
       ["tasks.json"] = "jsonc",
       ["tsconfig.json"] = "jsonc",
       ["go.mod"] = "gomod",

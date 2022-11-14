@@ -1,3 +1,8 @@
+local notify_ok, notify = pcall(require, "notify")
+if not notify_ok then
+    notify = vim.notify
+end
+
 local spinner_frames = { "⣾", "⣽", "⣻", "⢿", "⡿", "⣟", "⣯", "⣷" }
 
 ---@class ProgressNotify
@@ -10,7 +15,7 @@ function ProgressNotify:_update_spinner()
     if not self.is_finish then
         local new_spinnter = (self.spinner + 1) % #spinner_frames
         self.spinner = new_spinnter
-        self.notificate = vim.notify(nil, nil, {
+        self.notificate = notify(nil, nil, {
             hide_from_history = true,
             icon = spinner_frames[new_spinnter],
             replace = self.notificate,
@@ -24,14 +29,16 @@ end
 function ProgressNotify:start(title, msg)
     title = title or "NO TITLE"
     msg = msg or "NO MESSAGE"
-    self.notificate = vim.notify(msg, "info", {
+    self.notificate = notify(msg, "info", {
         title = title,
         icon = spinner_frames[1],
         timeout = false,
         hide_from_history = false,
     })
     self.spinner = 1
-    self:_update_spinner()
+    if notify_ok then
+        self:_update_spinner()
+    end
 end
 
 local icons = require("xxx.core.icons")
@@ -42,7 +49,7 @@ function ProgressNotify:finish(msg, level, icon)
     msg = msg or "NO MESSAGE"
     level = level or "info"
     self.is_finish = true
-    self.notificate = vim.notify(msg, level, {
+    self.notificate = notify(msg, level, {
         icon = icon,
         replace = self.notificate,
         hide_from_history = false,

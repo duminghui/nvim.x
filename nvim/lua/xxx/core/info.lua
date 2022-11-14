@@ -159,7 +159,7 @@ function M.toggle_popup(ft)
         local client_info = make_client_info(client)
         if client_info then
             if client_count > 0 then
-                table.insert(lsp_info, "-----------------------")
+                table.insert(lsp_info, "---------------------")
             end
             vim.list_extend(lsp_info, client_info)
             client_count = client_count + 1

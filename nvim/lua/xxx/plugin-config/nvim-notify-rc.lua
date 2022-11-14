@@ -48,10 +48,10 @@ function M.setup()
         return
     end
 
-    notify.setup(M.opts)
+    -- notify.setup(M.opts)
 
-    vim.notify = notify
-    Log:configure_notifications(notify)
+    -- vim.notify = notify
+    -- Log:configure_notifications(notify)
 
     -- require("xxx.plugin-config.notify-updating-demo")
 end
