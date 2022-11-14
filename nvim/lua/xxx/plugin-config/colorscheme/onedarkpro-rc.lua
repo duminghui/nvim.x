@@ -7,6 +7,46 @@ M.opts = {
   light_theme = "onelight", -- The default light theme
   caching = false, -- Use caching for the theme?
   cache_path = vim.fn.expand(vim.fn.stdpath("cache") .. "/onedarkpro/"), -- The path to the cache directory
+  filetypes = { -- Override which filetype highlight groups are loaded
+    markdown = true,
+    python = true,
+    ruby = true,
+    yaml = true,
+  },
+  plugins = { -- Override which plugin highlight groups are loaded
+    -- See the Supported Plugins section for a list of available plugins
+    barbar = false,
+    lsp_saga = true,
+    marks = true,
+    polygot = false,
+    startify = false,
+    telescope = true,
+    trouble = true,
+    vim_ultest = false,
+    which_key = false,
+    nvim_tree = true,
+    nvim_cmp = true,
+    hop = false,
+  },
+  styles = { -- Choose from "bold,italic,underline"
+    strings = "NONE", -- Style that is applied to strings.
+    comments = "italic", -- Style that is applied to comments
+    -- comments = "NONE", -- Style that is applied to comments
+    keywords = "NONE", -- Style that is applied to keywords
+    functions = "NONE", -- Style that is applied to functions
+    variables = "NONE", -- Style that is applied to variables
+    virtual_text = "italic", -- Style that is applied to virtual text
+  },
+  options = {
+    bold = false, -- Use the colorscheme's opinionated bold styles?
+    italic = false, -- Use the colorscheme's opinionated italic styles?
+    underline = false, -- Use the colorscheme's opinionated underline styles?
+    undercurl = false, -- Use the colorscheme's opinionated undercurl styles?
+    cursorline = true, -- Use cursorline highlighting?
+    transparency = false, -- Use a transparent background?
+    terminal_colors = false, -- Use the colorscheme's colors for Neovim's :terminal?
+    window_unfocused_color = false, -- When the window is out of focus, change the normal background?
+  },
   colors = {
     onedark_vivid = {
       vim = "#81b766", -- green
@@ -149,46 +189,6 @@ M.opts = {
     TelescopeNormal = { bg = "${telescope_results}" },
     TelescopeSelection = { bg = "${telescope_prompt}" },
   }, -- Override default highlight and/or filetype groups
-  filetypes = { -- Override which filetype highlight groups are loaded
-    markdown = true,
-    python = true,
-    ruby = true,
-    yaml = true,
-  },
-  plugins = { -- Override which plugin highlight groups are loaded
-    -- See the Supported Plugins section for a list of available plugins
-    barbar = false,
-    lsp_saga = true,
-    marks = true,
-    polygot = false,
-    startify = false,
-    telescope = true,
-    trouble = true,
-    vim_ultest = false,
-    which_key = false,
-    nvim_tree = true,
-    nvim_cmp = true,
-    hop = false,
-  },
-  styles = { -- Choose from "bold,italic,underline"
-    strings = "NONE", -- Style that is applied to strings.
-    comments = "italic", -- Style that is applied to comments
-    -- comments = "NONE", -- Style that is applied to comments
-    keywords = "NONE", -- Style that is applied to keywords
-    functions = "NONE", -- Style that is applied to functions
-    variables = "NONE", -- Style that is applied to variables
-    virtual_text = "italic", -- Style that is applied to virtual text
-  },
-  options = {
-    bold = false, -- Use the colorscheme's opinionated bold styles?
-    italic = false, -- Use the colorscheme's opinionated italic styles?
-    underline = false, -- Use the colorscheme's opinionated underline styles?
-    undercurl = false, -- Use the colorscheme's opinionated undercurl styles?
-    cursorline = true, -- Use cursorline highlighting?
-    transparency = false, -- Use a transparent background?
-    terminal_colors = false, -- Use the colorscheme's colors for Neovim's :terminal?
-    window_unfocused_color = false, -- When the window is out of focus, change the normal background?
-  }
 }
 
 function M.setup()
