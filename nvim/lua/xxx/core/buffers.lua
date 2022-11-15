@@ -28,7 +28,7 @@ local function buf_kill(kill_command, bufnr, force)
     if #buffers > 1 then
         for i, v in ipairs(buffers) do
             if v == bufnr then
-                local prev_buf_idx = i == 1 and (#buffers - 1) or (i - 1)
+                local prev_buf_idx = i == 1 and #buffers or (i - 1)
                 local prev_buffer = buffers[prev_buf_idx]
                 for _, win in ipairs(windows) do
                     api.nvim_win_set_buf(win, prev_buffer)

@@ -20,6 +20,8 @@ function M.load_default_options()
   -- vim.bo.softtabstop = 4 -- Number of spaces tabs count for **
   -- vim.bo.tabstop = 4 -- Number of spaces in a tab
 
+  vim.opt.shiftround = true -- Round indent **
+
   vim.opt.autoindent = true
   vim.opt.smartindent = true -- Insert indents automatically
   vim.opt.expandtab = true -- Use spaces instead of tabs
@@ -87,12 +89,8 @@ function M.load_default_options()
   vim.opt.scrolljump = 1
   vim.opt.scrolloff = 6 -- Set the cursor 6 lines down instead of directly at the top of the file
 
-  --[[
-        NOTE: don't store marks as they are currently broken in Neovim!
-        @credit: wincent
-    ]]
-  vim.opt.shiftround = true -- Round indent **
-  vim.opt.shortmess:append 'fxtOrmnlTwoi'
+
+  vim.opt.shortmess:append 'fFilmnoOrtTwx'
   -- vim.opt.shortmess = {
   --     A = true, -- ignore annoying swap file messages
   --     c = true, -- Do not show completion messages in command line
@@ -139,6 +137,11 @@ function M.load_default_options()
   vim.opt.undolevels = 1000 -- Ensure we can undo a lot! **
   vim.opt.undodir = join_paths(data_dir, "undos") -- Set the undo directory
   vim.opt.viewdir = join_paths(data_dir, "views")
+
+  --[[
+        NOTE: don't store marks as they are currently broken in Neovim!
+        @credit: wincent
+    ]]
   -- vim.opt.shada = "!,'0,f0,<50,s10,h" -- **
   vim.opt.shadafile = join_paths(data_dir, "shadas", "nvim_xxx.shada")
 
