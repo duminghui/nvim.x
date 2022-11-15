@@ -1,4 +1,5 @@
 local defaults = {
+    "",
     "alpha",
     "checkhealth",
     "DressingInput",
@@ -57,12 +58,11 @@ local defaults = {
     "tsplayground",
     "undotree",
     'zsh',
-    "",
 }
 
-local function gen_filetypes(include_filetypes, add_exclude_filetypes)
+local function gen_filetypes(include_filetypes, new_exclude_filetypes)
     include_filetypes = include_filetypes or {}
-    add_exclude_filetypes = add_exclude_filetypes or {}
+    new_exclude_filetypes = new_exclude_filetypes or {}
     if #include_filetypes == 0 then
         return vim.deepcopy(defaults)
     end
@@ -74,7 +74,7 @@ local function gen_filetypes(include_filetypes, add_exclude_filetypes)
             table.insert(result_filetypes, ft)
         end
     end
-    for _, ft in ipairs(add_exclude_filetypes) do
+    for _, ft in ipairs(new_exclude_filetypes) do
         if not vim.tbl_contains(defaults, ft) then
             table.insert(result_filetypes, ft)
         end
