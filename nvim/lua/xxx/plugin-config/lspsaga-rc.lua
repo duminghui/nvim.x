@@ -5,7 +5,7 @@ local icons = require("xxx.core.icons")
 M.opts = {
   -- Options with default value
   -- "single" | "double" | "rounded" | "bold" | "plus"
-  border_style = "single",
+  border_style = "bold",
   --the range of 0 for fully opaque window (disabled) to 100 for fully
   --transparent background. Values between 0-30 are typically most useful.
   saga_winblend = 9,

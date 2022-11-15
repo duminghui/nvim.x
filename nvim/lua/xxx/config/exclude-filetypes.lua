@@ -60,8 +60,9 @@ local defaults = {
     "",
 }
 
-local function gen_filetypes(include_filetypes)
+local function gen_filetypes(include_filetypes, add_exclude_filetypes)
     include_filetypes = include_filetypes or {}
+    add_exclude_filetypes = add_exclude_filetypes or {}
     if #include_filetypes == 0 then
         return vim.deepcopy(defaults)
     end
@@ -73,6 +74,11 @@ local function gen_filetypes(include_filetypes)
             table.insert(result_filetypes, ft)
         end
     end
+    for _, ft in ipairs(add_exclude_filetypes) do
+        if not vim.tbl_contains(defaults, ft) then
+            table.insert(result_filetypes, ft)
+        end
+    end
     return result_filetypes
 end
 
@@ -80,7 +86,7 @@ local M = {}
 
 M.autopairs        = gen_filetypes()
 M.breadcrumbs      = gen_filetypes()
-M.marks            = gen_filetypes({ "Markdown" })
+M.marks            = gen_filetypes({ "Markdown" }, { "plaintext" })
 M.harpoon          = gen_filetypes({ "Markdown" })
 M.illuminate       = gen_filetypes({ "Markdown" })
 M.indent_blankline = gen_filetypes({ "Markdown" })

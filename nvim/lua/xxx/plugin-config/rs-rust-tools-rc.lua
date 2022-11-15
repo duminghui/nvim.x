@@ -13,6 +13,16 @@ M.opts = {
         },
     },
     server = {
+        standalone = false,
+        settings = {
+            ['rust-analyzer'] = {
+                rustfmt = {
+                    extraArgs = { "+nightly" },
+                    -- overrideCommand = "XXXXX",
+
+                },
+            },
+        },
         capabilities = lsp.common_capabilities(),
         on_attach = function(client, bufnr)
             local keymappings = require("xxx.lsp.keymappings")
@@ -29,7 +39,6 @@ M.opts = {
             lu.setup_fold()
             lsp.add_lsp_buffer_options(bufnr)
         end,
-        standalone = false,
     }
 }
 
