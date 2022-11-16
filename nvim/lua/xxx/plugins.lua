@@ -317,12 +317,13 @@ local plugins = {
         require("xxx.plugin-config.fidget-rc").setup()
       end,
     },
-    {
-      'folke/lsp-colors.nvim',
-      config = function()
-        require("xxx.plugin-config.lsp-colors-rc").setup()
-      end,
-    },
+    -- {
+    --   -- parent is from coc.nvim
+    --   'folke/lsp-colors.nvim',
+    --   config = function()
+    --     require("xxx.plugin-config.lsp-colors-rc").setup()
+    --   end,
+    -- },
     {
       -- breadcrumbs
       -- 不提供显示功能, 需要其他插件显示
