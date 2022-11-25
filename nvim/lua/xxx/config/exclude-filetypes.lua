@@ -91,6 +91,7 @@ M.harpoon          = gen_filetypes({ "Markdown" })
 M.illuminate       = gen_filetypes({ "Markdown" })
 M.indent_blankline = gen_filetypes({ "Markdown" })
 M.lspsaga          = gen_filetypes({ "Markdown" })
+M.scrollbar        = gen_filetypes()
 
 M.lualine = {
     "alpha",

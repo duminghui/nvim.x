@@ -85,6 +85,7 @@ local plugins = {
 
   {
     "petertriho/nvim-scrollbar", -- A scrollbar for the current window
+    -- disable = true,
     -- after = "colorscheme",
     config = function()
       require("xxx.plugin-config.scroll.nvim-scrollbar-rc").setup()

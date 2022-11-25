@@ -22,7 +22,7 @@ local M = {}
 
 M.opts = {
   -- KEYMAPS:
-  default_keymaps = true, -- Create default keymaps.
+  default_keymaps = false, -- Create default keymaps.
   extra_keymaps = false, -- Create extra keymaps.
   extended_keymaps = false, -- Create extended keymaps.
   override_keymaps = false, -- The plugin keymaps will override any existing keymaps.

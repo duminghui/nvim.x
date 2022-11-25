@@ -22,8 +22,12 @@ M.opts = {
   -- entry is a table type has these filed
   -- { bufnr, code, col, end_col, end_lnum, lnum, message, severity, source }
   -- diagnostic_header = { " ", " ", " ", "ﴞ " },
-  diagnostic_header = { icons.diagnostics.BoldError, icons.diagnostics.BoldWarning, icons.diagnostics.BoldInformation,
-    icons.diagnostics.BoldHint },
+  diagnostic_header = {
+    icons.diagnostics.BoldError .. " ",
+    icons.diagnostics.BoldWarning .. " ",
+    icons.diagnostics.BoldInformation .. " ",
+    icons.diagnostics.BoldHint .. " ",
+  },
   -- preview lines of lsp_finder and definition preview
   max_preview_lines = 10,
   -- use emoji lightbulb in default
